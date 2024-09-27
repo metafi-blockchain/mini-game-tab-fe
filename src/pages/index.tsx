@@ -41,10 +41,10 @@ export const IndexPage: FC = () => {
   const createNewAccount = async () => {
     // Convert data from Telegram to user account
     const appUser = {
-      name: teleUser.name,
-      username: teleUser.username,
-      referId: teleUser.referId,
-      isPremium: teleUser.isPremium
+      name: `${teleUser.user.first_name} ${teleUser.user.last_name}`,
+      username: teleUser.user.username,
+      referId: null,
+      isPremium: teleUser.user.is_premium
     }
 
     // Call api to create new account
