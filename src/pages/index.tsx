@@ -3,6 +3,7 @@ import { telegramInitDataRawToObject } from '@/utils'
 import { retrieveLaunchParams } from '@telegram-apps/sdk'
 import { Modal, Placeholder, Spinner } from '@telegram-apps/telegram-ui'
 import { useEffect, useState, type FC } from 'react'
+import { Link } from 'react-router-dom'
 
 // Define UserInfo
 export interface UserInfo {
@@ -17,10 +18,43 @@ const API_URL = 'https://miniapp.kingdoms.game/api'
 const API_GET_INFO = `${API_URL}/user/me`
 const API_REGISTER = `${API_URL}/user/create-account`
 const API_PLAY = `${API_URL}/user/increase-point`
+const TABS = [
+  {
+    id: 'tab-1',
+    text: 'Tap',
+    image: '/assets/images/tabs/tap.png',
+    activeImage: '/assets/images/tabs/tap-active.png'
+  },
+  {
+    id: 'tab-2',
+    text: 'Earn',
+    image: '/assets/images/tabs/earn.png',
+    activeImage: '/assets/images/tabs/earn-active.png'
+  },
+  {
+    id: 'tab-3',
+    text: 'Task',
+    image: '/assets/images/tabs/task.png',
+    activeImage: '/assets/images/tabs/task-active.png'
+  },
+  {
+    id: 'tab-4',
+    text: 'Rank',
+    image: '/assets/images/tabs/rank.png',
+    activeImage: '/assets/images/tabs/rank-active.png'
+  },
+  {
+    id: 'tab-5',
+    text: 'Wallet',
+    image: '/assets/images/tabs/wallet.png',
+    activeImage: '/assets/images/tabs/wallet-active.png'
+  }
+]
 
 export const IndexPage: FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined)
   const [error, setError] = useState('')
+  const [currentTab, setCurrentTab] = useState(TABS[0].id)
 
   // Get Telegram init raw data
   const { initDataRaw } = retrieveLaunchParams()
@@ -30,8 +64,8 @@ export const IndexPage: FC = () => {
   // Define header config
   const headerConfig: Partial<RequestInit> = {
     headers: {
-      // Authorization: `tma query_id=AAFCficsAAAAAEJ-JywGIiU5&user=%7B%22id%22%3A740785730%2C%22first_name%22%3A%22Tho%E1%BA%A1i%22%2C%22last_name%22%3A%22Nguyen%22%2C%22username%22%3A%22roster90%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727479557&hash=240e2bedd123218206ba3d728f044cb4be02fdaebc109f3dc82db33832b5dd8e`,
-      Authorization: `tma ${initDataRaw}`,
+      Authorization: `tma query_id=AAFCficsAAAAAEJ-JywGIiU5&user=%7B%22id%22%3A740785730%2C%22first_name%22%3A%22Tho%E1%BA%A1i%22%2C%22last_name%22%3A%22Nguyen%22%2C%22username%22%3A%22roster90%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727479557&hash=240e2bedd123218206ba3d728f044cb4be02fdaebc109f3dc82db33832b5dd8e`,
+      // Authorization: `tma ${initDataRaw}`,
       'Content-Type': 'application/json'
     }
   }
@@ -126,24 +160,70 @@ export const IndexPage: FC = () => {
       style={{
         width: '100vw',
         height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        gap: '20px'
+        overflow: 'hidden'
       }}
     >
-      {/* Loading */}
-      {!userInfo ? <Spinner size='l' /> : <></>}
+      {/* TOP */}
+      <div className='top'>
+        <div className='inner'>
+          <div className='point'>
+            <img src='/assets/images/coin.png' alt='' />
+            <span>109 391</span>
+          </div>
+          <div className='progress'></div>
+          <div className='info'>
+            <div className='level'>
+              <img src='/assets/images/level.png' alt='' />
+              <span>3</span>
+            </div>
+            <div className='tap'>
+              <img src='/assets/images/tap.png' alt='' />
+              <span>Tap: 123</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      {/* Play game */}
-      <Button disabled={!userInfo} variant='warning' onClick={handleClick}>
-        Play to Airdrop
-      </Button>
+      {/* MAIN */}
+      <div className='main'>
+        <div className='inner'>
+          {/* Loading */}
+          <div
+            className={`clickable ${!userInfo ? 'loading' : ''}`}
+            onClick={handleClick}
+          >
+            {!userInfo ? <Spinner className='loading' size='l' /> : <></>}
+            <img className='sub-img' src='/assets/images/cuoc_02.png' alt='' />
+            <img className='main-img' src='/assets/images/image.png' alt='' />
+          </div>
+          {/* Play game */}
+          <Button size='sm' variant='warning' className='tap'>
+            <img src='/assets/images/flash.png' height={20} alt='' />
+            200/600
+          </Button>
+        </div>
+      </div>
 
-      {/* User info */}
-      {JSON.stringify(userInfo)}
+      {/* BOTTOM */}
+      <div className='bottom'>
+        <div className='inner'>
+          <div className='bottom-tabs'>
+            {TABS.map(({ id, text, image, activeImage }) => (
+              <Link
+                to='/'
+                className={`bottom-tab ${id === currentTab ? 'active' : ''}`}
+                key={id}
+                onClick={() => setCurrentTab(id)}
+              >
+                <div className='icon' title={text}>
+                  <img className='default' src={image} alt='' />
+                  <img className='active' src={activeImage} alt='' />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Error message */}
       <Modal open={error !== ''} onOpenChange={handleModalOpenChange}>

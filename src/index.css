@@ -1,5 +1,195 @@
 body {
-  background: var(--tg-theme-secondary-bg-color, white);
+  background-image: url(./assets/images/bg.png);
+  background-size: cover;
+  color: #fff;
   padding: 0;
   margin: 0;
+}
+
+.inner {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* TOP */
+.top {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  padding: 20px;
+  width: calc(100% - 40px);
+}
+.top .point {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Friz Quadrata Std Bold', sans-serif;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.top .point img {
+  height: 50px;
+}
+
+.top .progress {
+  height: 12px;
+  border-radius: 10px;
+  width: 100%;
+  background-color: #1f3054;
+  margin-bottom: 10px;
+}
+.top .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: 'Friz Quadrata Std Bold', sans-serif;
+  font-size: 24px;
+}
+
+.top .info span {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.top .info .level {
+  position: relative;
+}
+.top .info .level img {
+  height: 50px;
+}
+.top .info .level span {
+  left: 22px;
+  margin-top: -4px;
+}
+.top .info .tap {
+  position: relative;
+}
+.top .info .tap img {
+  height: 35px;
+}
+.top .info .tap span {
+  left: 14px;
+  margin-top: -4px;
+  font-size: 18px;
+  color: #97ade1;
+}
+
+/* MAIN */
+.main {
+  padding: 200px 0 80px;
+  display: flex;
+}
+.main .inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: calc(100vh - 300px);
+  position: relative;
+}
+.main .clickable{
+  cursor: pointer;
+}
+.main .clickable.loading{
+  opacity: .8;
+  pointer-events: none;
+  cursor: wait;
+}
+.main .clickable .main-img {
+  max-width: 100%;
+  transition: all ease-in-out 0.3s;
+  animation: mymove 2s infinite;
+  margin-bottom: 20px;
+}
+.main .clickable .sub-img{
+  width: 200px;
+  position: absolute;
+  top: 0;
+  right: 0
+}
+.main .inner .tap {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: default;
+  pointer-events: none;
+}
+.main .inner .tap > span {
+  font-size: 24px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: #0065fd;
+}
+@keyframes mymove {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* BOTTOM */
+.bottom {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+.bottom-tabs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10px;
+  background-color: #0c1d42;
+  width: calc(100% - 60px);
+  border-radius: 16px;
+}
+
+.bottom-tabs a {
+  display: inline-flex;
+  justify-content: center;
+  padding: 0;
+  color: #97ade1;
+  transition: all ease-in-out 0.3s;
+  background-size: 100% 100%;
+}
+
+.bottom-tabs a .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.bottom-tabs a .icon img {
+  transition: all ease-in-out 0.3s;
+  object-fit: cover;
+  max-height: 100%;
+  max-width: 100%;
+}
+.bottom-tabs a .icon .default {
+  opacity: 1;
+}
+
+.bottom-tabs a .icon .active {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.bottom-tabs a.active {
+  background-image: url(./assets/images/active-bg.png);
+}
+.bottom-tabs a.active .icon .default {
+  opacity: 0;
+}
+.bottom-tabs a.active .icon .active {
+  opacity: 1;
 }
