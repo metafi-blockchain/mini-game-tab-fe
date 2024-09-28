@@ -72,8 +72,8 @@ export const IndexPage: FC = () => {
   // Define header config
   const headerConfig: Partial<RequestInit> = {
     headers: {
-      Authorization: `tma query_id=AAFCficsAAAAAEJ-JywGIiU5&user=%7B%22id%22%3A740785730%2C%22first_name%22%3A%22Tho%E1%BA%A1i%22%2C%22last_name%22%3A%22Nguyen%22%2C%22username%22%3A%22roster90%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727479557&hash=240e2bedd123218206ba3d728f044cb4be02fdaebc109f3dc82db33832b5dd8e`,
-      //Authorization: `tma ${initDataRaw}`,
+      // Authorization: `tma query_id=AAFCficsAAAAAEJ-JywGIiU5&user=%7B%22id%22%3A740785730%2C%22first_name%22%3A%22Tho%E1%BA%A1i%22%2C%22last_name%22%3A%22Nguyen%22%2C%22username%22%3A%22roster90%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727479557&hash=240e2bedd123218206ba3d728f044cb4be02fdaebc109f3dc82db33832b5dd8e`,
+      Authorization: `tma ${initDataRaw}`,
       'Content-Type': 'application/json'
     }
   }
