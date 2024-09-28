@@ -26,18 +26,38 @@ body {
   gap: 10px;
   font-family: 'Friz Quadrata Std Bold', sans-serif;
   font-size: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .top .point img {
   height: 50px;
 }
 
 .top .progress {
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+}
+.top .progress > img {
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-25px, -50%);
+  z-index: 2;
+}
+.top .progress .progress-bar {
   height: 12px;
   border-radius: 10px;
-  width: 100%;
-  background-color: #1f3054;
-  margin-bottom: 10px;
+  border: 1px #0f1a33 solid;
+}
+.top .progress .progress-bar > div {
+  background-image: url(/public/assets/images/progress.png);
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+}
+.top .progress .progress-bar::after {
+  background-image: url(/public/assets/images/progress-bar.png);
+  background-size: auto 100%;
+  background-repeat: repeat-x;
 }
 .top .info {
   display: flex;
@@ -89,11 +109,11 @@ body {
   height: calc(100vh - 300px);
   position: relative;
 }
-.main .clickable{
+.main .clickable {
   cursor: pointer;
 }
-.main .clickable.loading{
-  opacity: .8;
+.main .clickable.loading {
+  opacity: 0.8;
   pointer-events: none;
   cursor: wait;
 }
@@ -103,11 +123,11 @@ body {
   animation: mymove 2s infinite;
   margin-bottom: 20px;
 }
-.main .clickable .sub-img{
+.main .clickable .sub-img {
   width: 200px;
   position: absolute;
   top: 0;
-  right: 0
+  right: 0;
 }
 .main .inner .tap {
   position: absolute;

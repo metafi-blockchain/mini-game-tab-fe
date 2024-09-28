@@ -1,7 +1,12 @@
 import { Button } from '@/components'
 import { telegramInitDataRawToObject } from '@/utils'
 import { retrieveLaunchParams } from '@telegram-apps/sdk'
-import { Modal, Placeholder, Spinner } from '@telegram-apps/telegram-ui'
+import {
+  Modal,
+  Placeholder,
+  Progress,
+  Spinner
+} from '@telegram-apps/telegram-ui'
 import { useEffect, useState, type FC } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -170,7 +175,10 @@ export const IndexPage: FC = () => {
             <img src='/assets/images/coin.png' alt='' />
             <span>109 391</span>
           </div>
-          <div className='progress'></div>
+          <div className='progress'>
+            <img src='/assets/images/progress-thumb.png' style={{left:`${20}%`}} alt=''/>
+            <Progress className='progress-bar' value={20} />
+          </div>
           <div className='info'>
             <div className='level'>
               <img src='/assets/images/level.png' alt='' />
