@@ -55,11 +55,14 @@ const TABS = [
     activeImage: '/assets/images/tabs/wallet-active.png'
   }
 ]
+const PLAY_IMAGE = '/assets/images/play.gif'
 
 export const IndexPage: FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined)
   const [error, setError] = useState('')
   const [currentTab, setCurrentTab] = useState(TABS[0].id)
+
+  const [playImage, setPlayImage] = useState(PLAY_IMAGE)
 
   // Get Telegram init raw data
   const { initDataRaw } = retrieveLaunchParams()
@@ -143,6 +146,10 @@ export const IndexPage: FC = () => {
    * Handle click button play
    */
   const handleClick = async () => {
+    // Start animation when tap
+    setPlayImage(`${PLAY_IMAGE}?v=${new Date().getTime()}`)
+
+    // Call api to update point
     const res = await fetch(API_PLAY, {
       method: 'PUT',
       ...headerConfig
@@ -176,7 +183,11 @@ export const IndexPage: FC = () => {
             <span>109 391</span>
           </div>
           <div className='progress'>
-            <img src='/assets/images/progress-thumb.png' style={{left:`${20}%`}} alt=''/>
+            <img
+              src='/assets/images/progress-thumb.png'
+              style={{ left: `${20}%` }}
+              alt=''
+            />
             <Progress className='progress-bar' value={20} />
           </div>
           <div className='info'>
@@ -201,13 +212,15 @@ export const IndexPage: FC = () => {
             onClick={handleClick}
           >
             {!userInfo ? <Spinner className='loading' size='l' /> : <></>}
-            <img className='sub-img' src='/assets/images/cuoc_02.png' alt='' />
+            <img className='sub-img' src={playImage} alt='' />
             <img className='main-img' src='/assets/images/image.png' alt='' />
           </div>
           {/* Play game */}
           <Button size='sm' variant='warning' className='tap'>
-            <div><img src='/assets/images/flash.png' height={20} alt='' />
-            200/600</div>
+            <div>
+              <img src='/assets/images/flash.png' height={20} alt='' />
+              200/600
+            </div>
           </Button>
         </div>
       </div>

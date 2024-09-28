@@ -126,10 +126,10 @@ body {
   margin-bottom: 20px;
 }
 .main .clickable .sub-img {
-  width: 200px;
+  width: 180px;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 150px;
+  right: 0px;
   z-index: 3;
 }
 .main .inner .tap {
