@@ -119,6 +119,7 @@ body {
   cursor: wait;
 }
 .main .clickable .main-img {
+  width: 340px;
   max-width: 100%;
   transition: all ease-in-out 0.3s;
   animation: mymove 2s infinite;
@@ -127,8 +128,9 @@ body {
 .main .clickable .sub-img {
   width: 200px;
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
+  z-index: 3;
 }
 .main .inner .tap {
   position: absolute;
