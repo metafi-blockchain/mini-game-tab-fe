@@ -18,13 +18,16 @@
     "@telegram-apps/sdk-react": "^1.0.0",
     "@telegram-apps/telegram-ui": "^2.1.5",
     "@tonconnect/ui-react": "^2.0.5",
+    "bignumber.js": "^9.1.2",
     "eruda": "^3.0.1",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.2.0",
+    "@types/lodash": "^4.17.9",
     "@types/node": "^20.12.11",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
