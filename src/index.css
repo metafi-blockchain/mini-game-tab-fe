@@ -101,6 +101,30 @@ body {
 .main {
   padding: 200px 0 80px;
   display: flex;
+  position: relative;
+}
+.main.loading {
+  pointer-events: none;
+  cursor: wait;
+}
+.main.loading::before{
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .1);
+  backdrop-filter: blur(3px);
+  z-index: 4;
+}
+.main .loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  color: #ffb321;
 }
 .main .inner {
   display: flex;
@@ -112,11 +136,6 @@ body {
 }
 .main .clickable {
   cursor: pointer;
-}
-.main .clickable.loading {
-  opacity: 0.8;
-  pointer-events: none;
-  cursor: wait;
 }
 .main .clickable .main-img {
   width: 340px;
@@ -146,7 +165,7 @@ body {
   border-radius: 5px;
   color: #0065fd;
 }
-.main .inner .tap div{
+.main .inner .tap div {
   display: inline-flex;
   align-items: center;
   gap: 4px;

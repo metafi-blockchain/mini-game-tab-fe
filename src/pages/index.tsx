@@ -204,14 +204,11 @@ export const IndexPage: FC = () => {
       </div>
 
       {/* MAIN */}
-      <div className='main'>
+      <div className={`main ${!userInfo ? 'loading' : ''}`}>
+        {!userInfo ? <Spinner className='loading-spinner' size='l' /> : <></>}
         <div className='inner'>
           {/* Loading */}
-          <div
-            className={`clickable ${!userInfo ? 'loading' : ''}`}
-            onClick={handleClick}
-          >
-            {!userInfo ? <Spinner className='loading' size='l' /> : <></>}
+          <div className='clickable' onClick={handleClick}>
             <img className='sub-img' src={playImage} alt='' />
             <img className='main-img' src='/assets/images/image.png' alt='' />
           </div>
