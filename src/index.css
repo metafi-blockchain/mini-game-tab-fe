@@ -27,6 +27,7 @@ body {
   font-family: 'Friz Quadrata Std Bold', sans-serif;
   font-size: 40px;
   margin-bottom: 15px;
+  line-height: 1;
 }
 .top .point img {
   height: 50px;
@@ -92,7 +93,7 @@ body {
 .top .info .tap span {
   left: 14px;
   margin-top: -4px;
-  font-size: 18px;
+  font-size: 17px;
   color: #97ade1;
 }
 
@@ -142,6 +143,14 @@ body {
   padding: 5px 20px;
   border-radius: 5px;
   color: #0065fd;
+}
+.main .inner .tap div{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+  line-height: 1;
+  height: 30px;
 }
 @keyframes mymove {
   0%,

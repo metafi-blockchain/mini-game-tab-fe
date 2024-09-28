@@ -206,8 +206,8 @@ export const IndexPage: FC = () => {
           </div>
           {/* Play game */}
           <Button size='sm' variant='warning' className='tap'>
-            <img src='/assets/images/flash.png' height={20} alt='' />
-            200/600
+            <div><img src='/assets/images/flash.png' height={20} alt='' />
+            200/600</div>
           </Button>
         </div>
       </div>
