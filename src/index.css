@@ -104,6 +104,7 @@ body {
 .top .info .level span {
   left: 22px;
   margin-top: -4px;
+  color: #fff;
 }
 .top .info .tap {
   position: relative;
