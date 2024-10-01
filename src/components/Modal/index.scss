@@ -1,0 +1,35 @@
+@keyframes slide-up {
+	0% {
+		transform: translateY(100%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slide-down {
+	0% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(100%);
+		opacity: 0;
+	}
+}
+
+.slide-up-animation {
+	animation: slide-up 0.5s ease-out forwards;
+}
+
+.slide-down-animation {
+	animation: slide-down 0.5s ease-out forwards;
+}
+.modal-content {
+	background: #0F172A;
+	border: 1px solid #FEFFFF33;
+	padding: 16px 20px;
+	border-radius: 16px;
+}
