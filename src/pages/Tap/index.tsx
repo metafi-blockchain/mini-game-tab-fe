@@ -245,7 +245,6 @@ const Tap = () => {
 										className={`${
 											!isDisableBall && 'ball-action'
 										} bg-transparent`}
-										loop
 										muted
 										playsInline
 									>
