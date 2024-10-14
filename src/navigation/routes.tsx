@@ -9,7 +9,8 @@ import OkTaskDetail from '@/pages/Task/detail';
 import OkFriend from '@/pages/Friend';
 import OkWallet from '@/pages/Wallet';
 import OKOnboard from '@/pages/Onboard';
-import OnboardSteps from '@/pages/Onboard/Component/OnboardSteps';
+import OKOnboardSteps from '@/pages/Onboard/Component/OnboardSteps';
+import OKDailyCheckIn from '@/pages/DailyCheckIn';
 
 interface Route {
 	path: string;
@@ -27,7 +28,8 @@ export const routes: Route[] = [
 	{ path: '/friends', Component: OkFriend },
 	{ path: '/wallet', Component: OkWallet },
 	{ path: '/onboard', Component: OKOnboard },
-	{ path: '/onboard/steps', Component: OnboardSteps },
+	{ path: '/onboard/steps', Component: OKOnboardSteps },
+	{ path: '/daily-checkin', Component: OKDailyCheckIn },
 
 	// Templates
 	{
