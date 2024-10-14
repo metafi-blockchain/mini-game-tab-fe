@@ -23,9 +23,13 @@ const OkLoadingPage = () => {
 			const response = await handleUserAuth(queryId, refId || '');
 			const token = get(response, 'data.data.token', '');
 			const expireTime = get(response, 'data.data.expires', '');
+			const isOnboard = get(response, 'data.data.isOnboard', '');
 			if (token && token !== '') {
 				localStorage.setItem(ACCESS_TOKEN, `${token}`);
 				localStorage.setItem(EXPIRE_TIME, `${expireTime}`);
+				// if (isOnboard) {
+				// 	navigate('/onboard');
+				// }
 				navigate('/tap', { replace: true });
 			}
 		} catch (e) {

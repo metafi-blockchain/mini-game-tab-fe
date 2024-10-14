@@ -2,12 +2,14 @@ import type { ComponentType, JSX } from 'react';
 
 import { TONConnectPage } from '@/pages/TONConnectPage/TONConnectPage';
 import OKTap from '@/pages/Tap';
-import OkBadge from '@/pages/Tap/BadgeDetail'
-import OkTask from '@/pages/Task'
-import OkBoost from '@/pages/Boost'
-import OkTaskDetail from '@/pages/Task/detail'
-import OkFriend from '@/pages/Friend'
+import OkBadge from '@/pages/Tap/BadgeDetail';
+import OkTask from '@/pages/Task';
+import OkBoost from '@/pages/Boost';
+import OkTaskDetail from '@/pages/Task/detail';
+import OkFriend from '@/pages/Friend';
 import OkWallet from '@/pages/Wallet';
+import OKOnboard from '@/pages/Onboard';
+import OnboardSteps from '@/pages/Onboard/Component/OnboardSteps';
 
 interface Route {
 	path: string;
@@ -24,8 +26,10 @@ export const routes: Route[] = [
 	{ path: '/boost', Component: OkBoost },
 	{ path: '/friends', Component: OkFriend },
 	{ path: '/wallet', Component: OkWallet },
+	{ path: '/onboard', Component: OKOnboard },
+	{ path: '/onboard/steps', Component: OnboardSteps },
 
-  // Templates
+	// Templates
 	{
 		path: '/ton-connect',
 		Component: TONConnectPage,

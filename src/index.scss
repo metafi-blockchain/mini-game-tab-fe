@@ -59,6 +59,10 @@ button {
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 10px;
+
+	background-image: url('../public/images/tap-background.png');
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 .body-page {
 	flex: 1;
@@ -255,4 +259,8 @@ button {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.primary-button {
+	background: linear-gradient(270deg, #FFCE31 0%, #9A403F 100%);
 }

@@ -202,7 +202,7 @@ const Tap = () => {
 				</ul>
 			)}
 			<div className="body-page">
-				<div className="content-page bg-tap bg-cover space-y-6">
+				<div className="content-page space-y-6">
 					<div className="relative flex-none mt-6 h-auto">
 						<div className="absolute top-4 inset-1 flex justify-center">
 							<img
