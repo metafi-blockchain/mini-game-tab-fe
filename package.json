@@ -48,7 +48,8 @@
 		"redux": "^5.0.1",
 		"rollup-plugin-node-polyfills": "^0.2.1",
 		"sass": "^1.77.4",
-		"slick-carousel": "^1.8.1"
+		"slick-carousel": "^1.8.1",
+		"tailwind-merge": "^2.5.4"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.2.0",

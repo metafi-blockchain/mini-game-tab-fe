@@ -264,3 +264,10 @@ button {
 .primary-button {
 	background: linear-gradient(270deg, #FFCE31 0%, #9A403F 100%);
 }
+
+.bg-card {
+	background-color: #04122C;
+	backdrop-filter: blur(12px);
+	box-shadow: 0px 8px 10.4px 0px #00000026,
+				0px 0px 45.4px 0px #FFFFFF1F inset; 
+}

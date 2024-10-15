@@ -79,23 +79,24 @@ const OkFriend = () => {
 					<div className="flex justify-center items-center gap-8 text-lg text-[#FEFFFF99] uppercase">
 						<div onClick={() => setSelectedTab('friends')}>
 							{selectedTab === 'friends' ? (
-								<>
-									<img src="/images/friend-friends.svg" alt="friends-tab" />
-								</>
+								<img
+									src="/images/friend-friends.svg"
+									alt="friends-tab"
+									className="mt-4"
+								/>
 							) : (
-								<>Friends</>
+								<div className="text-xl">Friends</div>
 							)}
 						</div>
 						<div onClick={() => setSelectedTab('leaderboard')}>
 							{selectedTab === 'leaderboard' ? (
-								<>
-									<img
-										src="/images/friend-leaderboard-tab.svg"
-										alt="friends-tab"
-									/>
-								</>
+								<img
+									src="/images/friend-leaderboard-tab.svg"
+									alt="friends-tab"
+									className="mt-4"
+								/>
 							) : (
-								<>LeaderBoard</>
+								<div className="text-xl">LeaderBoard</div>
 							)}
 						</div>
 					</div>
