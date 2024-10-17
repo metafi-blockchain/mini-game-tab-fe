@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import OKButton from '@/components/Button';
 import Lottie from 'react-lottie';
 import FireWorkAnimation from '@/assets/animation/firework.json';
+import { useNavigate } from 'react-router-dom';
 
 interface OnboardStepsProps {}
 
 const OnboardSteps = () => {
+	const navigate = useNavigate();
 	const steps = [
 		{
 			title: <StepOne />
@@ -21,6 +23,8 @@ const OnboardSteps = () => {
 	const handleNext = () => {
 		if (currentStep < steps.length - 1) {
 			setCurrentStep(currentStep + 1);
+		} else {
+			navigate('/tap', { replace: true });
 		}
 	};
 
@@ -32,7 +36,7 @@ const OnboardSteps = () => {
 						<div className="flex justify-center gap-2">
 							{steps.map((step, index) => (
 								<motion.div
-									key={index}
+									key={index + 'step'}
 									className={`step ${index <= currentStep ? 'active' : ''}`}
 									style={{
 										width: '30%',
@@ -85,24 +89,25 @@ function StepOne() {
 			<div className="space-y-4 m-auto">
 				{(items ?? []).map((item, index) => {
 					return (
-						<>
-							<div className="flex gap-2 text-base font-medium">
-								<div>
-									{item?.isChecked ? (
-										<img
-											src="/images/icons/checked-mark.svg"
-											alt="checked-mark"
-										/>
-									) : (
-										<img
-											src="/images/icons/checked-mark-disable.svg"
-											alt="checked-mark-disable"
-										/>
-									)}
-								</div>
-								<div>{item?.description}</div>
+						<div
+							key={index + 'step1'}
+							className="flex gap-2 text-base font-medium"
+						>
+							<div>
+								{item?.isChecked ? (
+									<img
+										src="/images/icons/checked-mark.svg"
+										alt="checked-mark"
+									/>
+								) : (
+									<img
+										src="/images/icons/checked-mark-disable.svg"
+										alt="checked-mark-disable"
+									/>
+								)}
 							</div>
-						</>
+							<div>{item?.description}</div>
+						</div>
 					);
 				})}
 			</div>
