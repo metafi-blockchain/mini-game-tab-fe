@@ -98,7 +98,7 @@ button {
 	padding: 8px;
 	margin: 0;
 
-	background: #0e1110b2;
+	background: #0C1A33;
 	border-radius: 16px;
 
 	display: flex;
@@ -109,7 +109,7 @@ button {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		border: 0.68px solid #feffff7a;
+		// border: 0.68px solid #feffff7a;
 		border-radius: 10px;
 		gap: 2px;
 
@@ -127,10 +127,18 @@ button {
 		}
 	}
 	.item-active {
-		background: #6366f1;
+		background: linear-gradient(180deg, #143F691A 0%, #143F69 100%);
+		font-weight: 600;
 		border-radius: 8px;
 		.item-toolbar {
-			border: 0.68px solid #6366f1;
+			border: 0.68px solid #44678D;
+			
+			img {
+				color: linear-gradient(270deg, #FFFA98 0%, #F8BD52 100%);
+			}
+			span {
+				color: linear-gradient(-90deg, #FFCE31 0%, #9A403F 100%) ;
+			}
 		}
 	}
 }

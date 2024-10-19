@@ -15,7 +15,7 @@ export interface IItemWallet {
 const OkWallet = () => {
 	const { userData } = useUser();
 	const [dataWallet, setDataWallet] = useState<IItemWallet[]>([
-		{ title: 'Total Points', countTouch: '-' },
+		{ title: 'Total Touches', countTouch: '-' },
 		{ title: 'Total Players', countTouch: '-' },
 		{ title: 'Daily Users', countTouch: '-' },
 		{ title: 'Online Players', countTouch: '-' }
@@ -90,7 +90,7 @@ const OkWallet = () => {
 			{/* <HeaderPage /> */}
 			<div className="body-page">
 				<div className="content-page pt-6 px-4 gap-4">
-					<div
+					{/* <div
 						className="text-center pb-2"
 						style={{ borderBottom: '1px solid #1E293B' }}
 					>
@@ -113,36 +113,33 @@ const OkWallet = () => {
 								)}
 							</h1>
 						</div>
-					</div>
-					<div
-						className="text-center pb-2"
-						style={{ borderBottom: '1px solid #1E293B' }}
-					>
+					</div> */}
+					<div className="text-center pb-2">
 						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
-							Total Share Balance
+							Your Current Achievement
 						</h4>
 						<div className="flex flex-row items-center justify-center gap-3">
 							<img
-								width={36}
-								height={36}
+								width={28}
+								height={28}
 								src="/images/icons/coin.svg"
 								alt="icon-coin"
 							/>
-							<h1 className="text-[42px] m-0 text-white font-semibold">
+							<h1 className="text-[36px] m-0 text-white font-semibold">
 								{formatNumberDownRound(totalShare)}
 							</h1>
 						</div>
 					</div>
-					<div className="flex flex-col flex-1 overflow-auto">
+					<div className="flex flex-col flex-1 gap-4 overflow-auto">
 						{dataWallet.map((item, index) => (
 							<div
 								key={index}
-								className="flex flex-col gap-1 items-center item-wallet"
+								className="flex flex-col gap-2 items-center item-wallet bg-card"
 							>
-								<p className="m-0 truncate text-[#FFFFFF99] text-xs">
+								<p className="m-0 truncate text-[#FFFFFF99] text-xs font-medium">
 									{item.title}
 								</p>
-								<span className="text-[30px] text-white font-semibold">
+								<span className="text-[28px] text-white font-semibold">
 									{item.countTouch}
 								</span>
 							</div>
@@ -152,7 +149,7 @@ const OkWallet = () => {
 							<p className="p-0 m-0 text-sm text-[#FEFFFF99]">
 								Join our community
 							</p>
-							<div className="flex flex-row gap-1 justify-center items-center ml-2">
+							<div className="flex flex-row gap-1 justify-center items-center">
 								<a href={import.meta.env.VITE_TELE_CHANNEL_LINK}>
 									<img
 										src="/images/icons/social/telegram.svg"
