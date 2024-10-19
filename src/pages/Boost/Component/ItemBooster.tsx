@@ -27,7 +27,7 @@ const ItemBooster = (props: IPropItemBooster) => {
 	return (
 		// TO-DO: add disable style for remaining === 0
 		<div
-			className="flex flex-row gap-3 item-booster items-center"
+			className="flex flex-row gap-3 item-booster items-center bg-card"
 			onClick={() => handleClickItem()}
 		>
 			<div className="w-[35px]">{leftIcon}</div>

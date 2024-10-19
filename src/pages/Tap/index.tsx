@@ -78,10 +78,15 @@ const Tap = () => {
 		};
 	}, []);
 
-	const handleClickBall = (e: React.TouchEvent<HTMLImageElement>) => {
+	const handleClickBall = (e: React.TouchEvent<HTMLVideoElement>) => {
 		const touchPoints = e.touches;
 		const multiTapValue = get(userData, 'multiTapValue', 0);
 		startTimeTapRef.current = Date.now();
+
+		const videoElement = e.target as HTMLVideoElement;
+		if (videoElement.paused) {
+			videoElement.play();
+		}
 
 		setPoint(prevPoint => {
 			if (prevPoint <= 0) return prevPoint;
@@ -197,69 +202,33 @@ const Tap = () => {
 				</ul>
 			)}
 			<div className="body-page">
-				<div className="content-page">
-					<div className="tab-basic-info relative">
-						<div className="item-basic-info justify-around flex flex-col">
-							<div className="basic-info-title text-white">Fanclub</div>
-							<div className="flex gap-1 items-center justify-center">
-								<img
-									src="/images/icons/okcoin.svg"
-									width={17}
-									height={17}
-									alt="icon-okcoin"
-								/>
-								<span className="text-white uppercase">Sports Hero</span>
-							</div>
+				<div className="content-page space-y-6">
+					<div className="relative flex-none mt-6 h-auto">
+						<div className="absolute top-4 inset-1 flex justify-center">
+							<img
+								src="/images/icons/logo.svg"
+								width={182}
+								height={54}
+								alt="logo-eternal-kingdoms"
+							/>
 						</div>
-
-						<div className="item-basic-info justify-around flex flex-col">
-							<div className="basic-info-title color-green">Daily Points</div>
-							{/*<div className="flex gap-1 justify-center">
-								<img src="/images/icons/coin.svg" alt="icon-coin" />
-								<span className="text-white">108.7K</span>
-							</div>*/}
-							<span className="text-center text-white flex items-center justify-center gap-1">
-								<img src="/images/icons/coin.svg" alt="icon-coin" />-
-							</span>
-						</div>
-
-						<div className="item-basic-info justify-around flex flex-col">
-							<div className="basic-info-title text-white">Your Idol</div>
-							{/*<div className="flex gap-1">
-								<img src="/images/icons/coin.svg" alt="icon-coin-1" />
-								<span className="text-white">108.7K</span>
-							</div>*/}
-							<span className="text-center text-white flex items-center justify-center gap-1">
-								<img src="/images/icons/coin.svg" alt="icon-coin" />-
-							</span>
-						</div>
-					</div>
-					<div className="flex-1 flex flex-col justify-around relative">
-						<div className="flex-1 flex flex-col">
-							<div className="flex flex-col items-center">
-								<div className="flex flex-row items-center gap-3">
+						<div className="flex flex-col justify-center items-center gap-2 bg-tap-score bg-cover bg-no-repeat mt-8 min-h-[126px]">
+							<div className="text-center pt-4">
+								<div className="text-xl font-medium">Score</div>
+								<span className="flex items-center text-4xl font-bold">
 									<img
 										src="/images/icons/coin.svg"
-										alt="icon-okcoin"
-										width={36}
+										alt="icon-coin"
+										className="pr-2"
 									/>
-									<h1 className="text-[42px] m-0 text-white font-semibold">
-										{formatNumberDownRound(totalBalance)}
-									</h1>
-								</div>
-								{timeLeft === 0 && (
-									<span
-										className="coin-basic flex"
-										onClick={() => navigate('/tap/badge-detail')}
-									>
-										<span className="text-white">{userData?.userRank}</span>
-										<img
-											src="/images/icons/arrow-right.svg"
-											alt="icon-arrow-right"
-										/>
-									</span>
-								)}
+									{formatNumberDownRound(totalBalance)}
+								</span>
 							</div>
+						</div>
+					</div>
+
+					<div className="flex-1 flex flex-col justify-around ">
+						<div className="flex-1 flex flex-col">
 							<div className="flex justify-center flex-1 flex-col items-center relative">
 								{bubbles.map(bubble => (
 									<div
@@ -271,46 +240,48 @@ const Tap = () => {
 									</div>
 								))}
 								{userData && (
-									<img
+									<video
 										onTouchStart={handleClickBall}
 										className={`${
 											!isDisableBall && 'ball-action'
-										} max-w-[312px] max-h-[310px]`}
-										src={
-											['bronze', 'gold', 'silver'].includes(
-												userData?.userRank?.toString().toLowerCase()
-											)
-												? `/images/ball/${userData?.userRank
-														?.toString()
-														.toLowerCase()}-ball.webp`
-												: `/images/ball/diamond-ball.webp`
-										}
-										alt="icon-ball"
-									/>
+										} bg-transparent`}
+										muted
+										playsInline
+									>
+										<source
+											src="/images/movies/xspeed.webm"
+											type="video/webm"
+											className="bg-transparent"
+										/>
+										Your browser does not support the video tag.
+									</video>
 								)}
 							</div>
 						</div>
 
-						<div className="flex flex-col items-center min-h-[34px]">
-							<div className="flex items-center gap-1">
-								<img
-									src="/images/icons/lightning.svg"
-									alt="icon-lightning"
-									width={14}
-									height={19}
-								/>
-								<span className="text-white">
+						<div className="relative flex-none items-center min-h-[80px]">
+							<div className="text-center">
+								<span className="text-lg text-white font-semibold">
 									{point}/{userData?.energyLimitValue || 1}
 								</span>
 							</div>
-							<div className="w-full">
+							<div className="">
 								<ProgressBar
 									maxCompleted={100}
 									completed={(point / (userData?.energyLimitValue || 1)) * 100}
 									customLabel={' '}
-									barContainerClassName="bar-container"
+									barContainerClassName="bar-container flex-1"
 									className="bar-wrapper"
 								/>
+								<div className="absolute inset-1 top-4 left-6">
+									<img
+										src="/images/icons/lightning.svg"
+										alt="icon-lightning"
+										width={33}
+										height={42.8}
+										className=""
+									/>
+								</div>
 							</div>
 						</div>
 					</div>

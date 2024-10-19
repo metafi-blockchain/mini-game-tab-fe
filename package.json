@@ -34,6 +34,7 @@
 		"copy-to-clipboard": "^3.3.3",
 		"date-fns": "^3.6.0",
 		"eruda": "^3.0.1",
+		"framer-motion": "^11.11.8",
 		"jotai": "^2.8.4",
 		"lodash": "^4.17.21",
 		"lodash.debounce": "^4.0.8",
@@ -47,7 +48,8 @@
 		"redux": "^5.0.1",
 		"rollup-plugin-node-polyfills": "^0.2.1",
 		"sass": "^1.77.4",
-		"slick-carousel": "^1.8.1"
+		"slick-carousel": "^1.8.1",
+		"tailwind-merge": "^2.5.4"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.2.0",

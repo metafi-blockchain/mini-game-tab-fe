@@ -405,7 +405,7 @@ const OkBoost = () => {
 						<span className="element-time text-white">{subtitle}</span>
 					</div>
 
-					<p className="m-0 text-[#FFFFFF99] text-sm font-normal text-center">
+					<p className="m-0 text-[#FEFFFF99] text-sm font-normal text-center">
 						{description}
 					</p>
 				</div>
@@ -426,7 +426,7 @@ const OkBoost = () => {
 									isTapInfinite
 								)
 							}
-							rootClass="flex w-full rounded-xl text-base justify-center"
+							rootClass="flex w-full rounded-xl text-base justify-center primary-button"
 							text={contentButton}
 						/>
 					)
@@ -496,7 +496,7 @@ const OkBoost = () => {
 		const textButton = isExist ? 'Use it now' : 'Got it';
 		setIsShowModalForDaily(true);
 		await setContentModal({
-			icon: <img width={33} height={43} src={urlImage} alt="icon-fire" />,
+			icon: <img width={64} height={64} src={urlImage} alt="icon-fire" />,
 			title: isHandleTapping ? 'Infinite Tapping' : 'Full Energy',
 			subtitle: `${total - used} times remaining`,
 			description: textDescription,
@@ -557,15 +557,17 @@ const OkBoost = () => {
 			<div className="body-page">
 				<div className="content-page pt-6 px-4">
 					<div className="text-center">
-						<h4 className="text-[#FFFFFF99] m-0 text-sm">Your Balance</h4>
+						<h4 className="text-[#FFFFFF99] m-0 text-sm">
+							Your Current Achievement
+						</h4>
 						<div className="flex flex-row items-center justify-center gap-3">
 							<img
-								width={36}
-								height={36}
+								width={28}
+								height={28}
 								src="/images/icons/coin.svg"
 								alt="icon-coin"
 							/>
-							<span className="text-[42px] text-white font-semibold">
+							<span className="text-[36px] text-white font-semibold">
 								{formatNumberDownRound(infoData?.balance)}
 							</span>
 						</div>
@@ -575,13 +577,23 @@ const OkBoost = () => {
 						<div className="flex flex-row justify-between gap-4">
 							<div
 								onClick={() => handleShowModalForDaily(true, timeLeft > 0)}
-								className={`flex flex-col gap-3 items-center item-boost flex-1
+								className={`flex flex-col gap-3 items-center item-boost flex-1 bg-card
     							${timeLeft > 0 ? 'disabled' : ''}`}
 							>
 								{timeLeft > 0 ? (
-									<img src="/images/fire_2_disable.png" alt="icon-fire" />
+									<img
+										src="/images/fire_2_disable.png"
+										alt="icon-fire"
+										width={54}
+										height={54}
+									/>
 								) : (
-									<img src="/images/icons/fire.svg" alt="icon-fire" />
+									<img
+										src="/images/icons/fire.svg"
+										alt="icon-fire"
+										width={54}
+										height={54}
+									/>
 								)}
 
 								<div className="flex flex-col gap-1 items-center">
@@ -595,21 +607,21 @@ const OkBoost = () => {
 							</div>
 							<div
 								onClick={() => handleShowModalForDaily(false, timeLeft > 0)}
-								className={`flex flex-col gap-3 items-center item-boost flex-1 ${
+								className={`flex flex-col gap-3 items-center item-boost flex-1 bg-card ${
 									timeLeft > 0 ? 'disabled' : ''
 								}`}
 							>
 								{timeLeft > 0 ? (
 									<img
-										width={33}
-										height={43}
+										width={54}
+										height={54}
 										src="/images/icons/lightning_disable.svg"
 										alt="icon-fire"
 									/>
 								) : (
 									<img
-										width={33}
-										height={43}
+										width={54}
+										height={54}
 										src="/images/icons/lightning.svg"
 										alt="icon-fire"
 									/>
@@ -659,6 +671,7 @@ const OkBoost = () => {
 						isOpen={isShowModal}
 						setIsOpen={setIsShowModal}
 						renderBody={renderBodyTapping(contentModal)}
+						rootClassname="bg-card"
 					/>
 				</div>
 			</div>

@@ -11,3 +11,6 @@ export function pTimeout<T>(
 		new Promise((_r, rej) => (timer = setTimeout(rej, time, exception)))
 	]).finally(() => clearTimeout(timer)) as Promise<T>;
 }
+
+export * from './axios';
+export * from './utils';
