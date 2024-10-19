@@ -137,12 +137,13 @@ const OkTaskDetail = () => {
 								alt="logo"
 							/>
 						</div>
-						<p className="m-0 p-0 text-sm text-white">SPORTS HERO</p>
+						<p className="m-0 p-0 text-sm text-white">ETERNAL KINGDOMS</p>
 					</div>
 
 					<p className="text-xs text-[#FFFFFF99]">
-						To remain updated and earn rewards, follow all SportsHero social
-						media accounts, watch our videos and receive more and more reward!
+						To remain updated and earn rewards, follow all Eternal Kingdoms
+						social media accounts, watch our videos and receive more and more
+						reward!
 					</p>
 				</div>
 				<div className="body-page">

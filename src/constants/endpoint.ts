@@ -13,5 +13,7 @@ export const ENDPOINTS = {
 	infinityTap: '/infinity-tap',
 	statistic: '/statistic',
 	tapbotClaim: 'tapbot-claim',
-	txStatus: '/tran-status'
+	txStatus: '/tran-status',
+	getAirdrop: 'get_airdrop_token',
+	confirmAirdrop: 'confirm_receive_airdrop_token'
 };

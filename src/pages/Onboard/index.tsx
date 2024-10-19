@@ -2,10 +2,12 @@ import OKButton from '@/components/Button';
 import Toolbar from '@/components/Toolbar';
 import { Button } from '@telegram-apps/telegram-ui';
 import React, { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {};
 
 const Onboard = (props: Props) => {
+	const navigate = useNavigate();
 	return (
 		<Fragment>
 			<div className="body-page">
@@ -24,6 +26,9 @@ const Onboard = (props: Props) => {
 							</div>
 						</div>
 						<OKButton
+							handleOnClick={() => {
+								navigate('/onboard/steps', { replace: true });
+							}}
 							rootClass="w-full primary-button rounded-lg text-base"
 							text={"Let's go"}
 						/>

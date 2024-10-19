@@ -21,7 +21,7 @@ const HeaderPage = ({
 				)}
 				<span>{rightText}</span>
 			</div>
-			<div className="middle-header">SPORTS HERO Coin</div>
+			<div className="middle-header">ETERNAL KINGDOMS Coin</div>
 			<div className="right-header">
 				<img src="/images/icons/trailing.svg" alt="icon-trailing" />
 			</div>

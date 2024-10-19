@@ -27,6 +27,7 @@ export interface IUserData {
 	userRank: string;
 	haveTapBot?: boolean;
 	tonBalance: number;
+	isReceiveAirdrop: boolean;
 }
 
 interface IUserContext {

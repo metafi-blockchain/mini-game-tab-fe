@@ -25,6 +25,8 @@ import { UserProvider } from '@/contexts/UserContext';
 import { Provider } from 'react-redux';
 import store from '@/store';
 import PlatformCheck from '@/navigation/PlatformCheck';
+import Onboard from '@/pages/Onboard';
+import OnboardSteps from '@/pages/Onboard/Component/OnboardSteps';
 
 export const App: FC = () => {
 	const lp = useLaunchParams();
@@ -80,6 +82,8 @@ export const App: FC = () => {
 					>
 						<Routes>
 							<Route path="/" element={<OkLoadingPage />} />
+							<Route path="/onboard" element={<Onboard />} />
+							<Route path="/onboard/steps" element={<OnboardSteps />} />
 							<Route path="/qr-redirect" element={<OkQRCode />} />
 							<Route element={<OkPrivateRoute />}>
 								{routes.map(route => (
