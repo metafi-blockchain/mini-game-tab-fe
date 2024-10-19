@@ -1,29 +1,63 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import OKButton from '@/components/Button';
 import Lottie from 'react-lottie';
 import FireWorkAnimation from '@/assets/animation/firework.json';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '@/contexts/UserContext';
+import { get } from 'lodash';
+import { confirmAirdropPoint, getAirdropPoint } from '@/services/auth';
+import { formatNumberDownRound } from '@/helpers';
+import { toast } from 'react-toastify';
 
 interface OnboardStepsProps {}
 
 const OnboardSteps = () => {
 	const navigate = useNavigate();
+	const [airdrop, setAirdrop] = useState(null);
 	const steps = [
-		{
-			title: <StepOne />
-		},
-		{
-			title: <StepTwo />
-		},
-		{ title: <StepThree /> }
+		<StepOne />,
+		<StepTwo year={get(airdrop, 'year', 0)} />,
+		<StepThree airdrop={get(airdrop, 'airdrop', 0)} />
 	];
+
+	useEffect(() => {
+		handleGetAirdropPoint();
+	}, []);
 
 	const [currentStep, setCurrentStep] = useState(0);
 	const handleNext = () => {
 		if (currentStep < steps.length - 1) {
 			setCurrentStep(currentStep + 1);
 		} else {
+			handleConfirmAirdrop();
+		}
+	};
+
+	const handleGetAirdropPoint = async () => {
+		try {
+			const res = await getAirdropPoint();
+			console.log('handleGetAirdropPoint===', res);
+			if (get(res, 'data.success', false)) {
+				setAirdrop(get(res, 'data.data', null));
+			}
+		} catch (error) {}
+	};
+
+	const handleConfirmAirdrop = async () => {
+		try {
+			const res = await confirmAirdropPoint();
+			console.log('handleConfirmAirdrop===', res);
+			if (get(res, 'data.success', false)) {
+				navigate('/tap', { replace: true });
+			} else {
+				toast.error(
+					get(res, 'data.message', 'Oops! Something wrong happened!')
+				);
+				navigate('/tap', { replace: true });
+			}
+		} catch (error) {
+			alert('Oops! Something wrong happened!');
 			navigate('/tap', { replace: true });
 		}
 	};
@@ -59,7 +93,7 @@ const OnboardSteps = () => {
 							transition={{ duration: 0.5 }}
 							className="flex-1"
 						>
-							{steps[currentStep].title}
+							{steps[currentStep]}
 						</motion.div>
 					</div>
 
@@ -81,8 +115,23 @@ function StepOne() {
 		{ isChecked: true, description: 'Account Age Verified' },
 		{ isChecked: true, description: 'Activity Level Analyzed' },
 		{ isChecked: true, description: 'Telegram Premium Checked' },
-		{ isChecked: false, description: 'OG Status Confirmed' }
+		{ isChecked: true, description: 'OG Status Confirmed' }
 	];
+
+	// const [items, setItems] = useState(initialItems);
+
+	// useEffect(() => {
+	// 	items.forEach((_, index) => {
+	// 		setTimeout(() => {
+	// 			setItems(prevItems => {
+	// 				const newItems = [...prevItems];
+	// 				newItems[index].isChecked = true;
+	// 				return newItems;
+	// 			});
+	// 		}, index * 1000);
+	// 	});
+	// }, []);
+
 	return (
 		<div className="flex flex-col gap-8">
 			<div className="text-[28px] font-medium">Checking your account</div>
@@ -114,33 +163,33 @@ function StepOne() {
 		</div>
 	);
 }
+interface StepTwoProps {
+	year: number;
+}
+function StepTwo({ year }: StepTwoProps) {
+	const { userData } = useUser();
 
-function StepTwo() {
 	return (
 		<div className="flex flex-col h-full gap-8">
 			<div className="text-[28px] font-medium">You’ve joined Telegram</div>
 			<div className="grow flex flex-col gap-4 m-auto">
-				<div className="text-9xl font-semibold">3</div>
+				<div className="text-9xl font-semibold">{year}</div>
 				<div className="text-[28px]">
 					<div>years ago</div>
 					<span>🎉</span>
 				</div>
 			</div>
 			<div className="text-base font-medium">
-				<div>Your account number is #123456</div>
+				<div>Your account number is #{get(userData, 'telegramId', '')}</div>
 				<div>You’re in the Top 75% Telegram users</div>
 			</div>
 		</div>
 	);
 }
-
-function StepThree() {
-	const items = [
-		{ isChecked: true, description: 'Account Age Verified' },
-		{ isChecked: true, description: 'Activity Level Analyzed' },
-		{ isChecked: true, description: 'Telegram Premium Checked' },
-		{ isChecked: false, description: 'OG Status Confirmed' }
-	];
+interface StepThreeProps {
+	airdrop: number;
+}
+function StepThree({ airdrop }: StepThreeProps) {
 	return (
 		<div className="flex flex-col h-full gap-16">
 			<div className="text-[28px] font-medium">You are amazing!</div>
@@ -153,7 +202,9 @@ function StepThree() {
 						width={48}
 						height={48}
 					/>
-					<div className="text-6xl font-semibold">12,657</div>
+					<div className="text-6xl font-semibold">
+						{formatNumberDownRound(airdrop)}
+					</div>
 				</div>
 			</div>
 			<div className="text-base font-medium">

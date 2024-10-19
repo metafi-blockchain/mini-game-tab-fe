@@ -13,3 +13,9 @@ export const getTxDepositStatus = (timestamp: string) => {
 export const handleHarvest = () => {
 	return axiosInstance.post(ENDPOINTS.harvest);
 };
+export const getAirdropPoint = () => {
+	return axiosInstance.get(ENDPOINTS.getAirdrop);
+};
+export const confirmAirdropPoint = () => {
+	return axiosInstance.post(ENDPOINTS.confirmAirdrop);
+};
