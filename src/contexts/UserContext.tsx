@@ -28,6 +28,7 @@ export interface IUserData {
 	haveTapBot?: boolean;
 	tonBalance: number;
 	isReceiveAirdrop: boolean;
+	receiveAddress: string;
 }
 
 interface IUserContext {

@@ -19,3 +19,9 @@ export const getAirdropPoint = () => {
 export const confirmAirdropPoint = () => {
 	return axiosInstance.post(ENDPOINTS.confirmAirdrop);
 };
+export const makeWithdrawRequest = (body: any) => {
+	return axiosInstance.post(ENDPOINTS.withdrawRequest, body);
+};
+export const fetchListWithdrawRequest = () => {
+	return axiosInstance.post(ENDPOINTS.listWithdrawRequest);
+};

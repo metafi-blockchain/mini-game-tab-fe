@@ -2,6 +2,7 @@ import { ENDPOINTS } from '@/constants/endpoint';
 import axiosInstance from '@/utils/axios';
 import { beginCell, toNano, Address } from '@ton/ton';
 import { CHAIN } from '@tonconnect/ui-react';
+import BigNumber from 'bignumber.js';
 
 export const handleTap = (countTap: number, startTime: string) => {
 	return axiosInstance.post(
@@ -59,6 +60,40 @@ export const makeTx = (teleId: string, tonAmount: number) => {
 				payload: body.toBoc().toString('base64')
 			}
 		]
+	};
+
+	return tx;
+};
+
+export interface IWithdrawItem {
+	telegramId: string;
+	amount: number;
+	address: string;
+}
+
+export const makeCommissionTx = (data: IWithdrawItem[]) => {
+	let listMsg: any = [];
+	const depositFee = parseFloat('0.05'); // TON
+	data.forEach((item: IWithdrawItem) => {
+		const body = beginCell()
+			.storeUint(0, 32)
+			.storeStringTail(item.telegramId)
+			.endCell();
+		listMsg.push({
+			address: item.address,
+			amount: toNano(
+				new BigNumber(item.amount).dividedBy(10 ** 9).toNumber() + depositFee
+			).toString(),
+			payload: body.toBoc().toString('base64')
+		});
+	});
+
+	console.log('listMsg', listMsg);
+
+	const tx = {
+		validUntil: Math.floor(Date.now() / 1000) + 360,
+		// network: CHAIN.MAINNET,
+		messages: listMsg
 	};
 
 	return tx;
