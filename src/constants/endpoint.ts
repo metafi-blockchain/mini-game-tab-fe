@@ -15,5 +15,7 @@ export const ENDPOINTS = {
 	tapbotClaim: 'tapbot-claim',
 	txStatus: '/tran-status',
 	getAirdrop: 'get_airdrop_token',
-	confirmAirdrop: 'confirm_receive_airdrop_token'
+	confirmAirdrop: 'confirm_receive_airdrop_token',
+	withdrawRequest: 'withdraw-request',
+	listWithdrawRequest: 'list-withdraw-request'
 };
