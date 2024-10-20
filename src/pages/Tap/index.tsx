@@ -16,6 +16,7 @@ import OkModal from '@/components/Modal';
 import OKButton from '@/components/Button';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import Toolbar from '@/components/Toolbar';
+import ImageSequence from './ImageSequence';
 interface IBubble {
 	id: number;
 	value: string;
@@ -78,7 +79,7 @@ const Tap = () => {
 		};
 	}, []);
 
-	const handleClickBall = (e: React.TouchEvent<HTMLVideoElement>) => {
+	const handleClickBall = (e: React.TouchEvent<HTMLDivElement>) => {
 		const touchPoints = e.touches;
 		const multiTapValue = get(userData, 'multiTapValue', 0);
 		startTimeTapRef.current = Date.now();
@@ -202,18 +203,21 @@ const Tap = () => {
 				</ul>
 			)}
 			<div className="body-page">
-				<div className="content-page space-y-6">
-					<div className="relative flex-none mt-6 h-auto">
-						<div className="absolute top-4 inset-1 flex justify-center">
+				<div className="content-page">
+					<div className="relative flex-none mt-6 min-h-[164px] max-h-[176px]">
+						<img
+							src="/images/icons/tap-score-layer.svg"
+							alt=""
+							className="w-full h-full object-cover mx-auto"
+						/>
+						<div className="absolute inset-x-0 top-0 m-auto flex flex-col gap-2 justify-center items-center">
 							<img
 								src="/images/icons/logo.svg"
 								width={182}
 								height={54}
 								alt="logo-eternal-kingdoms"
 							/>
-						</div>
-						<div className="flex flex-col justify-center items-center gap-2 bg-tap-score bg-cover bg-no-repeat mt-8 min-h-[126px]">
-							<div className="text-center pt-4">
+							<div className="text-center">
 								<div className="text-xl font-medium">Score</div>
 								<span className="flex items-center text-4xl font-bold">
 									<img
@@ -227,7 +231,7 @@ const Tap = () => {
 						</div>
 					</div>
 
-					<div className="flex-1 flex flex-col justify-around ">
+					<div className="flex-1 flex flex-col justify-around gap-2">
 						<div className="flex-1 flex flex-col">
 							<div className="flex justify-center flex-1 flex-col items-center relative">
 								{bubbles.map(bubble => (
@@ -240,22 +244,9 @@ const Tap = () => {
 									</div>
 								))}
 								{userData && (
-									<img
-										// @ts-ignore
-										onTouchStart={handleClickBall}
-										className={`${
-											!isDisableBall && 'ball-action'
-										} max-w-[312px] max-h-[310px]`}
-										src={
-											['bronze', 'gold', 'silver'].includes(
-												userData?.userRank?.toString().toLowerCase()
-											)
-												? `/images/ball/${userData?.userRank
-														?.toString()
-														.toLowerCase()}-ball.webp`
-												: `/images/ball/diamond-ball.webp`
-										}
-										alt="icon-ball"
+									<ImageSequence
+										className="realtive w-[323px] h-[366px]"
+										onClick={handleClickBall}
 									/>
 								)}
 							</div>
