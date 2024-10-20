@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// @ts-ignore
-import { config } from '@/config';
-import React, { useEffect, useState } from 'react';
-import { handleGetListFriends } from '@/services';
-import { useUser } from '@/contexts/UserContext';
-import { get } from 'lodash';
-import copy from 'copy-to-clipboard';
-import OKButton from '@/components/Button';
 import { PrivateLayout } from '@/components/PrivateLayout';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { handleGetListFriends } from '@/services';
+import { AnimatePresence, motion } from 'framer-motion';
+import { get } from 'lodash';
+import { useEffect, useState } from 'react';
 import Friends from './Component/Friends';
-import LeaderBoard from './Component/LeaderBoard';
 import InviteFriend from './Component/InviteFriend';
+import LeaderBoard from './Component/LeaderBoard';
 
 const tabVariants = {
 	hidden: { opacity: 0, x: -20 },
@@ -29,9 +23,6 @@ export interface IItemFriend {
 }
 
 const OkFriend = () => {
-	const { userData } = useUser();
-	const navigate = useNavigate();
-
 	const [friends, setFriends] = useState<any>([]);
 
 	const getListFriend = async () => {
@@ -58,28 +49,22 @@ const OkFriend = () => {
 			{/* <HeaderPage /> */}
 			<div className="body-page">
 				<div className="content-page pt-6 px-4 gap-4">
-					<div className="flex justify-center items-center gap-8 text-lg text-[#FEFFFF99] uppercase">
-						<div onClick={() => setSelectedTab('friends')}>
-							{selectedTab === 'friends' ? (
-								<img
-									src="/images/friend-friends.svg"
-									alt="friends-tab"
-									className="mt-4"
-								/>
-							) : (
-								<div className="text-xl">Friends</div>
-							)}
+					<div className="friends-tabs">
+						<div
+							className={`tab-item ${
+								selectedTab === 'friends' ? 'active' : ''
+							}`}
+							onClick={() => setSelectedTab('friends')}
+						>
+							Friends
 						</div>
-						<div onClick={() => setSelectedTab('leaderboard')}>
-							{selectedTab === 'leaderboard' ? (
-								<img
-									src="/images/friend-leaderboard-tab.svg"
-									alt="friends-tab"
-									className="mt-4"
-								/>
-							) : (
-								<div className="text-xl">LeaderBoard</div>
-							)}
+						<div
+							className={`tab-item ${
+								selectedTab === 'leaderboard' ? 'active' : ''
+							}`}
+							onClick={() => setSelectedTab('leaderboard')}
+						>
+							LeaderBoard
 						</div>
 					</div>
 

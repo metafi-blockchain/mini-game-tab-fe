@@ -85,7 +85,7 @@ const Friends = ({ items = [] }: Props) => {
 				<div className="text-base font-semibold">
 					Your Friends ({items?.length ?? 0})
 				</div>
-				<Card className="h-[227px] overflow-y-scroll">
+				<Card className="your-friend-list">
 					{items?.length > 0 ? (
 						<CardHeader className="p-4">
 							{(items ?? []).map((item, index) => {
