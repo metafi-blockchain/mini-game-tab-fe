@@ -9,7 +9,7 @@ import { ACCESS_TOKEN, EXPIRE_TIME } from '@/constants';
 import { useInitData, useLaunchParams } from '@tma.js/sdk-react';
 import { IUserData, useUser } from '@/contexts/UserContext';
 let queryId =
-	'user=%7B%22id%22%3A459926971%2C%22first_name%22%3A%22Shaky%22%2C%22last_name%22%3A%22James%22%2C%22username%22%3A%22jsmile1994%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=462223603325943070&chat_type=private&start_param=459926971&auth_date=1729406168&hash=1201f6c47c23bf6db9675264349126501b91f75c587a320e23f9b0b6a8773509';
+	'query_id=AAG77WkbAAAAALvtaRvAb7bJ&user=%7B%22id%22%3A459926971%2C%22first_name%22%3A%22Shaky%22%2C%22last_name%22%3A%22James%22%2C%22username%22%3A%22jsmile1994%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1729406695&hash=56ae59d64cd1489ca27d2b25ad8d8eb328f351afd6e1b880c14f51053bdd628f';
 const OkLoadingPage = () => {
 	const navigate = useNavigate();
 	const initDataRaw = useLaunchParams().initDataRaw;
