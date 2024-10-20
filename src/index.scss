@@ -98,7 +98,7 @@ button {
 	padding: 8px;
 	margin: 0;
 
-	background: #0C1A33;
+	background: #0c1a33;
 	border-radius: 16px;
 
 	display: flex;
@@ -127,17 +127,29 @@ button {
 		}
 	}
 	.item-active {
-		background: linear-gradient(180deg, #143F691A 0%, #143F69 100%);
+		background: linear-gradient(180deg, #143f691a 0%, #143f69 100%);
 		font-weight: 600;
 		border-radius: 8px;
 		.item-toolbar {
-			border: 0.68px solid #44678D;
-			
-			img {
-				color: linear-gradient(270deg, #FFFA98 0%, #F8BD52 100%);
+			border: 0.68px solid #44678d;
+		svg{
+			linearGradient{
+				stop{
+					&:first-child{
+						stop-color: #FFFA98 !important;
+					}
+					&:last-child{
+						stop-color: #F8BD52 !important;
+					}
+				}
 			}
+		}
 			span {
-				color: linear-gradient(-90deg, #FFCE31 0%, #9A403F 100%) ;
+				background: linear-gradient(270deg, #ffce31 0%, #9a403f 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				text-fill-color: transparent;
 			}
 		}
 	}
@@ -270,12 +282,11 @@ button {
 }
 
 .primary-button {
-	background: linear-gradient(270deg, #FFCE31 0%, #9A403F 100%);
+	background: linear-gradient(270deg, #ffce31 0%, #9a403f 100%);
 }
 
 .bg-card {
-	background-color: #04122C;
+	background-color: #04122c;
 	backdrop-filter: blur(12px);
-	box-shadow: 0px 8px 10.4px 0px #00000026,
-				0px 0px 45.4px 0px #FFFFFF1F inset; 
+	box-shadow: 0px 8px 10.4px 0px #00000026, 0px 0px 45.4px 0px #ffffff1f inset;
 }

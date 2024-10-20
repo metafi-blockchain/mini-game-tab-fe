@@ -1,38 +1,49 @@
-import { memo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import IconPeople from '../Icon/IconPeople';
+import IconTask from '../Icon/IconTask';
+import IconTap from '../Icon/IconTap';
+import IconBoost from '../Icon/IconBoost';
+import IconWallet from '../Icon/IconWallet';
+import React from 'react';
 
+interface ITabItem {
+	image: React.ReactNode;
+	title: string;
+	key: string[];
+	label: string;
+}
 const Toolbar = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { pathname } = location;
 	const splitPath = pathname.split('/');
-	const items = [
+	const items: ITabItem[] = [
 		{
-			image: '/images/icons/people.svg',
+			image: <IconPeople />,
 			title: 'icon-people',
 			key: ['friends'],
 			label: 'Friends'
 		},
 		{
-			image: '/images/icons/new-task.svg',
+			image: <IconTask />,
 			title: 'icon-task',
 			key: ['task'],
 			label: 'Task'
 		},
 		{
-			image: '/images/icons/tap-toolbar.svg',
+			image: <IconTap />,
 			title: 'icon-tap',
 			key: ['tap'],
 			label: 'Tap'
 		},
 		{
-			image: '/images/icons/new-boost.svg',
+			image: <IconBoost />,
 			title: 'icon-boost',
 			key: ['boost'],
 			label: 'Boost'
 		},
 		{
-			image: '/images/icons/new-wallet.svg',
+			image: <IconWallet />,
 			title: 'wallet',
 			key: ['wallet'],
 			label: 'Wallet'
@@ -41,18 +52,18 @@ const Toolbar = () => {
 	return (
 		<div className="content-toolbar">
 			<ul className="toolbar">
-				{items.map((item: any) => (
+				{items.map(item => (
 					<li
 						onClick={() => navigate(item.key[0], { replace: true })}
 						key={item.title}
 						className={`${
-							item.key.findIndex((key: any) => key === splitPath[1]) >= 0
+							item.key.findIndex(key => key === splitPath[1]) >= 0
 								? 'item-active'
 								: ''
 						}`}
 					>
 						<div className="item-toolbar">
-							<img src={item.image} alt={item.title} />
+							{item.image}
 							<span className="text-white">{item.label}</span>
 						</div>
 					</li>
