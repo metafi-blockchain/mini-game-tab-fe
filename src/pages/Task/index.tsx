@@ -77,6 +77,7 @@ const Task = () => {
 									iconKey={'farming'}
 									key={`${index}-${item.title}`}
 									data={item}
+									handleClick={() => handleClaimRankingOrRef(item, true)}
 								/>
 							))
 						) : (

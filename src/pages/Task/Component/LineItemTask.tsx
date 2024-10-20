@@ -33,7 +33,7 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 	const { handleNavigate, handleClick } = props;
 
 	return (
-		<Card>
+		<Card onClick={handleNavigate && handleNavigate}>
 			<CardHeader className="px-4 py-3">
 				<div className="flex gap-4">
 					<div className="flex-none flex items-center">{leftIcon}</div>
@@ -109,10 +109,10 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 		isCompleted = false,
 		isClaimed = false
 	} = props.data;
-	const { handleClick, iconKey } = props;
+	const { handleClick, handleNavigate, iconKey } = props;
 
 	return (
-		<Card>
+		<Card onClick={handleNavigate && handleNavigate}>
 			<CardHeader className="px-4 py-3">
 				<div className="flex gap-4">
 					<div className="flex-none flex items-center">
