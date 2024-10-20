@@ -27,10 +27,10 @@ const ItemBooster = (props: IPropItemBooster) => {
 	return (
 		// TO-DO: add disable style for remaining === 0
 		<div
-			className="flex flex-row gap-3 item-booster items-center bg-card"
+			className="flex flex-row gap-3 item-booster items-center bg-card h-[67px]"
 			onClick={() => handleClickItem()}
 		>
-			<div className="w-[35px]">{leftIcon}</div>
+			<div className="flex items-center w-[40px]">{leftIcon}</div>
 			<div className="flex flex-row justify-between flex-1">
 				<div className="flex flex-col">
 					<div className="flex flex-col gap-1">
@@ -45,7 +45,12 @@ const ItemBooster = (props: IPropItemBooster) => {
 										alt="ton-coin"
 									/>
 								) : (
-									<img src="/images/icons/coin.svg" alt="icon-coin" />
+									<img
+										src="/images/icons/coin.svg"
+										alt="icon-coin"
+										width={16}
+										height={16}
+									/>
 								)}
 								<span className="text-xs font-normal text-white">
 									{formatNumberDownRound(price)}

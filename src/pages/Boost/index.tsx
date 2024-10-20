@@ -130,7 +130,7 @@ const OkBoost = () => {
 					temp[0].push({
 						...item,
 						boostName: 'Recharging Speed',
-						src: '/images/icons/light-booster.svg'
+						src: '/images/icons/fast-booster.svg'
 					});
 				} else if (item?.type === 1) {
 					temp[1].push({
@@ -142,7 +142,7 @@ const OkBoost = () => {
 					temp[2].push({
 						...item,
 						boostName: 'Energy Limit',
-						src: '/images/icons/fast-booster.svg'
+						src: '/images/icons/light-booster.svg'
 					});
 				} else if (item?.type === 3) {
 					temp[3].push({
@@ -278,6 +278,7 @@ const OkBoost = () => {
 			setIsShowModal(false);
 		}
 	};
+
 	const handleTapBooster = async (type: IExistOrNo) => {
 		if (type !== null && typeof type !== 'undefined' && !isShowModalForDaily) {
 			try {
@@ -513,15 +514,8 @@ const OkBoost = () => {
 			values;
 		await setContentModal({
 			icon: (
-				<div
-					className="w-[56px]"
-					style={{
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center'
-					}}
-				>
-					<img width={33} height={43} src={src} alt="icon-fire" />
+				<div className="flex justify-center items-center">
+					<img width={64} height={64} src={src} alt="icon-fire" />
 				</div>
 			),
 			title: boostName,
@@ -533,7 +527,7 @@ const OkBoost = () => {
 					: `Level ${nextLevel}`,
 			description: description,
 			contentButton: (
-				<div className="flex flex-row gap-1 items-center justify-center text-white">
+				<div className="flex flex-row gap-1 items-center justify-center text-white primary-button">
 					Confirm & pay
 					<span className="flex flex-row items-center gap-1">
 						<img src="/images/icons/coin.svg" alt="icon-coin" />{' '}
