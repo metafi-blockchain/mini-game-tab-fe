@@ -1,15 +1,10 @@
 import OKButton from '@/components/Button';
-import React, { useEffect, useState } from 'react';
-import copy from 'copy-to-clipboard';
 import { config } from '@/config';
 import { useUser } from '@/contexts/UserContext';
-import { get } from 'http';
-// import { initUtils } from '@tma.js/sdk';
-// const utils = initUtils();
+import copy from 'copy-to-clipboard';
+import { useEffect, useState } from 'react';
 
-type Props = {};
-
-const InviteFriend = (props: Props) => {
+const InviteFriend = () => {
 	const { userData } = useUser();
 	const [copied, setCopied] = useState<boolean>(false);
 	useEffect(() => {
@@ -41,10 +36,14 @@ const InviteFriend = (props: Props) => {
 			/>
 			<OKButton
 				handleOnClick={handleCopy}
-				rootClass="primary-button rounded-xl w-14 h-14 p-0"
+				rootClass={`copy-btn primary-button rounded-xl w-14 h-14 p-0 ${
+					copied ? 'copied' : ''
+				}`}
 				text={
 					<img
-						src={copied ? '/images/icons/coppy.svg' : '/images/icons/coppy.svg'}
+						src={
+							copied ? '/images/icons/copied.svg' : '/images/icons/coppy.svg'
+						}
 						width={24}
 						height={24}
 					/>

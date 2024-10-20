@@ -18,7 +18,7 @@ const Task = () => {
 	const [getParam, setParam] = useSearchParams();
 	const keyDefault = getParam.get('active-key');
 	const [keyActive, setKeyActive] = useState<string>(
-		keyDefault === null ? '0' : keyDefault
+		keyDefault === null ? '1' : keyDefault
 	);
 	const [dataTask, setDataList] = useState<IItemTask[]>([]);
 	const [dataSocial, setDataSocial] = useState<IItemTask[]>([]);
@@ -155,7 +155,7 @@ const Task = () => {
 		},
 		{
 			label: 'Friend',
-			key: '2',
+			key: '3',
 			hasDot: false,
 			render: (
 				<>
@@ -188,8 +188,8 @@ const Task = () => {
 			)
 		},
 		{
-			label: 'Ranking',
-			key: '3',
+			label: 'Farming',
+			key: '2',
 			hasDot: false,
 			render: (
 				<>
@@ -206,7 +206,7 @@ const Task = () => {
 								};
 								return (
 									<LineItemOther
-										iconKey={'ranking'}
+										iconKey={'farming'}
 										showStep={false}
 										isDifferent={true}
 										key={`${index}-${item.title}`}
@@ -226,17 +226,17 @@ const Task = () => {
 
 	const makeTaskData = async (myTask: any[]) => {
 		try {
-			setDataList(
-				myTask
-					.filter((item: any) => item.category === 0)
-					.map((item: any) => ({
-						...item,
-						leftIcon: (
-							<img src="/images/icons/play-video.svg" alt="play-video" />
-						),
-						type: 'coin'
-					}))
-			);
+			// setDataList(
+			// 	myTask
+			// 		.filter((item: any) => item.category === 0)
+			// 		.map((item: any) => ({
+			// 			...item,
+			// 			leftIcon: (
+			// 				<img src="/images/icons/play-video.svg" alt="play-video" />
+			// 			),
+			// 			type: 'coin'
+			// 		}))
+			// );
 			setDataSocial(
 				myTask
 					.filter((item: any) => item.category === 1)

@@ -1,9 +1,9 @@
 import { Card, CardHeader } from '@/components/Card';
 import { formatNumberDownRound } from '@/helpers';
 import { cn } from '@/utils';
-import React from 'react';
 
 type Props = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	items?: any[];
 };
 
@@ -85,7 +85,7 @@ const Friends = ({ items = [] }: Props) => {
 				<div className="text-base font-semibold">
 					Your Friends ({items?.length ?? 0})
 				</div>
-				<Card className="h-[227px] overflow-y-scroll">
+				<Card className="your-friend-list">
 					{items?.length > 0 ? (
 						<CardHeader className="p-4">
 							{(items ?? []).map((item, index) => {
@@ -114,6 +114,7 @@ const Friends = ({ items = [] }: Props) => {
 export default Friends;
 
 type FriendLineItemProps = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	item: any;
 	index: number;
 	className?: string;

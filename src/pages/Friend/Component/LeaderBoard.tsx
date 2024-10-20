@@ -28,8 +28,8 @@ const LeaderBoard = ({
 }: Props) => {
 	return (
 		<div className="">
-			<Card className="h-[483px] overflow-y-scroll">
-				<CardHeader className="p-4">
+			<Card className="p-4">
+				<div className="leaderboard-list">
 					<FriendLineItem
 						key={`friend-key-you`}
 						index={999}
@@ -45,7 +45,7 @@ const LeaderBoard = ({
 							/>
 						);
 					})}
-				</CardHeader>
+				</div>
 			</Card>
 		</div>
 	);
