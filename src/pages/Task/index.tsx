@@ -231,9 +231,9 @@ const Task = () => {
 								.filter(item => item.subCategory === SOCIAL_CATEGORY.T)
 								.map((item, index) => (
 									<LineItemSocial
-										// handleNavigate={() => {
-										// 	navigate(`/task/detail/${item.taskId}`);
-										// }}
+										handleNavigate={() => {
+											navigate(`/task/detail/${item.taskId}`);
+										}}
 										key={`${index}-${item.title}`}
 										data={item}
 									/>

@@ -16,6 +16,7 @@ import OkModal from '@/components/Modal';
 import OKButton from '@/components/Button';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import Toolbar from '@/components/Toolbar';
+import ImageSequence from '@/components/ImageSequence';
 interface IBubble {
 	id: number;
 	value: string;
@@ -78,15 +79,10 @@ const Tap = () => {
 		};
 	}, []);
 
-	const handleClickBall = (e: React.TouchEvent<HTMLVideoElement>) => {
+	const handleClickBall = (e: React.TouchEvent<HTMLDivElement>) => {
 		const touchPoints = e.touches;
 		const multiTapValue = get(userData, 'multiTapValue', 0);
 		startTimeTapRef.current = Date.now();
-
-		const videoElement = e.target as HTMLVideoElement;
-		if (videoElement.paused) {
-			videoElement.play();
-		}
 
 		setPoint(prevPoint => {
 			if (prevPoint <= 0) return prevPoint;
@@ -202,8 +198,8 @@ const Tap = () => {
 				</ul>
 			)}
 			<div className="body-page">
-				<div className="content-page space-y-6">
-					<div className="relative flex-none mt-6 h-auto">
+				<div className="content-page">
+					<div className="relative flex-none mt-6 ">
 						<div className="absolute top-4 inset-1 flex justify-center">
 							<img
 								src="/images/icons/logo.svg"
@@ -212,7 +208,7 @@ const Tap = () => {
 								alt="logo-eternal-kingdoms"
 							/>
 						</div>
-						<div className="flex flex-col justify-center items-center gap-2 bg-tap-score bg-cover bg-no-repeat mt-8 min-h-[126px]">
+						<div className="flex flex-col justify-center items-center gap-2 bg-tap-score bg-cover bg-no-repeat mt-8 min-h-[144px]">
 							<div className="text-center pt-4">
 								<div className="text-xl font-medium">Score</div>
 								<span className="flex items-center text-4xl font-bold">
@@ -227,7 +223,7 @@ const Tap = () => {
 						</div>
 					</div>
 
-					<div className="flex-1 flex flex-col justify-around ">
+					<div className="flex-1 flex flex-col justify-around gap-2">
 						<div className="flex-1 flex flex-col">
 							<div className="flex justify-center flex-1 flex-col items-center relative">
 								{bubbles.map(bubble => (
@@ -240,21 +236,10 @@ const Tap = () => {
 									</div>
 								))}
 								{userData && (
-									<video
-										onTouchStart={handleClickBall}
-										className={`${
-											!isDisableBall && 'ball-action'
-										} bg-transparent`}
-										muted
-										playsInline
-									>
-										<source
-											src="/images/movies/xspeed.webm"
-											type="video/webm"
-											className="bg-transparent"
-										/>
-										Your browser does not support the video tag.
-									</video>
+									<ImageSequence
+										className="realtive w-[323px] h-[366px]"
+										onClick={handleClickBall}
+									/>
 								)}
 							</div>
 						</div>
