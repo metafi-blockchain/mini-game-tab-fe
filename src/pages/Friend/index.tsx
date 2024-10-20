@@ -37,7 +37,9 @@ const OkFriend = () => {
 	const getListFriend = async () => {
 		try {
 			const response = await handleGetListFriends();
-			setFriends(get(response, 'data.data', []));
+			if (get(response, 'data.success', false)) {
+				setFriends(get(response, 'data.data', []));
+			}
 		} catch (e) {
 			console.log(e);
 		}
