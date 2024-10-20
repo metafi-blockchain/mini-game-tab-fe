@@ -18,7 +18,7 @@ const Task = () => {
 	const [getParam, setParam] = useSearchParams();
 	const keyDefault = getParam.get('active-key');
 	const [keyActive, setKeyActive] = useState<string>(
-		keyDefault === null ? '0' : keyDefault
+		keyDefault === null ? '1' : keyDefault
 	);
 	const [dataTask, setDataList] = useState<IItemTask[]>([]);
 	const [dataSocial, setDataSocial] = useState<IItemTask[]>([]);
@@ -63,29 +63,32 @@ const Task = () => {
 	};
 
 	const items = [
-		{
-			label: 'Farming',
-			key: '0',
-			hasDot: false,
-			render: (
-				<>
-					<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
-					<div className="flex flex-col gap-3 z-1">
-						{dataTask.length > 0 ? (
-							dataTask.map((item, index) => (
-								<LineItemOther
-									iconKey={'farming'}
-									key={`${index}-${item.title}`}
-									data={item}
-								/>
-							))
-						) : (
-							<NoItem />
-						)}
-					</div>
-				</>
-			)
-		},
+		// {
+		// 	label: 'Farming',
+		// 	key: '0',
+		// 	hasDot: false,
+		// 	render: (
+		// 		<>
+		// 			<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
+		// 			<div className="flex flex-col gap-3 z-1">
+		// 				{dataTask.length > 0 ? (
+		// 					dataTask.map((item, index) => (
+		// 						<ItemTask
+		// 							handleNavigate={() => {
+		// 								navigate(`/task/detail/${item.taskId}`);
+		// 							}}
+		// 							// iconKey={'farming'}
+		// 							key={`${index}-${item.title}`}
+		// 							data={item}
+		// 						/>
+		// 					))
+		// 				) : (
+		// 					<NoItem />
+		// 				)}
+		// 			</div>
+		// 		</>
+		// 	)
+		// },
 		{
 			label: 'Social',
 			key: '1',
@@ -154,7 +157,7 @@ const Task = () => {
 		},
 		{
 			label: 'Friend',
-			key: '2',
+			key: '3',
 			hasDot: false,
 			render: (
 				<>
@@ -187,8 +190,8 @@ const Task = () => {
 			)
 		},
 		{
-			label: 'Ranking',
-			key: '3',
+			label: 'Farming',
+			key: '2',
 			hasDot: false,
 			render: (
 				<>
@@ -205,7 +208,7 @@ const Task = () => {
 								};
 								return (
 									<LineItemOther
-										iconKey={'ranking'}
+										iconKey={'farming'}
 										showStep={false}
 										isDifferent={true}
 										key={`${index}-${item.title}`}
@@ -225,17 +228,17 @@ const Task = () => {
 
 	const makeTaskData = async (myTask: any[]) => {
 		try {
-			setDataList(
-				myTask
-					.filter((item: any) => item.category === 0)
-					.map((item: any) => ({
-						...item,
-						leftIcon: (
-							<img src="/images/icons/play-video.svg" alt="play-video" />
-						),
-						type: 'coin'
-					}))
-			);
+			// setDataList(
+			// 	myTask
+			// 		.filter((item: any) => item.category === 0)
+			// 		.map((item: any) => ({
+			// 			...item,
+			// 			leftIcon: (
+			// 				<img src="/images/icons/play-video.svg" alt="play-video" />
+			// 			),
+			// 			type: 'coin'
+			// 		}))
+			// );
 			setDataSocial(
 				myTask
 					.filter((item: any) => item.category === 1)
