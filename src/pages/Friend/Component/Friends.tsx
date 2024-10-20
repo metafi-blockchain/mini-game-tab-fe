@@ -1,9 +1,9 @@
 import { Card, CardHeader } from '@/components/Card';
 import { formatNumberDownRound } from '@/helpers';
 import { cn } from '@/utils';
-import React from 'react';
 
 type Props = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	items?: any[];
 };
 
@@ -114,6 +114,7 @@ const Friends = ({ items = [] }: Props) => {
 export default Friends;
 
 type FriendLineItemProps = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	item: any;
 	index: number;
 	className?: string;

@@ -346,9 +346,20 @@ button {
 	overflow-y: auto;
 	scrollbar-width: thin;
 }
-.leaderboard-list{
+.leaderboard-list {
 	height: calc(100vh - 295px);
 	min-height: 300px;
 	overflow-y: auto;
 	scrollbar-width: thin;
+}
+.copy-btn {
+	transition: all ease-in-out 0.3s;
+	span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+	&.copied {
+		background: #3a4a5f !important;
+	}
 }
