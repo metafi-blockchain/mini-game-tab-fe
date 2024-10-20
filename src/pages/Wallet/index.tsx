@@ -34,7 +34,7 @@ const OkWallet = () => {
 	const [isShowModal, setIsShowModal] = useState<boolean>(false);
 	const [listWithdraw, setListWithdraw] = useState<IWithdrawItem[]>([]);
 	const [dataWallet, setDataWallet] = useState<IItemWallet[]>([
-		{ title: 'Total Points', countTouch: '-' },
+		{ title: 'Total Touches', countTouch: '-' },
 		{ title: 'Total Players', countTouch: '-' },
 		{ title: 'Daily Users', countTouch: '-' },
 		{ title: 'Online Players', countTouch: '-' }
@@ -219,7 +219,7 @@ const OkWallet = () => {
 				<div className="content-page pt-6 px-4 gap-4">
 					<div
 						className="text-center pb-2"
-						style={{ borderBottom: '1px solid #1E293B' }}
+						style={{ borderBottom: '1px solid #1E293B', overflow: 'visible' }}
 					>
 						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
 							Your TON Commission
@@ -244,88 +244,92 @@ const OkWallet = () => {
 							You just can make <b>ONE</b> withdrawal request at a time, and
 							minimum amount is 1 TON
 						</p>
-						<OKButton
-							isDisable={
-								new BigNumber(get(userData, 'tonBalance', 0)).toNumber() <
-								10 ** 9
-							}
-							handleOnClick={() => {
-								if (userData?.receiveAddress == '') {
-									toast.error(
-										'You need make a deposit (for example buying AI bot) before making a withdrawal request.'
-									);
-									return;
+						<div className="flex flex-row gap-1 justify-center items-center">
+							<OKButton
+								isDisable={
+									new BigNumber(get(userData, 'tonBalance', 0)).toNumber() <
+									10 ** 9
 								}
-								setIsShowModal(true);
-							}}
-							rootClass="flex-1 w-full primary-button mt-4"
-							style={{ borderRadius: 40 }}
-							text={'Withdraw'}
-						/>
-						{true && (
+								handleOnClick={() => {
+									if (userData?.receiveAddress == '') {
+										toast.error(
+											'You need make a deposit (for example buying AI bot) before making a withdrawal request.'
+										);
+										return;
+									}
+									setIsShowModal(true);
+								}}
+								rootClass="flex-1 w-full primary-button mt-4"
+								style={{ borderRadius: 40 }}
+								text={'Withdraw'}
+							/>
+							{/* {true && ( */}
 							<OKButton
 								handleOnClick={handlePayCommission}
 								rootClass="flex-1 w-full primary-button mt-4"
 								style={{ borderRadius: 40 }}
 								text={'Pay Commission'}
 							/>
-						)}
-					</div>
-					<div
-						className="text-center pb-2"
-						style={{ borderBottom: '1px solid #1E293B' }}
-					>
-						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
-							Total Share Balance
-						</h4>
-						<div className="flex flex-row items-center justify-center gap-3">
-							<img
-								width={36}
-								height={36}
-								src="/images/icons/coin.svg"
-								alt="icon-coin"
-							/>
-							<h1 className="text-[42px] m-0 text-white font-semibold">
-								{formatNumberDownRound(totalShare)}
-							</h1>
+							{/* )} */}
 						</div>
 					</div>
-					<div className="flex flex-col flex-1 overflow-auto">
-						{dataWallet.map((item, index) => (
-							<div
-								key={index}
-								className="flex flex-col gap-1 items-center item-wallet"
-							>
-								<p className="m-0 truncate text-[#FFFFFF99] text-xs">
-									{item.title}
-								</p>
-								<span className="text-[30px] text-white font-semibold">
-									{item.countTouch}
-								</span>
+					<div className="overflow-auto">
+						<div
+							className="text-center pb-2"
+							style={{ borderBottom: '1px solid #1E293B' }}
+						>
+							<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
+								Your Current Achievement
+							</h4>
+							<div className="flex flex-row items-center justify-center gap-3">
+								<img
+									width={28}
+									height={28}
+									src="/images/icons/coin.svg"
+									alt="icon-coin"
+								/>
+								<h1 className="text-[36px] m-0 text-white font-semibold">
+									{formatNumberDownRound(totalShare)}
+								</h1>
 							</div>
-						))}
+						</div>
+						<div className="flex flex-col flex-1 gap-4">
+							{dataWallet.map((item, index) => (
+								<div
+									key={index}
+									className="flex flex-col gap-2 items-center item-wallet bg-card"
+								>
+									<p className="m-0 truncate text-[#FFFFFF99] text-xs font-medium">
+										{item.title}
+									</p>
+									<span className="text-[28px] text-white font-semibold">
+										{item.countTouch}
+									</span>
+								</div>
+							))}
 
-						<div className="flex flex-col justify-center items-center gap-2 min-h-[103px]">
-							<p className="p-0 m-0 text-sm text-[#FEFFFF99]">
-								Join our community
-							</p>
-							<div className="flex flex-row gap-1 justify-center items-center ml-2">
-								<a href={import.meta.env.VITE_TELE_CHANNEL_LINK}>
-									<img
-										src="/images/icons/social/telegram.svg"
-										alt="telegram-icon"
-									/>
-								</a>
-								<a href={import.meta.env.VITE_YOUTUBE_LINK}>
-									<img
-										src="/images/icons/social/youtube.svg"
-										alt="youtube-icon"
-									/>
-								</a>
+							<div className="flex flex-col justify-center items-center gap-2 min-h-[103px]">
+								<p className="p-0 m-0 text-sm text-[#FEFFFF99]">
+									Join our community
+								</p>
+								<div className="flex flex-row gap-1 justify-center items-center">
+									<a href={import.meta.env.VITE_TELE_CHANNEL_LINK}>
+										<img
+											src="/images/icons/social/telegram.svg"
+											alt="telegram-icon"
+										/>
+									</a>
+									<a href={import.meta.env.VITE_YOUTUBE_LINK}>
+										<img
+											src="/images/icons/social/youtube.svg"
+											alt="youtube-icon"
+										/>
+									</a>
 
-								<a href={import.meta.env.VITE_X_LINK}>
-									<img src="/images/icons/social/x.svg" alt="x-icon" />
-								</a>
+									<a href={import.meta.env.VITE_X_LINK}>
+										<img src="/images/icons/social/x.svg" alt="x-icon" />
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>

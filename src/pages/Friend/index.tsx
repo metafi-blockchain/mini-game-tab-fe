@@ -33,7 +33,6 @@ const OkFriend = () => {
 	const navigate = useNavigate();
 
 	const [friends, setFriends] = useState<any>([]);
-	const [copied, setCopied] = useState<boolean>(false);
 
 	const getListFriend = async () => {
 		try {
@@ -47,25 +46,6 @@ const OkFriend = () => {
 	useEffect(() => {
 		getListFriend();
 	}, []);
-
-	useEffect(() => {
-		if (copied) {
-			setTimeout(() => {
-				setCopied(false);
-			}, 3000);
-		}
-	}, [copied]);
-
-	const handleCopy = () => {
-		copy(`${config.REF_LINK}${get(userData, 'telegramId', '')}`);
-		setCopied(true);
-	};
-
-	// const handleShare = () => {
-	// 	utils.openTelegramLink(
-	// 		'https://t.me/share/url?url=https://t.me/sports_hero_bot/sportshero'
-	// 	);
-	// };
 
 	const [selectedTab, setSelectedTab] = useState<'friends' | 'leaderboard'>(
 		'friends'
@@ -113,7 +93,7 @@ const OkFriend = () => {
 									transition={{ duration: 0.5 }}
 									className="flex flex-col gap-4"
 								>
-									<Friends />
+									<Friends items={friends} />
 								</motion.div>
 							)}
 

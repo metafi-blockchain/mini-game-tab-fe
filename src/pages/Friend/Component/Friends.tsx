@@ -7,16 +7,7 @@ type Props = {
 	items?: any[];
 };
 
-const Friends = ({
-	items = [
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 }
-	]
-}: Props) => {
+const Friends = ({ items = [] }: Props) => {
 	return (
 		<>
 			<div className="flex justify-between gap-4">
@@ -26,7 +17,7 @@ const Friends = ({
 						<div className="flex items-center gap-2 text-sm">
 							<div className="text-base">🤝</div>
 							<div>x</div>
-							<div>{formatNumberDownRound(0)}</div>
+							<div>{formatNumberDownRound(items.length)}</div>
 						</div>
 					</CardHeader>
 				</Card>
@@ -141,7 +132,9 @@ export function FriendLineItem({
 			)}
 		>
 			<div className="flex-none min-w-12">{index + 1}</div>
-			<div className="flex-1">{item?.name}</div>
+			<div className="flex-1">
+				{item?.firstName} {item?.lastName}
+			</div>
 			<div className="flex-none min-w-28 flex items-center gap-2">
 				<img
 					src="/images/icons/coin.svg"

@@ -20,7 +20,7 @@ const Toolbar = () => {
 			label: 'Task'
 		},
 		{
-			image: '/images/icons/coin.svg',
+			image: '/images/icons/tap-toolbar.svg',
 			title: 'icon-tap',
 			key: ['tap'],
 			label: 'Tap'

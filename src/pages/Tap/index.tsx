@@ -240,21 +240,23 @@ const Tap = () => {
 									</div>
 								))}
 								{userData && (
-									<video
+									<img
+										// @ts-ignore
 										onTouchStart={handleClickBall}
 										className={`${
 											!isDisableBall && 'ball-action'
-										} bg-transparent`}
-										muted
-										playsInline
-									>
-										<source
-											src="/images/movies/xspeed.webm"
-											type="video/webm"
-											className="bg-transparent"
-										/>
-										Your browser does not support the video tag.
-									</video>
+										} max-w-[312px] max-h-[310px]`}
+										src={
+											['bronze', 'gold', 'silver'].includes(
+												userData?.userRank?.toString().toLowerCase()
+											)
+												? `/images/ball/${userData?.userRank
+														?.toString()
+														.toLowerCase()}-ball.webp`
+												: `/images/ball/diamond-ball.webp`
+										}
+										alt="icon-ball"
+									/>
 								)}
 							</div>
 						</div>
