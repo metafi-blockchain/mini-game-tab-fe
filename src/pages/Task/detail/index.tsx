@@ -109,10 +109,10 @@ const OkTaskDetail = () => {
 				<div className="p-4">
 					<div className="container-logo text-center">
 						<img
-							width={'100%'}
-							height={200}
-							src="/images/bg-task-detail.jpeg"
-							alt="logo"
+							src="/images/icons/logo.svg"
+							width={182}
+							height={54}
+							alt="logo-eternal-kingdoms"
 						/>
 					</div>
 				</div>
