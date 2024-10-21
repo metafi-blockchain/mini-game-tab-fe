@@ -22,6 +22,8 @@ import { fetchListWithdrawRequest, makeWithdrawRequest } from '@/services/auth';
 import { toast } from 'react-toastify';
 import OkModal from '@/components/Modal';
 import { pTimeout, pTimeoutException } from '@/utils';
+import { useSearchParams } from 'react-router-dom';
+import WithdrawalItem from './component/WithdrawalItem';
 export interface IItemWallet {
 	title: string;
 	countTouch: string;
@@ -39,6 +41,11 @@ const OkWallet = () => {
 		{ title: 'Daily Users', countTouch: '-' },
 		{ title: 'Online Players', countTouch: '-' }
 	]);
+	const [getParam, setParam] = useSearchParams();
+	const keyDefault = getParam.get('active-key');
+	const [keyActive, setKeyActive] = useState<string>(
+		keyDefault === null ? '1' : keyDefault
+	);
 	const [totalShare, setTotalShare] = useState<number>(0);
 	const getInfoWallet = async () => {
 		try {
@@ -97,7 +104,7 @@ const OkWallet = () => {
 	};
 	useEffect(() => {
 		getInfoWallet();
-		// getListWithdrawRequest();
+		getListWithdrawRequest();
 	}, []);
 	useEffect(() => {
 		setTimeout(() => {
@@ -105,15 +112,15 @@ const OkWallet = () => {
 		}, 1000);
 	}, []);
 
-	// const getListWithdrawRequest = async () => {
-	// 	try {
-	// 		const res = await fetchListWithdrawRequest();
-	// 		console.log('getListWithdrawRequest===', res);
-	// 		if (get(res, 'data.success', false)) {
-	// 			setListWithdraw(get(res, 'data.data', []));
-	// 		}
-	// 	} catch (error) {}
-	// };
+	const getListWithdrawRequest = async () => {
+		try {
+			const res = await fetchListWithdrawRequest();
+			console.log('getListWithdrawRequest===', res);
+			if (get(res, 'data.success', false)) {
+				setListWithdraw(get(res, 'data.data', []));
+			}
+		} catch (error) {}
+	};
 
 	const handleMakeWithdraw = async () => {
 		try {
@@ -212,67 +219,18 @@ const OkWallet = () => {
 		);
 	};
 
-	return (
-		<PrivateLayout>
-			{/* <HeaderPage /> */}
-			<div className="body-page">
-				<div className="content-page pt-6 px-4 gap-4">
-					<div
-						className="text-center pb-2"
-						style={{ borderBottom: '1px solid #1E293B', overflow: 'visible' }}
-					>
-						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
-							Your TON Commission
-						</h4>
-						<div className="flex flex-row items-center justify-center gap-3">
-							<img
-								width={32}
-								height={32}
-								src="/images/icons/ton-logo.svg"
-								alt="icon-coin"
-							/>
-							<h1 className="text-[42px] m-0 text-white font-semibold">
-								{formatNumberDownRound(
-									new BigNumber(get(userData, 'tonBalance', 0))
-										.dividedBy(10 ** 9)
-										.toNumber(),
-									9
-								)}
-							</h1>
-						</div>
-						<p className="m-0 text-[#FFCE31] text-xs mt-4">
-							You just can make <b>ONE</b> withdrawal request at a time, and
-							minimum amount is 1 TON
-						</p>
-						<div className="flex flex-row gap-1 justify-center items-center">
-							<OKButton
-								isDisable={
-									new BigNumber(get(userData, 'tonBalance', 0)).toNumber() <
-									10 ** 9
-								}
-								handleOnClick={() => {
-									if (userData?.receiveAddress == '') {
-										toast.error(
-											'You need make a deposit (for example buying AI bot) before making a withdrawal request.'
-										);
-										return;
-									}
-									setIsShowModal(true);
-								}}
-								rootClass="flex-1 w-full primary-button mt-4"
-								style={{ borderRadius: 40 }}
-								text={'Withdraw'}
-							/>
-							{/* {true && ( */}
-							<OKButton
-								handleOnClick={handlePayCommission}
-								rootClass="flex-1 w-full primary-button mt-4"
-								style={{ borderRadius: 40 }}
-								text={'Pay Commission'}
-							/>
-							{/* )} */}
-						</div>
-					</div>
+	const handleChangeTab = (item: any) => {
+		setKeyActive(item.key);
+		setParam(`active-key=${item.key}`, { replace: true });
+	};
+
+	const items = [
+		{
+			label: 'Overview',
+			key: '1',
+			hasDot: false,
+			render: (
+				<div className="flex-1">
 					<div className="overflow-auto">
 						<div
 							className="text-center pb-2"
@@ -332,6 +290,225 @@ const OkWallet = () => {
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+			)
+		},
+		{
+			label: 'Withdraw',
+			key: '2',
+			hasDot: false,
+			render: (
+				<div className="flex-1 ">
+					<div
+						className="flex-1 text-center"
+						style={{ borderBottom: '1px solid #1E293B', overflow: 'visible' }}
+					>
+						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
+							Your TON Commission
+						</h4>
+						<div className="flex flex-row items-center justify-center gap-3">
+							<img
+								width={32}
+								height={32}
+								src="/images/icons/ton-logo.svg"
+								alt="icon-coin"
+							/>
+							<h1 className="text-[42px] m-0 text-white font-semibold">
+								{formatNumberDownRound(
+									new BigNumber(get(userData, 'tonBalance', 0))
+										.dividedBy(10 ** 9)
+										.toNumber(),
+									9
+								)}
+							</h1>
+						</div>
+						<p className="m-0 text-[#FFCE31] text-xs mt-4">
+							You just can make <b>ONE</b> withdrawal request at a time, and
+							minimum amount is 1 TON
+						</p>
+						<div className="flex flex-row gap-1 justify-center items-center">
+							<OKButton
+								isDisable={
+									new BigNumber(get(userData, 'tonBalance', 0)).toNumber() <
+									10 ** 9
+								}
+								handleOnClick={() => {
+									if (userData?.receiveAddress == '') {
+										toast.error(
+											'You need make a deposit (for example buying AI bot) before making a withdrawal request.'
+										);
+										return;
+									}
+									setIsShowModal(true);
+								}}
+								rootClass="flex-1 w-full primary-button mt-4"
+								style={{ borderRadius: 40 }}
+								text={'Withdraw'}
+							/>
+						</div>
+					</div>
+
+					<div className="overflow-auto mt-3">
+						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
+							Current request
+						</h4>
+						<div className="gap-1">
+							{[1].map((item: any, index: number) => {
+								return (
+									<WithdrawalItem
+										key={index + 'myPendingRequest'}
+										status="Pending"
+										address="aaa"
+										amount={1}
+										name="Address"
+									/>
+								);
+							})}
+						</div>
+					</div>
+					<div className="overflow-auto mt-3">
+						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
+							Withdrawal history
+						</h4>
+						{/* {listWithdraw.map((item: IWithdrawItem, index: number) => {
+							return (
+								<div
+									key={index}
+									className="flex flex-col gap-2 items-center item-wallet bg-card"
+								>
+									<p className="m-0 truncate text-[#FFFFFF99] text-xs font-medium">
+										{item.telegramId}
+									</p>
+									<span className="text-[28px] text-white font-semibold">
+										{item.address}
+									</span>
+								</div>
+							);
+						})} */}
+						<div className="gap-1">
+							{[1, 2].map((item: any, index: number) => {
+								return (
+									<WithdrawalItem
+										key={index + 'myDoneRequest'}
+										address="aaa"
+										status="Success"
+										amount={1}
+										name="Address"
+									/>
+								);
+							})}
+						</div>
+					</div>
+				</div>
+			)
+		},
+		{
+			label: 'Commission',
+			key: '3',
+			hasDot: false,
+			render: (
+				<div className="flex-1">
+					<h4 className="text-[#FFFFFF99] m-0 text-[14px] text-center">
+						Total withdrawal request
+					</h4>
+					<div className="flex flex-row items-center justify-center gap-3">
+						<img
+							width={32}
+							height={32}
+							src="/images/icons/ton-logo.svg"
+							alt="icon-coin"
+						/>
+						<h1 className="text-[42px] m-0 text-white font-semibold">
+							{formatNumberDownRound(
+								new BigNumber(get(userData, 'tonBalance', 0))
+									.dividedBy(10 ** 9)
+									.toNumber(),
+								9
+							)}
+						</h1>
+					</div>
+					{/* <div className="flex-1 text-center"> */}
+					<TonConnectButton className="ton-connect-page__button" />
+					<OKButton
+						isDisable={!wallet}
+						handleOnClick={handlePayCommission}
+						rootClass="flex-1 w-full primary-button mt-4"
+						style={{ borderRadius: 40 }}
+						text={'Pay Commission'}
+					/>
+					{/* </div> */}
+
+					<div className="overflow-auto mt-3">
+						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
+							Current pending request
+						</h4>
+						<div className="gap-1">
+							{[1].map((item: any, index: number) => {
+								return (
+									<WithdrawalItem
+										key={index + 'currentPending'}
+										status="Pending"
+										address="aaa"
+										amount={1}
+										name="Address"
+									/>
+								);
+							})}
+						</div>
+					</div>
+					<div className="overflow-auto mt-3">
+						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
+							Commission history
+						</h4>
+						<div className="gap-1">
+							{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+								(item: any, index: number) => {
+									return (
+										<WithdrawalItem
+											key={index + 'commission'}
+											address="aaa"
+											status="Success"
+											amount={1}
+											name="Address"
+										/>
+									);
+								}
+							)}
+						</div>
+					</div>
+				</div>
+			)
+		}
+	];
+
+	return (
+		<PrivateLayout>
+			{/* <HeaderPage /> */}
+			<div className="body-page">
+				<div className="content-page pt-6 px-4 gap-4">
+					<div className="tab-menu">
+						<ul className="list-none p-0 flex flex-row justify-between items-center">
+							{items.map(item => (
+								<li
+									onClick={() => handleChangeTab(item)}
+									key={item.key}
+									className={`${
+										item.key === keyActive ? 'tab-active' : ''
+									} item-tap`}
+								>
+									<span>
+										{item.label}{' '}
+										{item.hasDot && item.key !== keyActive && (
+											<div className="dot-red"></div>
+										)}
+									</span>
+								</li>
+							))}
+						</ul>
+					</div>
+					<div className="content-tab overflow-y-auto flex-1">
+						{items.find(item => item.key === keyActive)?.render}
 					</div>
 				</div>
 			</div>

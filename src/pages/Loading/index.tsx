@@ -1,7 +1,7 @@
 // @ts-ignore
 import Lottie from 'react-lottie';
-import LoadingAnimation from '@/assets/animation/bouncing_ball.json';
-import { useEffect } from 'react';
+import LoadingAnimation from '@/assets/animation/loading.json';
+import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleGetMe, handleUserAuth } from '@/services/auth';
 import { get } from 'lodash';
@@ -49,21 +49,35 @@ const OkLoadingPage = () => {
 	}, []);
 
 	return (
-		<>
-			{/* <HeaderPage rightText="Cancel" isShowIconLeft={false} /> */}
-			<div className="flex-1">
-				<Lottie
-					options={{
-						loop: true,
-						autoplay: true,
-						animationData: LoadingAnimation,
-						rendererSettings: {
-							preserveAspectRatio: 'xMidYMid slice'
-						}
-					}}
-				/>
+		<Fragment>
+			<div className="body-page">
+				<div className="content-page h-full jusify-between pt-6 px-4 gap-4 space-y-6">
+					<div className="flex flex-col justify-between items-center gap-6 h-full">
+						<div className="flex-1 flex flex-col justify-center items-center gap-6">
+							<img
+								src="/images/icons/logo.svg"
+								width={313}
+								height={93}
+								alt="logo-eternal-kingdoms"
+							/>
+							<div className="text-center font-medium">
+								<Lottie
+									width={120}
+									options={{
+										loop: true,
+										autoplay: true,
+										animationData: LoadingAnimation,
+										rendererSettings: {
+											preserveAspectRatio: 'xMidYMid slice'
+										}
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</>
+		</Fragment>
 	);
 };
 export default OkLoadingPage;
