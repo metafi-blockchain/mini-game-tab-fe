@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const NoItem = () => {
+interface NoItemProps {
+	msg?: string;
+}
+
+export const NoItem = ({ msg }: NoItemProps) => {
 	return (
 		<div className="flex flex-1 flex-col items-center justify-center gap-1">
 			<img
@@ -9,7 +13,7 @@ export const NoItem = () => {
 				src="/images/icons/box-empty.svg"
 				alt="fast-wind-icon"
 			/>
-			<span className="text-[#FFFFFF99] text-sm">No tasks yet</span>
+			<span className="text-[#FFFFFF99] text-sm">{msg ?? 'No tasks yet'}</span>
 		</div>
 	);
 };

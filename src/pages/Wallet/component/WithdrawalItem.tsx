@@ -6,36 +6,62 @@ import './index.scss';
 export interface IPropWithdrawalItem {
 	name?: string;
 	wallet?: number;
-	amount?: number;
+	amount?: any;
 	address?: string;
 	time?: string;
 	status: string;
+	isDiff?: boolean;
 }
 const WithdrawalItem = (props: IPropWithdrawalItem) => {
-	const { name, wallet, address, time, amount, status } = props;
+	const { name, wallet, address, time, amount, status, isDiff = false } = props;
 	return (
 		<div className="flex flex-row gap-3 mt-2 item-booster items-center bg-card h-[67px]">
 			<div className="flex flex-1 flex-row justify-between">
 				<div className="flex flex-1 flex-col">
 					<div className="flex flex-col gap-1">
-						<div className="flex flex-1 flex-row justify-between">
-							<div className="flex flex-1 flex-row ">
-								<div className="flex flex-row gap-1 items-center">
-									<img
-										src="/images/icons/ton-logo.svg"
-										width={16}
-										height={16}
-										alt="ton-coin"
-									/>
-									<span className="text-sm font-medium text-white">
-										{formatNumberDownRound(amount)}
-									</span>
+						{isDiff ? (
+							<div className="flex flex-1 flex-row justify-between">
+								<div>
+									<span className="text-sm font-medium">{name}</span>
+								</div>
+								<div
+									className="flex flex-1 flex-row"
+									style={{ justifyContent: 'flex-end' }}
+								>
+									<div className="flex flex-row gap-1 items-center">
+										<img
+											src="/images/icons/ton-logo.svg"
+											width={16}
+											height={16}
+											alt="ton-coin"
+										/>
+										<span className="text-sm font-medium text-white">
+											{formatNumberDownRound(amount)}
+										</span>
+									</div>
 								</div>
 							</div>
-							<div>
-								<span className="text-sm">{status}</span>
+						) : (
+							<div className="flex flex-1 flex-row justify-between">
+								<div className="flex flex-1 flex-row ">
+									<div className="flex flex-row gap-1 items-center">
+										<img
+											src="/images/icons/ton-logo.svg"
+											width={16}
+											height={16}
+											alt="ton-coin"
+										/>
+										<span className="text-sm font-medium text-white">
+											{formatNumberDownRound(amount)}
+										</span>
+									</div>
+								</div>
+								<div>
+									<span className="text-sm">{status}</span>
+								</div>
 							</div>
-						</div>
+						)}
+
 						<a
 							href={`${
 								import.meta.env.VITE_TON_SCAN

@@ -22,6 +22,13 @@ export const confirmAirdropPoint = () => {
 export const makeWithdrawRequest = (body: any) => {
 	return axiosInstance.post(ENDPOINTS.withdrawRequest, body);
 };
-export const fetchListWithdrawRequest = () => {
-	return axiosInstance.post(ENDPOINTS.listWithdrawRequest);
+export const fetchListWithdrawRequest = (status: string) => {
+	return axiosInstance.post(ENDPOINTS.listWithdrawRequest, {
+		status: status
+	});
+};
+export const fetchUserListWithdrawRequest = () => {
+	return axiosInstance.post(ENDPOINTS.listUserWithdrawRequest, {
+		isGetAll: true
+	});
 };

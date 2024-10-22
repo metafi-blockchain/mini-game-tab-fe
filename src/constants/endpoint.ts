@@ -17,5 +17,6 @@ export const ENDPOINTS = {
 	getAirdrop: 'get_airdrop_token',
 	confirmAirdrop: 'confirm_receive_airdrop_token',
 	withdrawRequest: 'withdraw-request',
-	listWithdrawRequest: 'list-withdraw-request'
+	listWithdrawRequest: 'list-withdraw-request',
+	listUserWithdrawRequest: 'list-user-withdraw-request'
 };

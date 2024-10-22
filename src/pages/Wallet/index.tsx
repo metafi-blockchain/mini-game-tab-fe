@@ -18,15 +18,36 @@ import {
 	useTonWallet
 } from '@tonconnect/ui-react';
 import OKButton from '@/components/Button';
-import { fetchListWithdrawRequest, makeWithdrawRequest } from '@/services/auth';
+import {
+	fetchListWithdrawRequest,
+	fetchUserListWithdrawRequest,
+	makeWithdrawRequest
+} from '@/services/auth';
 import { toast } from 'react-toastify';
 import OkModal from '@/components/Modal';
 import { pTimeout, pTimeoutException } from '@/utils';
 import { useSearchParams } from 'react-router-dom';
 import WithdrawalItem from './component/WithdrawalItem';
+import { NoItem } from '../Task/Component/NoItem';
 export interface IItemWallet {
 	title: string;
 	countTouch: string;
+}
+
+const WithdrawStatus = {
+	Pending: 'Pending',
+	Success: 'Success',
+	Fail: 'Fail'
+};
+
+export interface IWithdrawResponseItem {
+	telegramId: string;
+	amount: number;
+	address: string;
+	createdAt: string;
+	status: string;
+	firstName: string;
+	lastName: string;
 }
 
 const OkWallet = () => {
@@ -34,7 +55,16 @@ const OkWallet = () => {
 	const { userData } = useUser();
 	const wallet = useTonWallet();
 	const [isShowModal, setIsShowModal] = useState<boolean>(false);
-	const [listWithdraw, setListWithdraw] = useState<IWithdrawItem[]>([]);
+	const [listPendingWithdraw, setListPendingWithdraw] = useState<
+		IWithdrawResponseItem[]
+	>([]);
+	const [totalAmount, setTotalAmount] = useState(0);
+	const [userPendingListWithdraw, setPendingUserListWithdraw] = useState<
+		IWithdrawResponseItem[]
+	>([]);
+	const [userHistoryListWithdraw, setUserHistoryListWithdraw] = useState<
+		IWithdrawResponseItem[]
+	>([]);
 	const [dataWallet, setDataWallet] = useState<IItemWallet[]>([
 		{ title: 'Total Touches', countTouch: '-' },
 		{ title: 'Total Players', countTouch: '-' },
@@ -104,20 +134,59 @@ const OkWallet = () => {
 	};
 	useEffect(() => {
 		getInfoWallet();
-		getListWithdrawRequest();
+		getUserListWithdrawRequest();
 	}, []);
+
+	useEffect(() => {
+		if (keyActive == '1') {
+			getInfoWallet();
+		} else if (keyActive == '2') {
+			getUserListWithdrawRequest();
+		} else if (keyActive == '3') {
+			getListPendingWithdrawRequest();
+		}
+	}, [keyActive]);
+
 	useEffect(() => {
 		setTimeout(() => {
 			getInfoWallet();
 		}, 1000);
 	}, []);
 
-	const getListWithdrawRequest = async () => {
+	const getListPendingWithdrawRequest = async () => {
 		try {
-			const res = await fetchListWithdrawRequest();
-			console.log('getListWithdrawRequest===', res);
+			const res = await fetchListWithdrawRequest('pending');
+			console.log('getListPendingWithdrawRequest===', res);
 			if (get(res, 'data.success', false)) {
-				setListWithdraw(get(res, 'data.data', []));
+				const temp = get(res, 'data.data', []);
+				const tempAmount = temp.reduce(
+					(sum: number, item: IWithdrawResponseItem) => sum + item.amount,
+					0
+				);
+				setTotalAmount(tempAmount);
+				setListPendingWithdraw(temp);
+			}
+		} catch (error) {}
+	};
+
+	const getUserListWithdrawRequest = async () => {
+		try {
+			const res = await fetchUserListWithdrawRequest();
+			console.log('getUserListWithdrawRequest===', res);
+			if (get(res, 'data.success', false)) {
+				const temp: IWithdrawResponseItem[] = get(res, 'data.data', []);
+				setPendingUserListWithdraw(
+					temp.filter(
+						(item: IWithdrawResponseItem) =>
+							item.status === WithdrawStatus.Pending
+					)
+				);
+				setUserHistoryListWithdraw(
+					temp.filter(
+						(item: IWithdrawResponseItem) =>
+							item.status !== WithdrawStatus.Pending
+					)
+				);
 			}
 		} catch (error) {}
 	};
@@ -132,6 +201,7 @@ const OkWallet = () => {
 			console.log('handleMakeWithdraw====', res);
 			if (get(res, 'data.success', false)) {
 				toast.success('Make withdrawal request successfully!');
+				getUserListWithdrawRequest();
 			} else {
 				toast.error(
 					get(res, 'data.message', 'Make withdrawal request successfully!')
@@ -146,7 +216,7 @@ const OkWallet = () => {
 
 	const handlePayCommission = async () => {
 		try {
-			const res = await fetchListWithdrawRequest();
+			const res = await fetchListWithdrawRequest('pending');
 			if (get(res, 'data.success', false)) {
 				const listRequest = get(res, 'data.data', []);
 				if (listRequest.length > 0) {
@@ -228,6 +298,7 @@ const OkWallet = () => {
 		{
 			label: 'Overview',
 			key: '1',
+			visible: true,
 			hasDot: false,
 			render: (
 				<div className="flex-1">
@@ -297,6 +368,7 @@ const OkWallet = () => {
 		{
 			label: 'Withdraw',
 			key: '2',
+			visible: true,
 			hasDot: false,
 			render: (
 				<div className="flex-1 ">
@@ -354,50 +426,57 @@ const OkWallet = () => {
 							Current request
 						</h4>
 						<div className="gap-1">
-							{[1].map((item: any, index: number) => {
-								return (
-									<WithdrawalItem
-										key={index + 'myPendingRequest'}
-										status="Pending"
-										address="aaa"
-										amount={1}
-										name="Address"
-									/>
-								);
-							})}
+							{userPendingListWithdraw.length > 0 ? (
+								userPendingListWithdraw.map(
+									(item: IWithdrawResponseItem, index: number) => {
+										return (
+											<WithdrawalItem
+												key={index + 'myDoneRequest'}
+												address={item.address}
+												status={item.status}
+												amount={formatNumberDownRound(
+													new BigNumber(get(item, 'amount', 0))
+														.dividedBy(10 ** 9)
+														.toNumber(),
+													9
+												)}
+												name={item.telegramId}
+											/>
+										);
+									}
+								)
+							) : (
+								<NoItem msg="No data yet" />
+							)}
 						</div>
 					</div>
 					<div className="overflow-auto mt-3">
 						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
 							Withdrawal history
 						</h4>
-						{/* {listWithdraw.map((item: IWithdrawItem, index: number) => {
-							return (
-								<div
-									key={index}
-									className="flex flex-col gap-2 items-center item-wallet bg-card"
-								>
-									<p className="m-0 truncate text-[#FFFFFF99] text-xs font-medium">
-										{item.telegramId}
-									</p>
-									<span className="text-[28px] text-white font-semibold">
-										{item.address}
-									</span>
-								</div>
-							);
-						})} */}
-						<div className="gap-1">
-							{[1, 2].map((item: any, index: number) => {
-								return (
-									<WithdrawalItem
-										key={index + 'myDoneRequest'}
-										address="aaa"
-										status="Success"
-										amount={1}
-										name="Address"
-									/>
-								);
-							})}
+						<div>
+							{userHistoryListWithdraw.length > 0 ? (
+								userHistoryListWithdraw.map(
+									(item: IWithdrawResponseItem, index: number) => {
+										return (
+											<WithdrawalItem
+												key={index + 'myDoneRequest'}
+												address={item.address}
+												status={item.status}
+												amount={formatNumberDownRound(
+													new BigNumber(get(item, 'amount', 0))
+														.dividedBy(10 ** 9)
+														.toNumber(),
+													9
+												)}
+												name={item.telegramId}
+											/>
+										);
+									}
+								)
+							) : (
+								<NoItem msg="No data yet" />
+							)}
 						</div>
 					</div>
 				</div>
@@ -405,6 +484,7 @@ const OkWallet = () => {
 		},
 		{
 			label: 'Commission',
+			visible: [459926971].includes(Number(userData?.telegramId)),
 			key: '3',
 			hasDot: false,
 			render: (
@@ -421,9 +501,7 @@ const OkWallet = () => {
 						/>
 						<h1 className="text-[42px] m-0 text-white font-semibold">
 							{formatNumberDownRound(
-								new BigNumber(get(userData, 'tonBalance', 0))
-									.dividedBy(10 ** 9)
-									.toNumber(),
+								new BigNumber(totalAmount).dividedBy(10 ** 9).toNumber(),
 								9
 							)}
 						</h1>
@@ -444,20 +522,28 @@ const OkWallet = () => {
 							Current pending request
 						</h4>
 						<div className="gap-1">
-							{[1].map((item: any, index: number) => {
-								return (
-									<WithdrawalItem
-										key={index + 'currentPending'}
-										status="Pending"
-										address="aaa"
-										amount={1}
-										name="Address"
-									/>
-								);
-							})}
+							{listPendingWithdraw.map(
+								(item: IWithdrawResponseItem, index: number) => {
+									return (
+										<WithdrawalItem
+											isDiff={true}
+											key={index + 'currentPending'}
+											address={item.address}
+											status={item.status}
+											amount={formatNumberDownRound(
+												new BigNumber(get(item, 'amount', 0))
+													.dividedBy(10 ** 9)
+													.toNumber(),
+												9
+											)}
+											name={`${item.firstName} ${item.lastName}`}
+										/>
+									);
+								}
+							)}
 						</div>
 					</div>
-					<div className="overflow-auto mt-3">
+					{/* <div className="overflow-auto mt-3">
 						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
 							Commission history
 						</h4>
@@ -476,7 +562,7 @@ const OkWallet = () => {
 								}
 							)}
 						</div>
-					</div>
+					</div> */}
 				</div>
 			)
 		}
@@ -489,22 +575,24 @@ const OkWallet = () => {
 				<div className="content-page pt-6 px-4 gap-4">
 					<div className="tab-menu">
 						<ul className="list-none p-0 flex flex-row justify-between items-center">
-							{items.map(item => (
-								<li
-									onClick={() => handleChangeTab(item)}
-									key={item.key}
-									className={`${
-										item.key === keyActive ? 'tab-active' : ''
-									} item-tap`}
-								>
-									<span>
-										{item.label}{' '}
-										{item.hasDot && item.key !== keyActive && (
-											<div className="dot-red"></div>
-										)}
-									</span>
-								</li>
-							))}
+							{items
+								.filter((item: any) => item.visible === true)
+								.map(item => (
+									<li
+										onClick={() => handleChangeTab(item)}
+										key={item.key}
+										className={`${
+											item.key === keyActive ? 'tab-active' : ''
+										} item-tap`}
+									>
+										<span>
+											{item.label}{' '}
+											{item.hasDot && item.key !== keyActive && (
+												<div className="dot-red"></div>
+											)}
+										</span>
+									</li>
+								))}
 						</ul>
 					</div>
 					<div className="content-tab overflow-y-auto flex-1">
