@@ -66,7 +66,7 @@ const OkWallet = () => {
 		IWithdrawResponseItem[]
 	>([]);
 	const [dataWallet, setDataWallet] = useState<IItemWallet[]>([
-		{ title: 'Total Touches', countTouch: '-' },
+		{ title: 'Total Points', countTouch: '-' },
 		{ title: 'Total Players', countTouch: '-' },
 		{ title: 'Daily Users', countTouch: '-' },
 		{ title: 'Online Players', countTouch: '-' }
@@ -308,16 +308,16 @@ const OkWallet = () => {
 							style={{ borderBottom: '1px solid #1E293B' }}
 						>
 							<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
-								Your Current Achievement
+								Total Share Balance
 							</h4>
 							<div className="flex flex-row items-center justify-center gap-3">
 								<img
-									width={28}
-									height={28}
+									width={36}
+									height={36}
 									src="/images/icons/coin.svg"
 									alt="icon-coin"
 								/>
-								<h1 className="text-[36px] m-0 text-white font-semibold">
+								<h1 className="text-[42px] m-0 text-white font-semibold">
 									{formatNumberDownRound(totalShare)}
 								</h1>
 							</div>
