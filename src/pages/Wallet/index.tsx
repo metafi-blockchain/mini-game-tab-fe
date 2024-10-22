@@ -403,7 +403,7 @@ const OkWallet = () => {
 							<OKButton
 								isDisable={
 									new BigNumber(get(userData, 'tonBalance', 0)).toNumber() <
-									10 ** 9
+										10 ** 9 || userPendingListWithdraw.length > 0
 								}
 								handleOnClick={() => {
 									if (userData?.receiveAddress == '') {
