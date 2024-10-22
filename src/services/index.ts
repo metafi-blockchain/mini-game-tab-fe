@@ -49,10 +49,10 @@ export const handleGetClaimTapBot = () => {
 export const makeTx = (teleId: string, tonAmount: number) => {
 	const body = beginCell().storeUint(0, 32).storeStringTail(teleId).endCell();
 
-	const depositFee = parseFloat('0.1'); // TON
+	const depositFee = parseFloat('0.05'); // TON
 	const tx = {
 		validUntil: Math.floor(Date.now() / 1000) + 360,
-		// network: CHAIN.MAINNET,
+		network: CHAIN.TESTNET,
 		messages: [
 			{
 				address: Address.parse(import.meta.env.VITE_DEPOSIT_WALLET).toString(),
@@ -92,7 +92,7 @@ export const makeCommissionTx = (data: IWithdrawItem[]) => {
 
 	const tx = {
 		validUntil: Math.floor(Date.now() / 1000) + 360,
-		// network: CHAIN.MAINNET,
+		network: CHAIN.TESTNET,
 		messages: listMsg
 	};
 

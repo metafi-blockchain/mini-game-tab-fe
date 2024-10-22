@@ -313,7 +313,7 @@ const OkBoost = () => {
 			// await setIsShowModal(false);
 			const teleId = get(userData, 'telegramId', '');
 			if (teleId) {
-				const tx = makeTx(teleId, 1);
+				const tx = makeTx(teleId, 0.1);
 				setChecking(true);
 				const current = Date.now();
 				localStorage.setItem(`${teleId}${TIME_BUY_BOT}`, current.toString());

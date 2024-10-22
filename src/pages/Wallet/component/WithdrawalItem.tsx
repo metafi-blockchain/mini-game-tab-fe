@@ -12,7 +12,7 @@ export interface IPropWithdrawalItem {
 	isDiff?: boolean;
 }
 const WithdrawalItem = (props: IPropWithdrawalItem) => {
-	const { name, amount, status, isDiff = false } = props;
+	const { name, amount, status, isDiff = false, address } = props;
 	return (
 		<div className="flex flex-row gap-3 mt-2 item-booster items-center bg-card h-[67px]">
 			<div className="flex flex-1 flex-row justify-between">
@@ -49,23 +49,20 @@ const WithdrawalItem = (props: IPropWithdrawalItem) => {
 									</span>
 								</div>
 								<div>
-									<span className={`withdrawal-item-name ${status}`}>{status}</span>
+									<span className={`withdrawal-item-name ${status}`}>
+										{status}
+									</span>
 								</div>
 							</div>
 						)}
 
 						<a
 							rel="noreferrer"
-							href={`${
-								import.meta.env.VITE_TON_SCAN
-							}/${'UQDBhNgJzBcwQDCVN_QZIijMTQD6FaNyLOHiZGl6t6Zqz1X5'}`}
+							href={`${import.meta.env.VITE_TON_SCAN}/${address}`}
 							target="_blank"
 							className="text-[#FFFFFF99] font-normal text-xs"
 						>
-							{minimizeAddress(
-								'UQDBhNgJzBcwQDCVN_QZIijMTQD6FaNyLOHiZGl6t6Zqz1X5',
-								12
-							)}
+							{minimizeAddress(address, 12)}
 						</a>
 					</div>
 				</div>
