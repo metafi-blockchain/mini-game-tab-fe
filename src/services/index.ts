@@ -79,10 +79,14 @@ export const makeCommissionTx = (data: IWithdrawItem[]) => {
 			.storeUint(0, 32)
 			.storeStringTail(item.telegramId)
 			.endCell();
+		const address =
+			import.meta.env.VITE_ENV === 'Testnet'
+				? JSON.parse(item.address).TestNet
+				: JSON.parse(item.address).MainNet;
 		listMsg.push({
-			address: item.address,
+			address: address,
 			amount: toNano(
-				new BigNumber(item.amount).dividedBy(10 ** 9).toNumber() + depositFee
+				new BigNumber(item.amount).dividedBy(10 ** 9).toNumber()
 			).toString(),
 			payload: body.toBoc().toString('base64')
 		});

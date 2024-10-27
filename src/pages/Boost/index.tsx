@@ -163,6 +163,13 @@ const OkBoost = () => {
 			const energyLimitLevel = get(userData, 'energyLimitLevel', 1);
 			const haveTapBot = get(userData, 'haveTapBot', false);
 			const havePremiumBot = get(userData, 'havePremiumBot', false);
+			if (havePremiumBot) {
+				localStorage.setItem(`${teleId}${TRY_BUY_BOT}`, '');
+				localStorage.setItem(`${teleId}${TIME_BUY_BOT}`, '');
+				if (interval2.current) {
+					clearInterval(interval2.current);
+				}
+			}
 			const result: any = [];
 			Object.values(temp).forEach((item: any, index: number) => {
 				if (index === 0) {

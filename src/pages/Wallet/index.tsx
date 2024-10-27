@@ -250,6 +250,14 @@ const OkWallet = () => {
 	};
 
 	const renderBodyTapping = () => {
+		const addressJson = get(userData, 'receiveAddress', '');
+		let address = '';
+		if (addressJson.length > 0) {
+			address =
+				import.meta.env.VITE_ENV === 'Testnet'
+					? JSON.parse(addressJson).TestNet
+					: JSON.parse(addressJson).MainNet;
+		}
 		return (
 			<div className="flex flex-col items-center gap-6">
 				<div className="flex flex-col items-center gap-4">
@@ -269,14 +277,14 @@ const OkWallet = () => {
 						)}{' '}
 						TON to your deposit wallet?
 						<br />
-						<a
-							href={`${import.meta.env.VITE_TON_SCAN}/${
-								userData?.receiveAddress
-							}`}
-							target="_blank"
-						>
-							{minimizeAddress(userData?.receiveAddress, 12)}
-						</a>
+						{address && (
+							<a
+								href={`${import.meta.env.VITE_TON_SCAN}/${address}`}
+								target="_blank"
+							>
+								{minimizeAddress(address, 12)}
+							</a>
+						)}
 					</p>
 				</div>
 				<OKButton
@@ -429,10 +437,14 @@ const OkWallet = () => {
 							{userPendingListWithdraw.length > 0 ? (
 								userPendingListWithdraw.map(
 									(item: IWithdrawResponseItem, index: number) => {
+										const address =
+											import.meta.env.VITE_ENV === 'Testnet'
+												? JSON.parse(item.address).TestNet
+												: JSON.parse(item.address).MainNet;
 										return (
 											<WithdrawalItem
 												key={index + 'myDoneRequest'}
-												address={item.address}
+												address={address}
 												status={item.status}
 												amount={formatNumberDownRound(
 													new BigNumber(get(item, 'amount', 0))
@@ -458,10 +470,14 @@ const OkWallet = () => {
 							{userHistoryListWithdraw.length > 0 ? (
 								userHistoryListWithdraw.map(
 									(item: IWithdrawResponseItem, index: number) => {
+										const address =
+											import.meta.env.VITE_ENV === 'Testnet'
+												? JSON.parse(item.address).TestNet
+												: JSON.parse(item.address).MainNet;
 										return (
 											<WithdrawalItem
 												key={index + 'myDoneRequest'}
-												address={item.address}
+												address={address}
 												status={item.status}
 												amount={formatNumberDownRound(
 													new BigNumber(get(item, 'amount', 0))
@@ -524,11 +540,15 @@ const OkWallet = () => {
 						<div className="gap-1">
 							{listPendingWithdraw.map(
 								(item: IWithdrawResponseItem, index: number) => {
+									const address =
+										import.meta.env.VITE_ENV === 'Testnet'
+											? JSON.parse(item.address).TestNet
+											: JSON.parse(item.address).MainNet;
 									return (
 										<WithdrawalItem
 											isDiff={true}
 											key={index + 'currentPending'}
-											address={item.address}
+											address={address}
 											status={item.status}
 											amount={formatNumberDownRound(
 												new BigNumber(get(item, 'amount', 0))
@@ -584,6 +604,7 @@ const OkWallet = () => {
 										className={`${
 											item.key === keyActive ? 'tab-active' : ''
 										} item-tap`}
+										style={{ flex: 1, textAlign: 'center' }}
 									>
 										<span>
 											{item.label}{' '}
