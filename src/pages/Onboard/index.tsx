@@ -29,7 +29,7 @@ const Onboard = (props: Props) => {
 							handleOnClick={() => {
 								navigate('/onboard/steps', { replace: true });
 							}}
-							rootClass="w-full primary-button rounded-lg text-base"
+							rootClass="w-full primary-button rounded-lg text-base mb-4"
 							text={"Let's go"}
 						/>
 					</div>
