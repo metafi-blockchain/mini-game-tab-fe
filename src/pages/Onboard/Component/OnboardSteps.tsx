@@ -99,7 +99,8 @@ const OnboardSteps = () => {
 
 					<OKButton
 						handleOnClick={handleNext}
-						rootClass="flex-none primary-button rounded-lg text-base mb-4"
+						rootClass="flex-none primary-button rounded-lg text-base"
+						style={{ marginBottom: 16 }}
 						text={'Continue'}
 					/>
 				</div>
