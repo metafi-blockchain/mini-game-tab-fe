@@ -29,6 +29,7 @@ export interface IUserData {
 	tonBalance: number;
 	isReceiveAirdrop: boolean;
 	receiveAddress: string;
+	isAdmin: boolean;
 }
 
 interface IUserContext {

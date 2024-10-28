@@ -23,9 +23,16 @@ export const makeWithdrawRequest = (body: any) => {
 	return axiosInstance.post(ENDPOINTS.withdrawRequest, body);
 };
 export const fetchListWithdrawRequest = (status: string) => {
-	return axiosInstance.post(ENDPOINTS.listWithdrawRequest, {
-		status: status
-	});
+	return axiosInstance.post(
+		ENDPOINTS.listWithdrawRequest,
+		status
+			? {
+					status: status
+			  }
+			: {
+					isGetAll: true
+			  }
+	);
 };
 export const fetchUserListWithdrawRequest = () => {
 	return axiosInstance.post(ENDPOINTS.listUserWithdrawRequest, {

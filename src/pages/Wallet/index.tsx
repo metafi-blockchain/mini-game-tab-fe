@@ -52,10 +52,13 @@ export interface IWithdrawResponseItem {
 
 const OkWallet = () => {
 	const [tonConnectUI, setOptions] = useTonConnectUI();
-	const { userData } = useUser();
+	const { userData, getMeInfo } = useUser();
 	const wallet = useTonWallet();
 	const [isShowModal, setIsShowModal] = useState<boolean>(false);
 	const [listPendingWithdraw, setListPendingWithdraw] = useState<
+		IWithdrawResponseItem[]
+	>([]);
+	const [listCompletedWithdraw, setListCompletedWithdraw] = useState<
 		IWithdrawResponseItem[]
 	>([]);
 	const [totalAmount, setTotalAmount] = useState(0);
@@ -142,6 +145,7 @@ const OkWallet = () => {
 			getInfoWallet();
 		} else if (keyActive == '2') {
 			getUserListWithdrawRequest();
+			getMeInfo();
 		} else if (keyActive == '3') {
 			getListPendingWithdrawRequest();
 		}
@@ -155,7 +159,7 @@ const OkWallet = () => {
 
 	const getListPendingWithdrawRequest = async () => {
 		try {
-			const res = await fetchListWithdrawRequest('pending');
+			const res = await fetchListWithdrawRequest('');
 			console.log('getListPendingWithdrawRequest===', res);
 			if (get(res, 'data.success', false)) {
 				const temp = get(res, 'data.data', []);
@@ -164,7 +168,16 @@ const OkWallet = () => {
 					0
 				);
 				setTotalAmount(tempAmount);
-				setListPendingWithdraw(temp);
+				const pendingList = temp.filter(
+					(item: IWithdrawResponseItem) =>
+						item.status === WithdrawStatus.Pending
+				);
+				const completedList = temp.filter(
+					(item: IWithdrawResponseItem) =>
+						item.status !== WithdrawStatus.Pending
+				);
+				setListPendingWithdraw(pendingList);
+				setListCompletedWithdraw(completedList);
 			}
 		} catch (error) {}
 	};
@@ -500,7 +513,7 @@ const OkWallet = () => {
 		},
 		{
 			label: 'Commission',
-			visible: [459926971].includes(Number(userData?.telegramId)),
+			visible: userData?.isAdmin,
 			key: '3',
 			hasDot: false,
 			render: (
@@ -538,51 +551,69 @@ const OkWallet = () => {
 							Current pending request
 						</h4>
 						<div className="gap-1">
-							{listPendingWithdraw.map(
-								(item: IWithdrawResponseItem, index: number) => {
-									const address =
-										import.meta.env.VITE_ENV === 'Testnet'
-											? JSON.parse(item.address).TestNet
-											: JSON.parse(item.address).MainNet;
-									return (
-										<WithdrawalItem
-											isDiff={true}
-											key={index + 'currentPending'}
-											address={address}
-											status={item.status}
-											amount={formatNumberDownRound(
-												new BigNumber(get(item, 'amount', 0))
-													.dividedBy(10 ** 9)
-													.toNumber(),
-												9
-											)}
-											name={`${item.firstName} ${item.lastName}`}
-										/>
-									);
-								}
+							{listPendingWithdraw.length > 0 ? (
+								listPendingWithdraw.map(
+									(item: IWithdrawResponseItem, index: number) => {
+										const address =
+											import.meta.env.VITE_ENV === 'Testnet'
+												? JSON.parse(item.address).TestNet
+												: JSON.parse(item.address).MainNet;
+										return (
+											<WithdrawalItem
+												isDiff={true}
+												key={index + 'currentPending'}
+												address={address}
+												status={item.status}
+												amount={formatNumberDownRound(
+													new BigNumber(get(item, 'amount', 0))
+														.dividedBy(10 ** 9)
+														.toNumber(),
+													9
+												)}
+												name={`${item.firstName} ${item.lastName}`}
+											/>
+										);
+									}
+								)
+							) : (
+								<NoItem msg="No data yet" />
 							)}
 						</div>
 					</div>
-					{/* <div className="overflow-auto mt-3">
+					<div className="overflow-auto mt-3">
 						<h4 className="text-[#FFFFFF99] m-0 text-[14px]">
-							Commission history
+							Completed request
 						</h4>
 						<div className="gap-1">
-							{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
-								(item: any, index: number) => {
-									return (
-										<WithdrawalItem
-											key={index + 'commission'}
-											address="aaa"
-											status="Success"
-											amount={1}
-											name="Address"
-										/>
-									);
-								}
+							{listCompletedWithdraw.length > 0 ? (
+								listCompletedWithdraw.map(
+									(item: IWithdrawResponseItem, index: number) => {
+										const address =
+											import.meta.env.VITE_ENV === 'Testnet'
+												? JSON.parse(item.address).TestNet
+												: JSON.parse(item.address).MainNet;
+										return (
+											<WithdrawalItem
+												isDiff={true}
+												key={index + 'currentPending'}
+												address={address}
+												status={item.status}
+												amount={formatNumberDownRound(
+													new BigNumber(get(item, 'amount', 0))
+														.dividedBy(10 ** 9)
+														.toNumber(),
+													9
+												)}
+												name={`${item.firstName} ${item.lastName}`}
+											/>
+										);
+									}
+								)
+							) : (
+								<NoItem msg="No data yet" />
 							)}
 						</div>
-					</div> */}
+					</div>
 				</div>
 			)
 		}
