@@ -163,11 +163,6 @@ const OkWallet = () => {
 			console.log('getListPendingWithdrawRequest===', res);
 			if (get(res, 'data.success', false)) {
 				const temp = get(res, 'data.data', []);
-				const tempAmount = temp.reduce(
-					(sum: number, item: IWithdrawResponseItem) => sum + item.amount,
-					0
-				);
-				setTotalAmount(tempAmount);
 				const pendingList = temp.filter(
 					(item: IWithdrawResponseItem) =>
 						item.status === WithdrawStatus.Pending
@@ -176,6 +171,12 @@ const OkWallet = () => {
 					(item: IWithdrawResponseItem) =>
 						item.status !== WithdrawStatus.Pending
 				);
+				const tempAmount = pendingList.reduce(
+					(sum: number, item: IWithdrawResponseItem) => sum + item.amount,
+					0
+				);
+				setTotalAmount(tempAmount);
+
 				setListPendingWithdraw(pendingList);
 				setListCompletedWithdraw(completedList);
 			}
