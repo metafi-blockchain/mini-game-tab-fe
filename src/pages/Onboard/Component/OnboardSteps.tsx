@@ -14,6 +14,7 @@ interface OnboardStepsProps {}
 
 const OnboardSteps = () => {
 	const navigate = useNavigate();
+	const { getMeInfo } = useUser();
 	const [airdrop, setAirdrop] = useState(null);
 	const steps = [
 		<StepOne />,
@@ -23,6 +24,7 @@ const OnboardSteps = () => {
 
 	useEffect(() => {
 		handleGetAirdropPoint();
+		getMeInfo();
 	}, []);
 
 	const [currentStep, setCurrentStep] = useState(0);
@@ -182,7 +184,11 @@ function StepTwo({ year }: StepTwoProps) {
 			</div>
 			<div className="text-base font-medium">
 				<div>Your account number is #{get(userData, 'telegramId', '')}</div>
-				<div>You’re in the Top 75% Telegram users</div>
+				<div>
+					You’re in the Top{' '}
+					{year >= 11 ? '1' : (((11 - year) * 100) / 11).toFixed(2)}% Telegram
+					users
+				</div>
 			</div>
 		</div>
 	);
