@@ -1,0 +1,28 @@
+.button-base {
+	color: #ffffff;
+	background: #6366f1;
+	padding: 16px 20px;
+	border-radius: 6px;
+	border: none;
+	font-weight: 500;
+	font-family: Inter, sans-serif;
+}
+.button-base:disabled {
+	color: #96a3b6;
+	background: #3a4a5f;
+}
+.loader {
+	border-top: 1px solid #ffffff; /* Blue */
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	animation: spin 1s linear infinite;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

@@ -7,6 +7,16 @@ import { Root } from '@/components/Root';
 import './mockEnv.ts';
 
 import '@telegram-apps/telegram-ui/dist/styles.css';
+<<<<<<< HEAD
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<Root/>);
+=======
+import './index.scss';
+import { Buffer } from 'buffer';
+
+window.Buffer = Buffer;
+
+ReactDOM.createRoot(document.getElementById('root')!).render(<Root />);
+
+>>>>>>> v2

@@ -1,12 +1,20 @@
 # Telegram Mini Apps React Template
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> v2
 This template demonstrates how developers can implement a single-page application on the Telegram
 Mini Apps platform using the following technologies and libraries:
 
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TON Connect](https://docs.ton.org/develop/dapps/ton-connect/overview)
+<<<<<<< HEAD
 - [@telegram-apps SDK](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk)
+=======
+- [@tma.js SDK](https://docs.telegram-mini-apps.com/packages/tma-js-sdk)
+>>>>>>> v2
 - [Telegram UI](https://github.com/Telegram-Mini-Apps/TelegramUI)
 - [Vite](https://vitejs.dev/)
 
@@ -60,6 +68,7 @@ npm run dev
 After this, you will see a similar message in your terminal:
 
 ```bash
+<<<<<<< HEAD
 VITE v5.2.12  ready in 237 ms
 
 ➜  Local:   http://localhost:5173/play-to-airdrop
@@ -78,6 +87,20 @@ link (`http://localhost:5173/play-to-airdrop` in this example) in your browser:
 ![Application](assets/application.png)
 
 It is important to note that some libraries in this template, such as `@telegram-apps/sdk`, are not
+=======
+VITE ready in 275 ms
+
+➜  Local:   http://localhost:5173/watermineapp
+➜  press h + enter to show help
+```
+
+To view the application, you need to open the `Local`
+link (`http://localhost:5173/watermineapp` in this example) in your browser:
+
+![Application](assets/application.png)
+
+It is important to note that some libraries in this template, such as `@tma.js/sdk`, are not
+>>>>>>> v2
 intended for use outside of Telegram.
 
 Nevertheless, they appear to function properly. This is because the `src/mockEnv.ts` file, which is
@@ -104,6 +127,7 @@ which browsers will recognize as unsafe, resulting in a warning when accessing t
 After uncommenting the function, run the `dev` script again and observe the output in your terminal:
 
 ```bash
+<<<<<<< HEAD
 VITE v5.2.12  ready in 265 ms
 
 ➜  Local:   https://localhost:5173/play-to-airdrop
@@ -114,6 +138,15 @@ VITE v5.2.12  ready in 265 ms
 ```
 
 Visiting the `Local` link (`https://localhost:5173/play-to-airdrop` in this example) in your
+=======
+VITE ready in 331 ms
+
+➜  Local:   https://localhost:5173/watermineapp
+➜  press h + enter to show help
+```
+
+Visiting the `Local` link (`https://localhost:5173/watermineapp` in this example) in your
+>>>>>>> v2
 browser, you will see the following warning:
 
 ![SSL Warning](assets/ssl-warning.png)
@@ -121,11 +154,41 @@ browser, you will see the following warning:
 This browser warning is normal and can be safely ignored as long as the site is secure. Click
 the `Proceed to localhost (unsafe)` button to continue and view the application.
 
+<<<<<<< HEAD
 Once the application is displayed correctly, submit one of the `Network` links as the Mini App link
+=======
+Once the application is displayed correctly, submit this link as the Mini App link
+>>>>>>> v2
 to [@BotFather](https://t.me/botfather). Then, navigate
 to [https://web.telegram.org/k/](https://web.telegram.org/k/), find your bot, and launch the
 Telegram Mini App. This approach provides the full development experience.
 
+<<<<<<< HEAD
+=======
+### Expose Dev Server
+
+Sometimes, you might want to view the application on other devices.
+
+To expose your development server to local network devices, go to the `vite.config.ts` file and
+uncomment the line defining the `host` option.
+
+Alternatively, you can achieve this by running the command `vite --host`.
+
+Here is an example of the output you will see:
+
+```bash
+VITE v5.2.12  ready in 257 ms
+
+➜  Local:   https://localhost:5173/watermineapp
+➜  Network: https://172.27.224.1:5173/watermineapp
+➜  Network: https://172.19.32.1:5173/watermineapp
+➜  Network: https://192.168.0.171:5173/watermineapp
+```
+
+All `Network` links listed here are accessible to devices on the same network. Using these links,
+those devices will be able to view the application.
+
+>>>>>>> v2
 > **Important**
 >
 > Because we are using self-signed SSL certificates, the Android and iOS Telegram applications will
@@ -229,5 +292,9 @@ project's information.
 ## Useful Links
 
 - [Platform documentation](https://docs.telegram-mini-apps.com/)
+<<<<<<< HEAD
 - [@telegram-apps/sdk-react documentation](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk-react)
+=======
+- [@tma.js/sdk-react documentation](https://docs.telegram-mini-apps.com/packages/tma-js-sdk-react)
+>>>>>>> v2
 - [Telegram developers community chat](https://t.me/devs)
