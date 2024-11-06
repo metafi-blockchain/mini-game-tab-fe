@@ -15,6 +15,16 @@ spec:
     spec:
       containers:
       - name: mini-game-tab-fe-container
-        image: phuc1205/mini-game-tab-fe:v1.0.0
+        image: metafi/ok-mini-app-fe:0.1.0
         ports:
         - containerPort: 80
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        envFrom:
+        - configMapRef:
+            name: mini-game-config
