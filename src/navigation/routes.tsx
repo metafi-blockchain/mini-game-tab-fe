@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import type { ComponentType, JSX } from 'react'
-import { IndexPage } from '@/pages'
-
-interface Route {
-  path: string
-  Component: ComponentType
-  title?: string
-  icon?: JSX.Element
-}
-
-export const routes: Route[] = [{ path: '/', Component: IndexPage }]
-=======
 import type { ComponentType, JSX } from 'react';
 
 import { TONConnectPage } from '@/pages/TONConnectPage/TONConnectPage';
@@ -69,4 +56,3 @@ export const routes: Route[] = [
 		)
 	}
 ];
->>>>>>> v2

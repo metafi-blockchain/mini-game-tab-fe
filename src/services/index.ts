@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-export {}
-=======
 import { ENDPOINTS } from '@/constants/endpoint';
 import axiosInstance from '@/utils/axios';
 import { beginCell, toNano, Address } from '@ton/ton';
@@ -105,4 +102,3 @@ export const makeCommissionTx = (data: IWithdrawItem[]) => {
 
 	return tx;
 };
->>>>>>> v2

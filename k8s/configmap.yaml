@@ -5,7 +5,7 @@ metadata:
   namespace: minigame
 data:
   VITE_DEPOSIT_WALLET: "0QAlfZm0WU3R81n_yg-wEUmHRgLRMBSm8uhI8sUo4-H2VwAO"
-  VITE_TELE_LINK: "https://t.me/MetafiDevBot"
+  VITE_TELE_LINK: "https://t.me/ekgsd_bot"
   VITE_YOUTUBE_LINK: "http://www.youtube.com"
   VITE_X_LINK: "https://x.com"
   VITE_BASE_URL: "https://minigame.metafi.gg/api2"
