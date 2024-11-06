@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mini-game-tab-fe
+  namespace: minigame
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing          # ALB accessible from the internet
+    alb.ingress.kubernetes.io/target-type: instance            # Target EC2 instances using NodePort
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'   # ALB listens on HTTP port 80
+spec:
+  ingressClassName: alb  # Specifies AWS ALB Ingress Controller
+  rules:
+    - host: minigame.metafi.gg  
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mini-game-tab-fe-service
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: okcoin-api-service
+                port:
+                  number: 80

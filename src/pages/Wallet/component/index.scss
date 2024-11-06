@@ -1,0 +1,57 @@
+.status-base {
+	color: #ffffff;
+	background: #6366f1;
+	padding: 4px 4px;
+	border-radius: 6px;
+	font-family: Inter, sans-serif;
+}
+.withdrawal-item-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+.withdrawal-item-name {
+	flex: 1;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	&.Pending {
+		color: #f5c033;
+	}
+	&.Success {
+		color: #29b314;
+	}
+	&.Fail {
+		color: #1bffe0;
+	}
+
+	// Begin style 2
+	&.Pending {
+		background: linear-gradient(270deg, #ffce31 0%, #9a403f 100%);
+	}
+	&.Success {
+		background: linear-gradient(59.41deg, #549fff 5.18%, #1bffe0 90.08%);
+	}
+	&.Fail {
+		background: linear-gradient(59.41deg, #b00c17 5.18%, #ff4b57 90.08%);
+	}
+	&.Pending,
+	&.Success,
+	&.Fail {
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		text-fill-color: transparent;
+	}
+	// End style 2
+}
+.withdrawal-item-value {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	white-space: nowrap;
+	span {
+		line-height: 16px;
+	}
+}

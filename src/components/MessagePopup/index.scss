@@ -1,0 +1,28 @@
+.wt-message-popup {
+	width: 320px;
+	max-width: 80vw;
+	background-color: #fff;
+	padding: 30px 18px;
+	border-radius: 30px;
+	text-align: center;
+	&-title {
+		font-size: 24px;
+		line-height: 18px;
+		margin-top: 0;
+		color: #0f4a8e;
+		font-weight: bold;
+		margin-bottom: 24px;
+	}
+	&-body {
+		color: #000000;
+		font-weight: 300;
+		margin-bottom: 30px;
+	}
+	.wt-btn {
+		padding: 18px 34px;
+		height: 60px;
+		color: #0f4a8e;
+		font-size: 20px;
+		line-height: 24px;
+	}
+}
