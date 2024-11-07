@@ -136,7 +136,7 @@ function StepOne() {
 	// }, []);
 
 	return (
-		<div className="flex flex-col gap-8">
+		<div className="flex flex-col gap-8 text-white">
 			<div className="text-[28px] font-medium">Checking your account</div>
 			<div className="space-y-4 m-auto">
 				{(items ?? []).map((item, index) => {
@@ -173,10 +173,10 @@ function StepTwo({ year }: StepTwoProps) {
 	const { userData } = useUser();
 
 	return (
-		<div className="flex flex-col h-full gap-8">
+		<div className="flex flex-col h-full gap-8 text-white">
 			<div className="text-[28px] font-medium">You’ve joined Telegram</div>
 			<div className="grow flex flex-col gap-4 m-auto">
-				<div className="text-9xl font-semibold">{year}</div>
+				<div className="text-9xl font-semibold text-white">{year}</div>
 				<div className="text-[28px]">
 					<div>years ago</div>
 					<span>🎉</span>
@@ -204,16 +204,18 @@ function StepThree({ airdrop }: StepThreeProps) {
 					options={{
 						loop: true,
 						autoplay: true,
+
 						animationData: FireWorkAnimation,
 						rendererSettings: {
 							preserveAspectRatio: 'xMidYMid slice'
 						}
 					}}
+					isClickToPauseDisabled={true}
 				/>
 			</div>
-			<div className="text-[28px] font-medium">You are amazing!</div>
+			<div className="text-[28px] font-medium text-white">You are amazing!</div>
 			<div className="grow flex flex-col gap-4 m-auto">
-				<div className="font-medium">Here’s your reward</div>
+				<div className="font-medium text-white">Here’s your reward</div>
 				<div className=" flex items-center gap-2">
 					<img
 						src="/images/icons/coin.svg"
@@ -221,12 +223,12 @@ function StepThree({ airdrop }: StepThreeProps) {
 						width={48}
 						height={48}
 					/>
-					<div className="text-6xl font-semibold">
+					<div className="text-6xl font-semibold text-white">
 						{formatNumberDownRound(airdrop)}
 					</div>
 				</div>
 			</div>
-			<div className="text-base font-medium">
+			<div className="text-base font-medium text-white">
 				<div>Thanks for your time on Telegram!</div>
 			</div>
 		</div>
