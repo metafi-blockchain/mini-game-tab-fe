@@ -179,6 +179,7 @@ const Task = () => {
 										data={temp}
 										showStep={true}
 										handleClick={() => handleClaimRankingOrRef(temp, true)}
+										taskValue={''}
 									/>
 								);
 							})
@@ -214,6 +215,7 @@ const Task = () => {
 										key={`${index}-${item.title}`}
 										data={temp}
 										handleClick={() => handleClaimRankingOrRef(temp, false)}
+										taskValue={item.taskValue ?? 0}
 									/>
 								);
 							})
