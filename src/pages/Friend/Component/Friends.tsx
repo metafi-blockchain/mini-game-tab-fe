@@ -82,7 +82,7 @@ const Friends = ({ items = [] }: Props) => {
 			</div>
 
 			<div className="space-y-2">
-				<div className="text-base font-semibold">
+				<div className="text-base font-semibold text-white">
 					Your Friends ({items?.length ?? 0})
 				</div>
 				<Card className="your-friend-list">
@@ -132,8 +132,8 @@ export function FriendLineItem({
 				'flex items-center gap-4 text-sm font-medium h-[48px]'
 			)}
 		>
-			<div className="flex-none min-w-12">{index + 1}</div>
-			<div className="flex-1">
+			<div className="flex-none min-w-12 text-white">{index + 1}</div>
+			<div className="flex-1 text-white">
 				{item?.firstName} {item?.lastName}
 			</div>
 			<div className="flex-none min-w-28 flex items-center gap-2">
@@ -143,7 +143,7 @@ export function FriendLineItem({
 					width={16}
 					height={16}
 				/>
-				<div>{formatNumberDownRound(item?.coin)}</div>
+				<div className="text-white">{formatNumberDownRound(item?.coin)}</div>
 			</div>
 		</div>
 	);

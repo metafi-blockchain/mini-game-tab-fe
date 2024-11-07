@@ -1,6 +1,7 @@
 import { Card, CardHeader } from '@/components/Card';
 import React from 'react';
 import { FriendLineItem } from './Friends';
+import { NoItem } from '@/pages/Task/Component/NoItem';
 
 type Props = {
 	items?: any[];
@@ -8,24 +9,33 @@ type Props = {
 
 const LeaderBoard = ({
 	items = [
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 },
-		{ name: 'Sophia', coin: 99999 }
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 },
+		// { name: 'Sophia', coin: 99999 }
 	]
 }: Props) => {
+	if (items.length == 0) {
+		return (
+			<NoItem
+				cls="mt-3"
+				msg="No leaderboard available!"
+				subMsg="Each tournament will only last for 1 month and will reset the following month."
+			/>
+		);
+	}
 	return (
 		<div className="">
 			<Card className="p-4">
