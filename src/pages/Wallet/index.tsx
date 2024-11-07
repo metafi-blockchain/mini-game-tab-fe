@@ -377,7 +377,7 @@ const OkWallet = () => {
 										/>
 									</a>
 
-									<a href={import.meta.env.VITE_X_LINK}>
+									<a href={'https://x.com/MetaFi_Network'}>
 										<img src="/images/icons/social/x.svg" alt="x-icon" />
 									</a>
 								</div>
