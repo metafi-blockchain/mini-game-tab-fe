@@ -14,7 +14,11 @@ body {
 	//background: linear-gradient(0deg, #031953 0%, #28c1fa 100%);
 	padding: 0;
 	margin: 0;
-	background: #030617;
+	// background: #030617;
+	background-image: url('/images/bg.png');
+	background-size: cover; /* Cover the entire div */
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Prevent the image from repeating */
 
 	color: #ffffff99;
 	font-weight: 400;

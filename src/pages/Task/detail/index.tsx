@@ -116,7 +116,7 @@ const OkTaskDetail = () => {
 						/>
 					</div>
 				</div>
-				<div className="p-4 pt-0">
+				{/* <div className="p-4 pt-0">
 					<div className="flex flex-row justify-between item-task items-center">
 						<p className="p-0 m-0 text-white">Chance to win so much reward</p>
 						<img
@@ -126,7 +126,7 @@ const OkTaskDetail = () => {
 							alt="logo"
 						/>
 					</div>
-				</div>
+				</div> */}
 				<div className="p-4 pb-0">
 					<div className="flex flex-row gap-2 items-center">
 						<div className="bg-[#1E293B] rounded-xl flex p-2">
@@ -135,6 +135,7 @@ const OkTaskDetail = () => {
 								height={30}
 								src="/images/icons/logo.png"
 								alt="logo"
+								style={{ objectFit: 'contain' }}
 							/>
 						</div>
 						<p className="m-0 p-0 text-sm text-white">ETERNAL KINGDOMS</p>

@@ -50,6 +50,7 @@ const OnboardSteps = () => {
 		try {
 			const res = await confirmAirdropPoint();
 			console.log('handleConfirmAirdrop===', res);
+			alert(JSON.stringify(res.data));
 			if (get(res, 'data.success', false)) {
 				navigate('/tap', { replace: true });
 			} else {
@@ -101,7 +102,7 @@ const OnboardSteps = () => {
 
 					<OKButton
 						handleOnClick={handleNext}
-						rootClass="flex-none primary-button rounded-lg text-base"
+						rootClass="flex-none primary-button rounded-lg text-base z-1000"
 						style={{ marginBottom: 16 }}
 						text={'Continue'}
 					/>
