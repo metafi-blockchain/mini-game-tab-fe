@@ -104,6 +104,7 @@ interface IPropsLineItemOther {
 	handleNavigate?: () => void;
 	isDifferent?: boolean;
 	showStep?: boolean;
+	taskValue?: any;
 }
 const LineItemOther = (props: IPropsLineItemOther) => {
 	const {
@@ -113,7 +114,7 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 		isCompleted = false,
 		isClaimed = false
 	} = props.data;
-	const { handleClick, handleNavigate, iconKey } = props;
+	const { handleClick, handleNavigate, iconKey, taskValue } = props;
 
 	return (
 		<Card onClick={handleNavigate && handleNavigate}>
@@ -130,9 +131,15 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 					<div className="flex-1 space-y-2">
 						<div className="flex gap-4 justify-between">
 							<div className="space-y-2 flex-1">
-								<span className="text-sm text-white font-medium truncate">
-									{title}
-								</span>
+								{taskValue !== '' ? (
+									<span className="text-sm text-white font-medium truncate">
+										{title} ({String(formatNumberDownRound(taskValue)).trim()})
+									</span>
+								) : (
+									<span className="text-sm text-white font-medium truncate">
+										{title}
+									</span>
+								)}
 								<div className="flex items-center gap-2 text-xs">
 									<img
 										src="/images/icons/coin.svg"
