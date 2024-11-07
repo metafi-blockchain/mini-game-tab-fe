@@ -186,7 +186,7 @@ function StepTwo({ year }: StepTwoProps) {
 				<div>Your account number is #{get(userData, 'telegramId', '')}</div>
 				<div>
 					You’re in the Top{' '}
-					{year >= 11 ? '1' : (((11 - year) * 100) / 11).toFixed(2)}% Telegram
+					{year >= 12 ? '1' : (((12 - year) * 100) / 12).toFixed(2)}% Telegram
 					users
 				</div>
 			</div>

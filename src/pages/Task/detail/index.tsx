@@ -109,7 +109,7 @@ const OkTaskDetail = () => {
 				<div className="p-4">
 					<div className="container-logo text-center">
 						<img
-							src="/images/icons/logo.svg"
+							src="/images/icons/logo.png"
 							width={182}
 							height={54}
 							alt="logo-eternal-kingdoms"
@@ -122,7 +122,7 @@ const OkTaskDetail = () => {
 						<img
 							width={30}
 							height={30}
-							src="/images/icons/logo.svg"
+							src="/images/icons/logo.png"
 							alt="logo"
 						/>
 					</div>
@@ -133,7 +133,7 @@ const OkTaskDetail = () => {
 							<img
 								width={30}
 								height={30}
-								src="/images/icons/logo.svg"
+								src="/images/icons/logo.png"
 								alt="logo"
 							/>
 						</div>
