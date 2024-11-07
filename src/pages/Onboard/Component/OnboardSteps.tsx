@@ -199,6 +199,18 @@ interface StepThreeProps {
 function StepThree({ airdrop }: StepThreeProps) {
 	return (
 		<div className="flex flex-col h-full gap-16">
+			<div className="absolute inset-0 z-0">
+				<Lottie
+					options={{
+						loop: true,
+						autoplay: true,
+						animationData: FireWorkAnimation,
+						rendererSettings: {
+							preserveAspectRatio: 'xMidYMid slice'
+						}
+					}}
+				/>
+			</div>
 			<div className="text-[28px] font-medium">You are amazing!</div>
 			<div className="grow flex flex-col gap-4 m-auto">
 				<div className="font-medium">Here’s your reward</div>
@@ -216,18 +228,6 @@ function StepThree({ airdrop }: StepThreeProps) {
 			</div>
 			<div className="text-base font-medium">
 				<div>Thanks for your time on Telegram!</div>
-			</div>
-			<div className="absolute inset-0 z-0">
-				<Lottie
-					options={{
-						loop: true,
-						autoplay: true,
-						animationData: FireWorkAnimation,
-						rendererSettings: {
-							preserveAspectRatio: 'xMidYMid slice'
-						}
-					}}
-				/>
 			</div>
 		</div>
 	);
