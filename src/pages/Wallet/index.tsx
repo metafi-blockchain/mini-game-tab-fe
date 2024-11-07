@@ -364,7 +364,7 @@ const OkWallet = () => {
 									Join our community
 								</p>
 								<div className="flex flex-row gap-1 justify-center items-center">
-									<a href={import.meta.env.VITE_TELE_CHANNEL_LINK}>
+									<a href={'https://t.me/MetaFi_Network_Official'}>
 										<img
 											src="/images/icons/social/telegram.svg"
 											alt="telegram-icon"

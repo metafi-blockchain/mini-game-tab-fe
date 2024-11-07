@@ -39,7 +39,9 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 					<div className="flex-none flex items-center">{leftIcon}</div>
 					<div className="flex-1 flex gap-4 justify-between">
 						<div className="space-y-2 flex-1">
-							<span className="text-sm font-medium truncate">{title}</span>
+							<span className="text-sm text-white font-medium truncate">
+								{title}
+							</span>
 							<div className="flex items-center gap-2">
 								<img
 									src="/images/icons/coin.svg"
@@ -48,7 +50,9 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 									height={16}
 									className=""
 								/>
-								<span className="text-xs">{formatNumberDownRound(reward)}</span>
+								<span className="text-xs text-white">
+									{formatNumberDownRound(reward)}
+								</span>
 							</div>
 						</div>
 						{isCompleted ? (
@@ -126,7 +130,9 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 					<div className="flex-1 space-y-2">
 						<div className="flex gap-4 justify-between">
 							<div className="space-y-2 flex-1">
-								<span className="text-sm font-medium truncate">{title}</span>
+								<span className="text-sm text-white font-medium truncate">
+									{title}
+								</span>
 								<div className="flex items-center gap-2 text-xs">
 									<img
 										src="/images/icons/coin.svg"
@@ -134,7 +140,9 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 										width={16}
 										height={16}
 									/>
-									<span>{formatNumberDownRound(reward)}</span>
+									<span className="text-white">
+										{formatNumberDownRound(reward)}
+									</span>
 								</div>
 							</div>
 							{isCompleted ? (

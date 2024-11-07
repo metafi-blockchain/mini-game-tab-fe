@@ -15,7 +15,7 @@ const Onboard = (props: Props) => {
 					<div className="flex flex-col justify-between items-center gap-6 h-full">
 						<div className="flex-1 flex flex-col justify-center items-center gap-6">
 							<img
-								src="/images/icons/logo.svg"
+								src="/images/icons/logo.png"
 								width={313}
 								height={93}
 								alt="logo-eternal-kingdoms"

@@ -9,6 +9,6 @@ data:
   VITE_YOUTUBE_LINK: "http://www.youtube.com"
   VITE_X_LINK: "https://x.com"
   VITE_BASE_URL: "https://minigame.metafi.gg/api2"
-  VITE_REF_LINK: "https://t.me/MetafiDevBot?mode=ref&startapp="
+  VITE_REF_LINK: "https://t.me/ekgsd_bot?mode=ref&startapp="
   VITE_TON_SCAN: "https://testnet.tonviewer.com"
   VITE_ENV: "Testnet"

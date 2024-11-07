@@ -212,7 +212,7 @@ const Tap = () => {
 						/>
 						<div className="absolute inset-x-0 top-0 m-auto flex flex-col gap-2 justify-center items-center">
 							<img
-								src="/images/icons/logo.svg"
+								src="/images/icons/logo.png"
 								width={182}
 								height={54}
 								alt="logo-eternal-kingdoms"
