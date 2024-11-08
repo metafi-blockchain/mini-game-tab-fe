@@ -29,6 +29,7 @@ const OnboardSteps = () => {
 
 	const [currentStep, setCurrentStep] = useState(0);
 	const handleNext = () => {
+		alert(currentStep);
 		if (currentStep < steps.length - 1) {
 			setCurrentStep(currentStep + 1);
 		} else {
@@ -47,6 +48,7 @@ const OnboardSteps = () => {
 	};
 
 	const handleConfirmAirdrop = async () => {
+		alert(2);
 		try {
 			const res = await confirmAirdropPoint();
 			console.log('handleConfirmAirdrop===', res);
@@ -218,7 +220,7 @@ function StepThree({ airdrop }: StepThreeProps) {
 			<div className="text-base font-medium text-white">
 				<div>Thanks for your time on Telegram!</div>
 			</div>
-			<div className="absolute inset-0 z-0">
+			{/* <div className="absolute inset-0 z-0">
 				<Lottie
 					options={{
 						loop: true,
@@ -231,7 +233,7 @@ function StepThree({ airdrop }: StepThreeProps) {
 					}}
 					isClickToPauseDisabled={true}
 				/>
-			</div>
+			</div> */}
 		</div>
 	);
 }
