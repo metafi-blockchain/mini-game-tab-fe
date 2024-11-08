@@ -29,7 +29,6 @@ const OnboardSteps = () => {
 
 	const [currentStep, setCurrentStep] = useState(0);
 	const handleNext = () => {
-		alert(currentStep);
 		if (currentStep < steps.length - 1) {
 			setCurrentStep(currentStep + 1);
 		} else {
@@ -48,11 +47,10 @@ const OnboardSteps = () => {
 	};
 
 	const handleConfirmAirdrop = async () => {
-		// alert(2);
+		alert('call api');
 		try {
 			const res = await confirmAirdropPoint();
 			console.log('handleConfirmAirdrop===', res);
-			// alert(JSON.stringify(res.data));
 			if (get(res, 'data.success', false)) {
 				navigate('/tap', { replace: true });
 			} else {
@@ -202,6 +200,26 @@ interface StepThreeProps {
 function StepThree({ airdrop }: StepThreeProps) {
 	return (
 		<div className="flex flex-col h-full gap-16">
+			<Lottie
+				options={{
+					loop: true,
+					autoplay: true,
+
+					animationData: FireWorkAnimation,
+					rendererSettings: {
+						preserveAspectRatio: 'xMidYMid slice'
+					}
+				}}
+				isClickToPauseDisabled={true}
+				style={{
+					position: 'absolute',
+					top: 0,
+					left: 0,
+					width: '100%',
+					height: '85%',
+					zIndex: -1 // Ensures it's behind other content
+				}}
+			/>
 			<div className="text-[28px] font-medium text-white">You are amazing!</div>
 			<div className="grow flex flex-col gap-4 m-auto">
 				<div className="font-medium text-white">Here’s your reward</div>
