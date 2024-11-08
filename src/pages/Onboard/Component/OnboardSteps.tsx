@@ -48,11 +48,11 @@ const OnboardSteps = () => {
 	};
 
 	const handleConfirmAirdrop = async () => {
-		alert(2);
+		// alert(2);
 		try {
 			const res = await confirmAirdropPoint();
 			console.log('handleConfirmAirdrop===', res);
-			alert(JSON.stringify(res.data));
+			// alert(JSON.stringify(res.data));
 			if (get(res, 'data.success', false)) {
 				navigate('/tap', { replace: true });
 			} else {
