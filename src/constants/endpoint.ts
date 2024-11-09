@@ -19,5 +19,6 @@ export const ENDPOINTS = {
 	withdrawRequest: 'withdraw-request',
 	listWithdrawRequest: 'list-withdraw-request',
 	listUserWithdrawRequest: 'list-user-withdraw-request',
-	listLeaderboard: 'tournament_ranking'
+	listLeaderboard: 'tournament_ranking',
+	claimLeaderboardReward: 'claim_tournament_reward'
 };

@@ -42,3 +42,6 @@ export const fetchUserListWithdrawRequest = () => {
 export const fetchLeaderboard = () => {
 	return axiosInstance.get(ENDPOINTS.listLeaderboard);
 };
+export const claimLeaderboardReward = () => {
+	return axiosInstance.get(ENDPOINTS.claimLeaderboardReward);
+};

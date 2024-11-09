@@ -4,7 +4,7 @@ import ProgressBar from '@ramonak/react-progress-bar';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IUserData, useUser } from '@/contexts/UserContext';
-import { formatNumberDownRound } from '@/helpers';
+import { convertRewardToRanking, formatNumberDownRound } from '@/helpers';
 import { handleGetClaimTapBot, handleInfinityTap, handleTap } from '@/services';
 import { useDebounce } from '@/hook/useDebounce';
 import { get } from 'lodash';
@@ -17,6 +17,8 @@ import OKButton from '@/components/Button';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import Toolbar from '@/components/Toolbar';
 import ImageSequence from './ImageSequence';
+import { claimLeaderboardReward } from '@/services/auth';
+import { toast } from 'react-toastify';
 interface IBubble {
 	id: number;
 	value: string;
@@ -34,7 +36,7 @@ const Tap = () => {
 	const countRef = useRef(0);
 	const startTimeTapRef = useRef(0);
 	const navigate = useNavigate();
-	const { userData } = useUser();
+	const { userData, getMeInfo } = useUser();
 	const infoDataRef = useRef<IUserData | null>(null);
 	const [totalBalance, setTotalBalance] = useState<number>(0);
 	const [point, setPoint] = useState<number>(userData?.availableEnergy || 0);
@@ -42,6 +44,7 @@ const Tap = () => {
 	const [countTapFree, setCountTapFree] = useState<number>(0);
 	const [pointTapBot, setPointTapBot] = useState(0);
 	const [isShowModalTapBot, setIsShowModalTapBot] = useState(false);
+	const [isShowModalLeaderboard, setIsShowModalLeaderboard] = useState(false);
 	useEffect(() => {
 		if (timeLeft > 0) {
 			setTimeout(() => {
@@ -175,6 +178,23 @@ const Tap = () => {
 		setPointTapBot(0);
 		setIsShowModalTapBot(false);
 	};
+	const handleCloseModalLeaderboard = async () => {
+		try {
+			const reward = userData?.totalTournamentReward;
+			const res = await claimLeaderboardReward();
+			if (get(res, 'data.success', false)) {
+				setTotalBalance(prev => Number(prev) + Number(reward));
+				getMeInfo();
+				toast.success('Claim leaderboard reward successfully!');
+			} else {
+				toast.error('Claim reward failed');
+			}
+		} catch (error) {
+			toast.error('Claim reward failed');
+		} finally {
+			setIsShowModalLeaderboard(false);
+		}
+	};
 	const getTapBotPoint = async () => {
 		try {
 			const response = await handleGetClaimTapBot();
@@ -187,6 +207,16 @@ const Tap = () => {
 			console.log(e);
 		}
 	};
+
+	useEffect(() => {
+		if (
+			userData?.totalTournamentReward &&
+			userData?.totalTournamentReward > 0 &&
+			!userData?.isReceiveTournamentReward
+		) {
+			setIsShowModalLeaderboard(true);
+		}
+	}, [userData?.totalTournamentReward, userData?.isReceiveTournamentReward]);
 	useEffect(() => {
 		if (userData?.haveTapBot && isFirstLoading) {
 			getTapBotPoint();
@@ -330,6 +360,62 @@ const Tap = () => {
 
 							<OKButton
 								handleOnClick={handleCloseModalTapBot}
+								// isLoading={isLoadingClaimTapBot}
+								rootClass="text-white text-base rounded-xl"
+								text="Get it!"
+							></OKButton>
+						</div>
+					</>
+				}
+			/>
+			<OkModal
+				isOpen={isShowModalLeaderboard}
+				setIsOpen={handleCloseModalLeaderboard}
+				position="center"
+				renderBody={
+					<>
+						<div className="flex flex-col gap-3">
+							<div
+								style={{
+									backgroundColor: 'rgb(34 29 57)',
+									width: 120,
+									height: 120,
+									borderRadius: 20,
+									justifyContent: 'center',
+									alignItems: 'center',
+									alignSelf: 'center',
+									display: 'flex'
+								}}
+							>
+								<img
+									src={'/images/icons/coin.svg'}
+									style={{ width: 80, height: 80 }}
+								/>
+							</div>
+							<h2 className="m-0 p-0 text-center font-semibold text-white text-3xl">
+								Leaderboard
+							</h2>
+							<p className="m-0 p-0 text-sm text-center text-[#FFFFFF99] mt-2">
+								In the last tournament, you are one of the best players{' '}
+								<span className="text-white">
+									(
+									{convertRewardToRanking(userData?.totalTournamentReward ?? 0)}
+									)
+								</span>
+								, and this is reward for you.
+							</p>
+							<div className="flex flex-row gap-2 justify-center mt-3">
+								<img src="/images/icons/coin.svg" alt="icon-coin" />
+								<p
+									className="m-0 p-0 text-white font-semibold"
+									style={{ fontSize: 26 }}
+								>
+									{formatNumberDownRound(userData?.totalTournamentReward ?? 0)}
+								</p>
+							</div>
+
+							<OKButton
+								handleOnClick={handleCloseModalLeaderboard}
 								// isLoading={isLoadingClaimTapBot}
 								rootClass="text-white text-base rounded-xl"
 								text="Get it!"

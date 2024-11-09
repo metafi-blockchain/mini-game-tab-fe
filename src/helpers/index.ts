@@ -29,3 +29,12 @@ export const minimizeAddress = (address: any, start = 7) => {
 	if (address && address.length <= 14) return address;
 	return `${address.slice(0, start)}...${address.slice(-start)}`;
 };
+
+export const convertRewardToRanking = (reward: number) => {
+	if (reward <= 0 || reward > 10 * 10 ** 6) return '';
+	const ranking = 11 - reward / 10 ** 6;
+	if (ranking === 1) return '1st';
+	if (ranking === 2) return '2nd';
+	if (ranking === 3) return '3rd';
+	return `${ranking}th`;
+};
