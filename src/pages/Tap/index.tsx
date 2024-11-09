@@ -180,10 +180,8 @@ const Tap = () => {
 	};
 	const handleCloseModalLeaderboard = async () => {
 		try {
-			const reward = userData?.totalTournamentReward;
 			const res = await claimLeaderboardReward();
 			if (get(res, 'data.success', false)) {
-				setTotalBalance(prev => Number(prev) + Number(reward));
 				getMeInfo();
 				toast.success('Claim leaderboard reward successfully!');
 			} else {
