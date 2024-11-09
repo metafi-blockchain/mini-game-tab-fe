@@ -18,5 +18,6 @@ export const ENDPOINTS = {
 	confirmAirdrop: 'confirm_receive_airdrop_token',
 	withdrawRequest: 'withdraw-request',
 	listWithdrawRequest: 'list-withdraw-request',
-	listUserWithdrawRequest: 'list-user-withdraw-request'
+	listUserWithdrawRequest: 'list-user-withdraw-request',
+	listLeaderboard: 'tournament_ranking'
 };

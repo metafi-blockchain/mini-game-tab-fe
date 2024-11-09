@@ -30,6 +30,9 @@ export interface IUserData {
 	isReceiveAirdrop: boolean;
 	receiveAddress: string;
 	isAdmin: boolean;
+	tournamentBalance: number;
+	totalTournamentReward: number;
+	isReceiveTournamentReward: boolean;
 }
 
 interface IUserContext {

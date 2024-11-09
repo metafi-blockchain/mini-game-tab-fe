@@ -47,7 +47,6 @@ const OnboardSteps = () => {
 	};
 
 	const handleConfirmAirdrop = async () => {
-		alert('call api');
 		try {
 			const res = await confirmAirdropPoint();
 			console.log('handleConfirmAirdrop===', res);

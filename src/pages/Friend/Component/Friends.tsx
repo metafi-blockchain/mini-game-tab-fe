@@ -132,8 +132,10 @@ export function FriendLineItem({
 				'flex items-center gap-4 text-sm font-medium h-[48px]'
 			)}
 		>
-			<div className="flex-none min-w-12 text-white">{index + 1}</div>
-			<div className="flex-1 text-white">
+			<div className={`flex-none min-w-12 ${className ? '' : 'text-white'}`}>
+				{index + 1}
+			</div>
+			<div className={`flex-1 ${className ? '' : 'text-white'}`}>
 				{item?.firstName} {item?.lastName}
 			</div>
 			<div className="flex-none min-w-28 flex items-center gap-2">
@@ -143,7 +145,9 @@ export function FriendLineItem({
 					width={16}
 					height={16}
 				/>
-				<div className="text-white">{formatNumberDownRound(item?.coin)}</div>
+				<div className={`${className ? '' : 'text-white'}`}>
+					{formatNumberDownRound(item?.tournamentBalance)}
+				</div>
 			</div>
 		</div>
 	);

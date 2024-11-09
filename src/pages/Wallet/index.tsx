@@ -370,15 +370,25 @@ const OkWallet = () => {
 											alt="telegram-icon"
 										/>
 									</a>
-									<a href={import.meta.env.VITE_YOUTUBE_LINK}>
+									{/* <a href={import.meta.env.VITE_YOUTUBE_LINK}>
 										<img
 											src="/images/icons/social/youtube.svg"
 											alt="youtube-icon"
 										/>
-									</a>
+									</a> */}
 
 									<a href={'https://x.com/MetaFi_Network'}>
 										<img src="/images/icons/social/x.svg" alt="x-icon" />
+									</a>
+									<a href={'https://discord.gg/kyeQYgXk'}>
+										<img src="/images/icons/social/discord.svg" alt="x-icon" />
+									</a>
+									<a
+										href={
+											'https://www.facebook.com/profile.php?id=61566437251830'
+										}
+									>
+										<img src="/images/icons/social/facebook.svg" alt="x-icon" />
 									</a>
 								</div>
 							</div>

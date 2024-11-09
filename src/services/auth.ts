@@ -39,3 +39,6 @@ export const fetchUserListWithdrawRequest = () => {
 		isGetAll: true
 	});
 };
+export const fetchLeaderboard = () => {
+	return axiosInstance.get(ENDPOINTS.listLeaderboard);
+};
