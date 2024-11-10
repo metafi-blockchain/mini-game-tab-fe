@@ -178,7 +178,7 @@ const Task = () => {
 										key={`${index}-${item.title}`}
 										data={temp}
 										showStep={true}
-										handleClick={() => handleClaimRankingOrRef(temp, true)}
+										handleClick={() => handleClaimRankingOrRef(temp, false)}
 										taskValue={''}
 									/>
 								);
@@ -214,7 +214,7 @@ const Task = () => {
 										isDifferent={true}
 										key={`${index}-${item.title}`}
 										data={temp}
-										handleClick={() => handleClaimRankingOrRef(temp, false)}
+										handleClick={() => handleClaimRankingOrRef(temp, true)}
 										taskValue={item.taskValue ?? 0}
 									/>
 								);
