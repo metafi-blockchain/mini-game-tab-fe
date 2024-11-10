@@ -118,19 +118,22 @@ type FriendLineItemProps = {
 	item: any;
 	index: number;
 	className?: string;
+	style?: any;
 };
 
 export function FriendLineItem({
 	item,
 	index,
-	className = ''
+	className = '',
+	style = {}
 }: FriendLineItemProps) {
 	return (
 		<div
 			className={cn(
 				className,
-				'flex items-center gap-4 text-sm font-medium h-[48px]'
+				'flex items-center gap-4 text-sm font-medium h-[48px] p-4'
 			)}
+			style={style}
 		>
 			<div className={`flex-none min-w-12 ${className ? '' : 'text-white'}`}>
 				{index + 1}

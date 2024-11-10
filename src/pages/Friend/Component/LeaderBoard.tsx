@@ -12,17 +12,18 @@ type Props = {
 };
 
 const LeaderBoard = ({}: Props) => {
-	const { userData } = useUser();
+	const { userData, getMeInfo } = useUser();
 	const [items, setItems] = useState<any>([]);
 
 	useEffect(() => {
+		getMeInfo();
 		handleGetLeaderboard();
 	}, []);
 
 	const handleGetLeaderboard = async () => {
 		try {
 			const res = await fetchLeaderboard();
-			console.log('res', res);
+			// console.log('res', res);
 			setItems(get(res, 'data.data', []));
 		} catch (error) {}
 	};
@@ -63,9 +64,9 @@ const LeaderBoard = ({}: Props) => {
 					</CardHeader>
 				</Card>
 			</div>
-			<Card className="p-4">
+			<Card className="">
 				<div className="leaderboard-list">
-					<span className="text-white">Your current acheivement</span>
+					<span className="text-white p-4">Your current acheivement</span>
 					{/* <FriendLineItem
 						key={`friend-key-you`}
 						index={0}
@@ -77,7 +78,7 @@ const LeaderBoard = ({}: Props) => {
 						className="text-[#F5C033]"
 					/> */}
 					<div
-						className="flex items-center gap-2 text-center"
+						className="flex items-center gap-2 text-center p-4"
 						style={{ justifyContent: 'center', fontSize: 40 }}
 					>
 						<img
@@ -90,21 +91,28 @@ const LeaderBoard = ({}: Props) => {
 							{formatNumberDownRound(userData?.tournamentBalance)}
 						</div>
 					</div>
-					<span className="text-white">Last updated ranking</span>
-					{(items ?? []).map((item: any, index: number) => {
-						return (
-							<FriendLineItem
-								key={`friend-key-${item?.telegramId}`}
-								index={index}
-								item={item}
-								className={
-									userData?.telegramId === item?.telegramId
-										? 'text-[#F5C033]'
-										: ''
-								}
-							/>
-						);
-					})}
+					<span className="text-white p-4">Last updated ranking</span>
+					<div className="mt-2">
+						{(items ?? []).map((item: any, index: number) => {
+							return (
+								<FriendLineItem
+									key={`friend-key-${item?.telegramId}`}
+									index={index}
+									item={item}
+									className={
+										userData?.telegramId === item?.telegramId
+											? 'text-[#F5C033]'
+											: ''
+									}
+									style={
+										userData?.telegramId === item?.telegramId
+											? { backgroundColor: 'rgba(255, 255, 255, 0.1' }
+											: {}
+									}
+								/>
+							);
+						})}
+					</div>
 				</div>
 			</Card>
 		</div>
