@@ -44,7 +44,7 @@ const LeaderBoard = ({}: Props) => {
 					<CardHeader className="p-4">
 						<div className="flex gap-2">
 							<img
-								src="/images/icons/coin.svg"
+								src="/images/icons/task-ranking.svg"
 								alt="icon-coin"
 								width={58}
 								height={58}

@@ -386,7 +386,7 @@ const Tap = () => {
 								}}
 							>
 								<img
-									src={'/images/icons/coin.svg'}
+									src={'/images/icons/task-ranking.svg'}
 									style={{ width: 80, height: 80 }}
 								/>
 							</div>
