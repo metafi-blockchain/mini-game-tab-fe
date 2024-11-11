@@ -183,7 +183,7 @@ const Tap = () => {
 			const res = await claimLeaderboardReward();
 			if (get(res, 'data.success', false)) {
 				getMeInfo();
-				toast.success('Claim leaderboard reward successfully!');
+				// toast.success('Claim leaderboard reward successfully!');
 			} else {
 				toast.error('Claim reward failed');
 			}
