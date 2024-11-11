@@ -114,6 +114,25 @@ const Task = () => {
 							<NoItem />
 						)}
 					</div>
+					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Discord</h3>
+					<div className="flex flex-col gap-3 z-1">
+						{dataSocial.filter(item => item.subCategory === SOCIAL_CATEGORY.D)
+							.length > 0 ? (
+							dataSocial
+								.filter(item => item.subCategory === SOCIAL_CATEGORY.D)
+								.map((item, index) => (
+									<LineItemSocial
+										handleNavigate={() => {
+											navigate(`/task/detail/${item.taskId}`);
+										}}
+										key={`${index}-${item.title}`}
+										data={item}
+									/>
+								))
+						) : (
+							<NoItem />
+						)}
+					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Youtube</h3>
 					<div className="flex flex-col gap-3 z-1">
 						{dataSocial.filter(item => item.subCategory === SOCIAL_CATEGORY.Y)

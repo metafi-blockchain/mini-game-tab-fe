@@ -9,5 +9,6 @@ export const FIVE_MINUTES = 5 * 60 * 1000;
 export const SOCIAL_CATEGORY = {
 	X: 'X',
 	Y: 'Y',
-	T: 'T'
+	T: 'T',
+	D: 'D'
 };
