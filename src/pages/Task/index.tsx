@@ -94,7 +94,7 @@ const Task = () => {
 			key: '1',
 			hasDot: false,
 			render: (
-				<>
+				<div style={{ paddingBottom: 40 }}>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">X</h3>
 					<div className="flex flex-col gap-3 z-1">
 						{dataSocial.filter(item => item.subCategory === SOCIAL_CATEGORY.X)
@@ -171,7 +171,7 @@ const Task = () => {
 							<NoItem />
 						)}
 					</div>
-				</>
+				</div>
 			)
 		},
 		{
