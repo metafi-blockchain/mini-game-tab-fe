@@ -19,6 +19,7 @@ export interface IItemTask {
 	isClaimed?: boolean;
 	taskValue?: string | number;
 	subCategory?: string;
+	status?: string;
 }
 interface IPropDetailTask {
 	data: IItemTask;

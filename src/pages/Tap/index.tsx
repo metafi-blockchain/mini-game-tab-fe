@@ -415,7 +415,7 @@ const Tap = () => {
 							<OKButton
 								handleOnClick={handleCloseModalLeaderboard}
 								// isLoading={isLoadingClaimTapBot}
-								rootClass="text-white text-base rounded-xl"
+								rootClass="text-white primary-button text-base rounded-xl"
 								text="Get it!"
 							></OKButton>
 						</div>

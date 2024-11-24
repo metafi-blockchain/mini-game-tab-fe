@@ -4,12 +4,17 @@ import ItemTask, { IItemTask } from '@/pages/Task/Component/ItemTask';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import OkBaseButton from '@/components/Button';
 import { useUser } from '@/contexts/UserContext';
-import { formatNumberDownRound } from '@/helpers';
+import { formatNumberDownRound, storeLocalStorage } from '@/helpers';
 import { get } from 'lodash';
 import { handleFinishTask, handleGetListFriends } from '@/services';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import { toast } from 'react-toastify';
-import { SOCIAL_CATEGORY } from '@/constants';
+import {
+	APP_SOCIAL_TASK_KEY,
+	APP_TASK_KEY,
+	FIVE_MINUTES,
+	SOCIAL_CATEGORY
+} from '@/constants';
 import { NoItem } from './Component/NoItem';
 import { LineItemOther, LineItemSocial } from './Component/LineItemTask';
 import { motion } from 'framer-motion';
@@ -23,14 +28,16 @@ const tabVariants = {
 };
 
 const Task = () => {
-	const { myTask } = useUser();
+	const { myTask, userData, getMeInfo } = useUser();
 	const [getParam, setParam] = useSearchParams();
+	const teleId = get(userData, 'telegramId', '');
 	const keyDefault = getParam.get('active-key');
 	const [keyActive, setKeyActive] = useState<string>(
 		keyDefault === null ? '1' : keyDefault
 	);
 	const [dataTask, setDataList] = useState<IItemTask[]>([]);
 	const [dataSocial, setDataSocial] = useState<IItemTask[]>([]);
+	const [dataTempSocial, setDataTempSocial] = useState<IItemTask[]>([]);
 	const [dataRanking, setDataRanking] = useState<IItemTask[]>([]);
 	const [dataRef, setDataRef] = useState<IItemTask[]>([]);
 	const navigate = useNavigate();
@@ -87,6 +94,88 @@ const Task = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (dataSocial) {
+			const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
+			if (tempStr) {
+				const temp = JSON.parse(tempStr);
+				// console.log('tempppp', temp);
+				const tempSocialTask = dataSocial.map(item => {
+					const clickTime = temp[item.taskId] ?? Number.MAX_SAFE_INTEGER;
+					// console.log('clickTime', clickTime);
+					let status = 'Start';
+					if (item?.isCompleted) {
+						status = 'Done';
+					} else if (
+						!item?.isCompleted &&
+						clickTime + FIVE_MINUTES <= Date.now()
+					) {
+						status = 'Claim';
+					}
+					return { ...item, status: status };
+				});
+				setDataTempSocial(tempSocialTask);
+			} else {
+				setDataTempSocial(dataSocial);
+			}
+		}
+	}, [dataSocial]);
+
+	const handleClickSocialTask = async (
+		task: IItemTask,
+		event: React.MouseEvent
+	) => {
+		try {
+			event.stopPropagation();
+			// console.log('111111', task.status);
+			if (task.status === 'Start') {
+				if (!task?.isCompleted) {
+					let temp: any = {};
+					const tempStr = localStorage.getItem(
+						`${teleId}${APP_SOCIAL_TASK_KEY}`
+					);
+					if (tempStr) {
+						temp = JSON.parse(tempStr);
+						if (!temp[task.taskId]) {
+							temp[task.taskId] = Date.now();
+						}
+					} else {
+						temp[task.taskId] = Date.now();
+					}
+					storeLocalStorage(`${teleId}${APP_SOCIAL_TASK_KEY}`, temp);
+				}
+				const url =
+					task?.url?.startsWith('http') || task?.url?.length === 0
+						? task?.url
+						: `https://t.me/${task?.url?.slice(1)}`;
+				window.open(url);
+			} else if (task.status === 'Claim') {
+				const response = await handleFinishTask({
+					taskId: task.taskId as string,
+					code: ''
+				});
+				const status = get(response, 'data.success', false);
+				getMeInfo();
+				if (!status) {
+					toast.error(get(response, 'data.message', ''));
+					return;
+				}
+				toast('Claim successfully!');
+			}
+		} catch (error) {
+			console.log('1');
+		}
+	};
+
+	const handleNavigateTask = (task: IItemTask) => {
+		console.log('asasas');
+		const url =
+			task?.url?.startsWith('http') || task?.url?.length === 0
+				? task?.url
+				: `https://t.me/${task?.url?.slice(1)}`;
+		window.open(url);
+	};
+
 	const items = [
 		// {
 		// 	label: 'Farming',
@@ -122,17 +211,18 @@ const Task = () => {
 				<div style={{ paddingBottom: 40 }}>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">X</h3>
 					<div className="flex flex-col gap-3 z-1">
-						{dataSocial.filter(item => item.subCategory === SOCIAL_CATEGORY.X)
-							.length > 0 ? (
-							dataSocial
+						{dataTempSocial.filter(
+							item => item.subCategory === SOCIAL_CATEGORY.X
+						).length > 0 ? (
+							dataTempSocial
 								.filter(item => item.subCategory === SOCIAL_CATEGORY.X)
 								.map((item, index) => (
 									<LineItemSocial
-										handleNavigate={() => {
-											navigate(`/task/detail/${item.taskId}`);
-										}}
+										handleClick={(e: any) => handleClickSocialTask(item, e)}
 										key={`${index}-${item.title}`}
 										data={item}
+										status={item.status}
+										handleNavigate={() => handleNavigateTask(item)}
 									/>
 								))
 						) : (
@@ -141,17 +231,18 @@ const Task = () => {
 					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Discord</h3>
 					<div className="flex flex-col gap-3 z-1">
-						{dataSocial.filter(item => item.subCategory === SOCIAL_CATEGORY.D)
-							.length > 0 ? (
-							dataSocial
+						{dataTempSocial.filter(
+							item => item.subCategory === SOCIAL_CATEGORY.D
+						).length > 0 ? (
+							dataTempSocial
 								.filter(item => item.subCategory === SOCIAL_CATEGORY.D)
 								.map((item, index) => (
 									<LineItemSocial
-										handleNavigate={() => {
-											navigate(`/task/detail/${item.taskId}`);
-										}}
+										handleClick={(e: any) => handleClickSocialTask(item, e)}
+										handleNavigate={() => handleNavigateTask(item)}
 										key={`${index}-${item.title}`}
 										data={item}
+										status={item.status}
 									/>
 								))
 						) : (
@@ -160,17 +251,18 @@ const Task = () => {
 					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Youtube</h3>
 					<div className="flex flex-col gap-3 z-1">
-						{dataSocial.filter(item => item.subCategory === SOCIAL_CATEGORY.Y)
-							.length > 0 ? (
-							dataSocial
+						{dataTempSocial.filter(
+							item => item.subCategory === SOCIAL_CATEGORY.Y
+						).length > 0 ? (
+							dataTempSocial
 								.filter(item => item.subCategory === SOCIAL_CATEGORY.Y)
 								.map((item, index) => (
 									<LineItemSocial
-										handleNavigate={() => {
-											navigate(`/task/detail/${item.taskId}`);
-										}}
+										handleClick={(e: any) => handleClickSocialTask(item, e)}
+										handleNavigate={() => handleNavigateTask(item)}
 										key={`${index}-${item.title}`}
 										data={item}
+										status={item.status}
 									/>
 								))
 						) : (
@@ -179,17 +271,18 @@ const Task = () => {
 					</div>
 					<h3 className="mt-0 mb-[12px] mt-[6px] text-white">Telegram</h3>
 					<div className="flex flex-col gap-3 z-1">
-						{dataSocial.filter(item => item.subCategory === SOCIAL_CATEGORY.T)
-							.length > 0 ? (
-							dataSocial
+						{dataTempSocial.filter(
+							item => item.subCategory === SOCIAL_CATEGORY.T
+						).length > 0 ? (
+							dataTempSocial
 								.filter(item => item.subCategory === SOCIAL_CATEGORY.T)
 								.map((item, index) => (
 									<LineItemSocial
-										handleNavigate={() => {
-											navigate(`/task/detail/${item.taskId}`);
-										}}
+										handleClick={(e: any) => handleClickSocialTask(item, e)}
+										handleNavigate={() => handleNavigateTask(item)}
 										key={`${index}-${item.title}`}
 										data={item}
+										status={item.status}
 									/>
 								))
 						) : (

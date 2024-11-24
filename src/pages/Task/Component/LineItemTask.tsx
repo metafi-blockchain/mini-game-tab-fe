@@ -15,10 +15,11 @@ export interface ILineItemSocial {
 
 interface IPropsLineItemSocial {
 	data: ILineItemSocial;
-	handleClick?: () => void;
+	handleClick?: any;
 	handleNavigate?: () => void;
 	isDifferent?: boolean;
 	showStep?: boolean;
+	status?: string;
 }
 
 const LineItemSocial = (props: IPropsLineItemSocial) => {
@@ -30,8 +31,7 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 		isCompleted = false,
 		isClaimed = false
 	} = props.data;
-	const { handleNavigate, handleClick } = props;
-
+	const { handleNavigate, handleClick, status } = props;
 	return (
 		<Card onClick={handleNavigate && handleNavigate}>
 			<CardHeader className="px-4 py-3">
@@ -78,8 +78,8 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 							)
 						) : (
 							<OKButton
-								handleOnClick={handleNavigate && handleNavigate}
-								text={'Start'}
+								handleOnClick={handleClick && handleClick}
+								text={status ?? 'Start'}
 								rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
 							/>
 						)}
