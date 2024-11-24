@@ -2,6 +2,9 @@ import { Card, CardHeader } from '@/components/Card';
 import { formatNumberDownRound } from '@/helpers';
 import { cn } from '@/utils';
 import InviteFriend from './InviteFriend';
+import BigNumber from 'bignumber.js';
+import { get } from 'http';
+import { useUser } from '@/contexts/UserContext';
 
 type Props = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,6 +12,7 @@ type Props = {
 };
 
 const Friends = ({ items = [] }: Props) => {
+	const { userData } = useUser();
 	return (
 		<>
 			<div className="flex justify-between gap-4">
@@ -27,13 +31,20 @@ const Friends = ({ items = [] }: Props) => {
 						<div className="text-xs font-medium">Coins earned</div>
 						<div className="flex items-center gap-2 text-sm">
 							<img
-								src="/images/icons/coin.svg"
+								src="/images/icons/ton-logo.svg"
 								alt="icon-coin"
 								width={16}
 								height={16}
 							/>
 							<div>x</div>
-							<div>{formatNumberDownRound(0)}</div>
+							<div>
+								{formatNumberDownRound(
+									new BigNumber(userData?.tonBalance ?? 0)
+										.dividedBy(10 ** 9)
+										.toNumber(),
+									9
+								)}
+							</div>
 						</div>
 					</CardHeader>
 				</Card>
