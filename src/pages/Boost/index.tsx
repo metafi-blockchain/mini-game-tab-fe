@@ -185,13 +185,15 @@ const OkBoost = () => {
 							result.push({
 								...item?.[rechargeIdx + 1],
 								remaining: max - rechargeIdx - 1,
-								nextLevel: nextLevel
+								nextLevel: nextLevel,
+								detail: `${nextLevel} recharging / second`
 							});
 						} else {
 							result.push({
 								...item?.[rechargeIdx],
 								remaining: 0,
-								nextLevel: nextLevel
+								nextLevel: nextLevel,
+								detail: 'Max level'
 							});
 						}
 					}
@@ -207,13 +209,15 @@ const OkBoost = () => {
 							result.push({
 								...item?.[multiIdx + 1],
 								remaining: max - multiIdx - 1,
-								nextLevel: nextLevel
+								nextLevel: nextLevel,
+								detail: `${nextLevel} points / tap`
 							});
 						} else {
 							result.push({
 								...item?.[multiIdx],
 								remaining: 0,
-								nextLevel: nextLevel
+								nextLevel: nextLevel,
+								detail: 'Max level'
 							});
 						}
 					}
@@ -230,13 +234,17 @@ const OkBoost = () => {
 							result.push({
 								...item?.[energyIdx + 1],
 								remaining: max - energyIdx - 1,
-								nextLevel: nextLevel
+								nextLevel: nextLevel,
+								detail: `Max energy: ${formatNumberDownRound(
+									(energyIdx + 2) * 500
+								)}`
 							});
 						} else {
 							result.push({
 								...item?.[energyIdx],
 								remaining: 0,
-								nextLevel: nextLevel
+								nextLevel: nextLevel,
+								detail: 'Max level'
 							});
 						}
 					}
@@ -292,10 +300,14 @@ const OkBoost = () => {
 				const response = await handleBoost(type);
 				const success = get(response, 'data.success', {});
 				if (success) {
+					toast.success('Upgrade successfully!');
 					getMeInfo();
+				} else {
+					toast.error('Upgrade failed!');
 				}
 			} catch (e) {
 				console.log('handleClickButtonModal', e);
+				toast.error('Upgrade failed!');
 			}
 		}
 	};
@@ -515,7 +527,7 @@ const OkBoost = () => {
 		});
 		setIsShowModal(true);
 	};
-	const handleClickItemBooster = async (values: any) => {
+	const handleClickItemBooster = async (values: any, detail = '') => {
 		setIsShowModalForDaily(false);
 		const { src, boostName, price, description, nextLevel, type, status } =
 			values;
@@ -531,10 +543,15 @@ const OkBoost = () => {
 					? status
 						? 'Active'
 						: 'Inactive'
+					: detail
+					? detail
 					: `Level ${nextLevel}`,
 			description: description,
 			contentButton: (
-				<div className="flex flex-row gap-1 items-center justify-center text-white primary-button">
+				<div
+					className="flex flex-row gap-1 items-center justify-center text-white primary-button"
+					style={{ background: 'transparent' }}
+				>
 					Confirm & pay
 					<span className="flex flex-row items-center gap-1">
 						<img src="/images/icons/coin.svg" alt="icon-coin" />{' '}
@@ -598,7 +615,9 @@ const OkBoost = () => {
 								)}
 
 								<div className="flex flex-col gap-1 items-center">
-									<p className="text-sm m-0 text-white">Infinite Tapping</p>
+									<p className="text-sm m-0 text-white text-center">
+										Infinite Tapping
+									</p>
 									<p className="text-xs text-[#FFFFFF99] m-0">
 										{(infoData?.allowedFullEnergyRefill || 0) -
 											(infoData?.infinityTapUsed || 0)}
@@ -659,10 +678,16 @@ const OkBoost = () => {
 									}
 									name={item?.boostName}
 									price={item?.price}
-									onClickItem={() => handleClickItemBooster(item)}
+									onClickItem={() =>
+										handleClickItemBooster(
+											item,
+											item?.type !== 3 ? item?.detail : ''
+										)
+									}
 									remaining={
 										item?.type === 3 ? (item?.status ? 0 : 1) : item?.remaining
 									}
+									detail={item?.type !== 3 ? item?.detail : ''}
 								/>
 							))}
 						</div>

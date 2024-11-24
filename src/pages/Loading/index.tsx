@@ -9,7 +9,7 @@ import { ACCESS_TOKEN, EXPIRE_TIME } from '@/constants';
 import { useInitData, useLaunchParams } from '@tma.js/sdk-react';
 import { IUserData, useUser } from '@/contexts/UserContext';
 let queryId =
-	'query_id=AAG77WkbAAAAALvtaRteV1-V&user=%7B%22id%22%3A459926971%2C%22first_name%22%3A%22Shaky%22%2C%22last_name%22%3A%22James%22%2C%22username%22%3A%22jsmile1994%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1730938368&hash=9d261905a95c42bdc2899e2495673ab51de1613ba9767bc6340bf7f0d319e289';
+	'query_id=AAG77WkbAAAAALvtaRudP2OQ&user=%7B%22id%22%3A459926971%2C%22first_name%22%3A%22Shaky%22%2C%22last_name%22%3A%22James%22%2C%22username%22%3A%22jsmile1994%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2F0DuDBZ-wV9qdesqaGDCW3CCwkD9BJ6opnAxwSOVAYNs.svg%22%7D&auth_date=1732430281&signature=qblSmveBJJYwyvDTHuLmBOxm-bdOztO9nBeAaICOlDVmaTYcZcFf4B8k9ZYBbMtSPs2pD-bQfbCqCO0PcwY2CQ&hash=0e278f4bf7f706b59ec16c73c0fe1019a4fe73261f1fca89f8bbac590838596c';
 const OkLoadingPage = () => {
 	const navigate = useNavigate();
 	const initDataRaw = useLaunchParams().initDataRaw;

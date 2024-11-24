@@ -1,3 +1,4 @@
+import OHTTooltip from '@/components/Tooltip';
 import { formatNumberDownRound } from '@/helpers';
 import { ReactNode } from 'react';
 
@@ -8,14 +9,23 @@ export interface IPropItemBooster {
 	onClickItem?: () => void;
 	id?: string;
 	remaining?: number;
+	detail?: string;
 	isCompleted?: boolean;
 	type?: number;
 	nextLevel?: number;
 	description?: string;
 }
 const ItemBooster = (props: IPropItemBooster) => {
-	const { isCompleted, leftIcon, name, price, remaining, onClickItem, type } =
-		props;
+	const {
+		isCompleted,
+		leftIcon,
+		name,
+		price,
+		remaining,
+		onClickItem,
+		type,
+		detail
+	} = props;
 	const handleClickItem = () => {
 		if ((type !== 4 && remaining === 0) || (type === 4 && isCompleted)) {
 			return;
@@ -34,8 +44,15 @@ const ItemBooster = (props: IPropItemBooster) => {
 			<div className="flex flex-row justify-between flex-1">
 				<div className="flex flex-col">
 					<div className="flex flex-col gap-1">
-						<span className="text-sm font-medium text-white">{name}</span>
 						<div className="flex flex-row">
+							<span className="text-sm font-medium text-white">{name}</span>
+						</div>
+						<div className="flex flex-row">
+							{/* {type !== 3 && type !== 4 && (
+								<span className="text-[#FFFFFF99] font-normal text-xs">
+									Upgrade{': '}
+								</span>
+							)} */}
 							<div className="flex flex-row gap-1 items-center">
 								{type === 4 ? (
 									<img
@@ -58,17 +75,18 @@ const ItemBooster = (props: IPropItemBooster) => {
 							</div>
 							{type !== 3 && type !== 4 && (
 								<span className="text-[#FFFFFF99] font-normal text-xs text-addition">
-									{remaining} upgrade(s) left
+									{/* {remaining} upgrade(s) left */}
+									{detail}
 								</span>
 							)}
 							{type === 3 && (
 								<span className="text-[#FFFFFF99] font-normal text-xs text-addition">
-									{'Auto tap 172.800 / 12H'}
+									{'Auto tap 7.200 / 3H'}
 								</span>
 							)}
 							{type === 4 && (
 								<span className="text-[#FFFFFF99] font-normal text-xs text-addition">
-									{'Auto mine 1.000.000 / 24H'}
+									{'Auto mine 28.800 / 24H'}
 								</span>
 							)}
 						</div>

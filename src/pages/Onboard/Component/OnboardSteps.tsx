@@ -18,7 +18,7 @@ const OnboardSteps = () => {
 	const [airdrop, setAirdrop] = useState(null);
 	const steps = [
 		<StepOne />,
-		<StepTwo year={get(airdrop, 'year', 0)} />,
+		// <StepTwo year={get(airdrop, 'year', 0)} />,
 		<StepThree airdrop={get(airdrop, 'airdrop', 0)} />
 	];
 
