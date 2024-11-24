@@ -1,6 +1,7 @@
 import { Card, CardHeader } from '@/components/Card';
 import { formatNumberDownRound } from '@/helpers';
 import { cn } from '@/utils';
+import InviteFriend from './InviteFriend';
 
 type Props = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,7 +81,6 @@ const Friends = ({ items = [] }: Props) => {
 					</CardHeader>
 				</Card>
 			</div>
-
 			<div className="space-y-2">
 				<div className="text-base font-semibold text-white">
 					Your Friends ({items?.length ?? 0})

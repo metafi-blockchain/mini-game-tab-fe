@@ -22,7 +22,7 @@ const Toolbar = () => {
 			image: <IconPeople />,
 			title: 'icon-people',
 			key: ['friends'],
-			label: 'Friends'
+			label: 'Ranking'
 		},
 		{
 			image: <IconTask />,

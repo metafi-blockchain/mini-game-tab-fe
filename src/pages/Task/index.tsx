@@ -6,12 +6,21 @@ import OkBaseButton from '@/components/Button';
 import { useUser } from '@/contexts/UserContext';
 import { formatNumberDownRound } from '@/helpers';
 import { get } from 'lodash';
-import { handleFinishTask } from '@/services';
+import { handleFinishTask, handleGetListFriends } from '@/services';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import { toast } from 'react-toastify';
 import { SOCIAL_CATEGORY } from '@/constants';
 import { NoItem } from './Component/NoItem';
 import { LineItemOther, LineItemSocial } from './Component/LineItemTask';
+import { motion } from 'framer-motion';
+import Friends from '../Friend/Component/Friends';
+import InviteFriend from '../Friend/Component/InviteFriend';
+
+const tabVariants = {
+	hidden: { opacity: 0, x: -20 },
+	visible: { opacity: 1, x: 0 },
+	exit: { opacity: 0, x: 20 }
+};
 
 const Task = () => {
 	const { myTask } = useUser();
@@ -27,6 +36,22 @@ const Task = () => {
 	const navigate = useNavigate();
 	const [totalBal, setTotalBal] = useState(0);
 	const [countRender, setCountRender] = useState(0);
+	const [friends, setFriends] = useState<any>([]);
+
+	const getListFriend = async () => {
+		try {
+			const response = await handleGetListFriends();
+			if (get(response, 'data.success', false)) {
+				setFriends(get(response, 'data.data', []));
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	useEffect(() => {
+		getListFriend();
+	}, []);
 	const handleClaimRankingOrRef = async (
 		itemRanking: IItemTask,
 		isRanking: boolean
@@ -244,6 +269,27 @@ const Task = () => {
 					</div>
 				</>
 			)
+		},
+		{
+			label: 'Invites',
+			key: '4',
+			hasDot: false,
+			render: (
+				<>
+					<motion.div
+						key="friends"
+						variants={tabVariants}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						transition={{ duration: 0.5 }}
+						className="flex flex-col gap-4"
+						style={{ paddingBottom: 56 }}
+					>
+						<Friends items={friends} />
+					</motion.div>
+				</>
+			)
 		}
 	];
 
@@ -319,11 +365,11 @@ const Task = () => {
 			makeTaskData(myTask);
 		}
 	}, [myTask]);
-	useEffect(() => {
-		setTimeout(() => {
-			setCountRender(prevState => ++prevState);
-		}, 500);
-	}, [keyActive]);
+	// useEffect(() => {
+	// 	setTimeout(() => {
+	// 		setCountRender(prevState => ++prevState);
+	// 	}, 500);
+	// }, [keyActive]);
 
 	useEffect(() => {
 		if (myTask) {
@@ -385,6 +431,18 @@ const Task = () => {
 					</div>
 				</div>
 			</div>
+			{keyActive === '4' && (
+				<div
+					className="flex-none"
+					style={{
+						paddingLeft: 16,
+						paddingRight: 16,
+						paddingTop: 16
+					}}
+				>
+					<InviteFriend />
+				</div>
+			)}
 		</PrivateLayout>
 	);
 };

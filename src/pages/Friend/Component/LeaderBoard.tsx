@@ -14,6 +14,7 @@ type Props = {
 const LeaderBoard = ({}: Props) => {
 	const { userData, getMeInfo } = useUser();
 	const [items, setItems] = useState<any>([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		getMeInfo();
@@ -25,9 +26,14 @@ const LeaderBoard = ({}: Props) => {
 			const res = await fetchLeaderboard();
 			// console.log('res', res);
 			setItems(get(res, 'data.data', []));
-		} catch (error) {}
+		} catch (error) {
+		} finally {
+			setLoading(false);
+		}
 	};
-
+	if (loading) {
+		return <div className="spinner"></div>;
+	}
 	if (items.length == 0) {
 		return (
 			<NoItem
@@ -52,8 +58,7 @@ const LeaderBoard = ({}: Props) => {
 							/>
 							<div className="text-xs font-medium space-y-1">
 								<div className="flex text-[#FEFFFF99]">
-									- The leaderboard is updated
-									<span className="text-white ml-1">every day at 0h UTC.</span>
+									- The leaderboard is updated every day at 0h UTC.
 								</div>
 								<div className="flex text-[#FEFFFF99]">
 									- Each tournament will last 2 month and end in the last day of

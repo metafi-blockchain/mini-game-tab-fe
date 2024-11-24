@@ -49,7 +49,7 @@ const OkFriend = () => {
 			{/* <HeaderPage /> */}
 			<div className="body-page">
 				<div className="content-page pt-6 px-4 gap-4">
-					<div className="friends-tabs">
+					{/* <div className="friends-tabs">
 						<div
 							className={`tab-item ${
 								selectedTab === 'friends' ? 'active' : ''
@@ -102,7 +102,18 @@ const OkFriend = () => {
 
 					<div className="flex-none">
 						<InviteFriend />
-					</div>
+					</div> */}
+					<motion.div
+						key="leaderboard"
+						variants={tabVariants}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						transition={{ duration: 0.5 }}
+						className="flex flex-col gap-4"
+					>
+						<LeaderBoard />
+					</motion.div>
 				</div>
 			</div>
 		</PrivateLayout>
