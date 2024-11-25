@@ -13,3 +13,9 @@ export const SOCIAL_CATEGORY = {
 	T: 'T',
 	D: 'D'
 };
+export const FARM_CATEGORY = {
+	Farm: 'Farm',
+	Diligence: 'Diligence',
+	Play: 'Play',
+	Upgrade: 'Upgrade'
+};
