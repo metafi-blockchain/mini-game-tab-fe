@@ -28,6 +28,14 @@ import { pTimeout, pTimeoutException } from '@/utils';
 import { getTxDepositStatus } from '@/services/auth';
 import { TIME_BUY_BOT, TRY_BUY_BOT } from '@/constants';
 import { toast } from 'react-toastify';
+
+export const BOOST_DESCRIPTION: any = {
+	1: 'Based on the level you have achieved, you will regenerate a certain amount of energy every second. The higher your level, the more energy you will regain.',
+	2: 'Based on the level you have achieved, you will regenerate a certain amount of energy every second. The higher your level, the faster your energy will regenerate.',
+	3: 'Based on the level you have achieved, you will have a certain maximum energy capacity. The higher your level, the greater your maximum energy will be.',
+	4: 'Tap bot will tap for you. Get points for every second until you reach 7,200 points',
+	5: 'Tap bot will tap for you. Get 28,800 points for every day.'
+};
 interface IPropsBodyModal {
 	icon: ReactNode;
 	title: string;
@@ -546,7 +554,7 @@ const OkBoost = () => {
 					: detail
 					? detail
 					: `Level ${nextLevel}`,
-			description: description,
+			description: BOOST_DESCRIPTION[type] ?? '',
 			contentButton: (
 				<div
 					className="flex flex-row gap-1 items-center justify-center text-white primary-button"
@@ -669,6 +677,7 @@ const OkBoost = () => {
 											: item.remaining === 0
 									}
 									key={`${index}-item-boost`}
+									description={BOOST_DESCRIPTION[item.type]}
 									leftIcon={
 										<img
 											className="w-full"

@@ -1,3 +1,4 @@
+import InfoCircle from '@/components/InfoCircle';
 import OHTTooltip from '@/components/Tooltip';
 import { formatNumberDownRound } from '@/helpers';
 import { ReactNode } from 'react';
@@ -20,6 +21,7 @@ const ItemBooster = (props: IPropItemBooster) => {
 		isCompleted,
 		leftIcon,
 		name,
+		description,
 		price,
 		remaining,
 		onClickItem,
@@ -44,8 +46,11 @@ const ItemBooster = (props: IPropItemBooster) => {
 			<div className="flex flex-row justify-between flex-1">
 				<div className="flex flex-col">
 					<div className="flex flex-col gap-1">
-						<div className="flex flex-row">
+						<div className="flex flex-row gap-2">
 							<span className="text-sm font-medium text-white">{name}</span>
+							{/* <OHTTooltip tooltip={description ?? ''}>
+								<InfoCircle />
+							</OHTTooltip> */}
 						</div>
 						<div className="flex flex-row">
 							{/* {type !== 3 && type !== 4 && (
@@ -81,12 +86,12 @@ const ItemBooster = (props: IPropItemBooster) => {
 							)}
 							{type === 3 && (
 								<span className="text-[#FFFFFF99] font-normal text-xs text-addition">
-									{'Auto tap 7.200 / 3H'}
+									{'Auto tap 7,200 / 3H'}
 								</span>
 							)}
 							{type === 4 && (
 								<span className="text-[#FFFFFF99] font-normal text-xs text-addition">
-									{'Auto mine 28.800 / 24H'}
+									{'Auto mine 28,800 / 24H'}
 								</span>
 							)}
 						</div>

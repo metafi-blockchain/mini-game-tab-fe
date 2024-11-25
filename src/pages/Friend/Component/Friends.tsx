@@ -28,7 +28,7 @@ const Friends = ({ items = [] }: Props) => {
 				</Card>
 				<Card className="w-full">
 					<CardHeader className="p-4">
-						<div className="text-xs font-medium">Coins earned</div>
+						<div className="text-xs font-medium">Commission earned</div>
 						<div className="flex items-center gap-2 text-sm">
 							<img
 								src="/images/icons/ton-logo.svg"
@@ -70,8 +70,8 @@ const Friends = ({ items = [] }: Props) => {
 										className="overflow-visible"
 									/>
 									<div className="text-[#FEFFFF99]">
-										<span className="text-white">10% </span>for you on the total
-										points earned by your friends, up to 30,000 points.
+										<span className="text-white">10% </span>for you when your
+										friends buy AI bot, up to 3 TON.
 									</div>
 								</div>
 								<div className="flex gap-2">
@@ -83,8 +83,8 @@ const Friends = ({ items = [] }: Props) => {
 										className="overflow-visible"
 									/>
 									<div className="text-[#FEFFFF99]">
-										<span className="text-white">500 coins </span>for your
-										friend!
+										<span className="text-white">Many valuable gifts </span>for
+										you and your friend!
 									</div>
 								</div>
 							</div>
