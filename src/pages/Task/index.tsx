@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import {
 	APP_SOCIAL_TASK_KEY,
 	APP_TASK_KEY,
+	FARM_CATEGORY,
 	FIVE_MINUTES,
 	SOCIAL_CATEGORY
 } from '@/constants';
@@ -332,35 +333,167 @@ const Task = () => {
 			key: '2',
 			hasDot: false,
 			render: (
-				<>
-					<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
+				// <>
+				// 	<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
+				// 	<div className="flex flex-col gap-3 z-1">
+				// 		{dataRanking.length > 0 ? (
+				// 			dataRanking.map((item, index) => {
+				// 				const percent =
+				// 					// @ts-ignore
+				// 					(get(item, 'userValue', 0) * 100) / get(item, 'taskValue', 1);
+				// 				const temp = {
+				// 					...item,
+				// 					percent: percent > 100 ? 100 : percent
+				// 				};
+				// 				return (
+				// 					<LineItemOther
+				// 						iconKey={'farming'}
+				// 						showStep={false}
+				// 						isDifferent={true}
+				// 						key={`${index}-${item.title}`}
+				// 						data={temp}
+				// 						handleClick={() => handleClaimRankingOrRef(temp, true)}
+				// 						// taskValue={item.taskValue ?? 0}
+				// 					/>
+				// 				);
+				// 			})
+				// 		) : (
+				// 			<NoItem />
+				// 		)}
+				// 	</div>
+				// </>
+				<div style={{ paddingBottom: 40 }}>
+					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Farming</h3>
 					<div className="flex flex-col gap-3 z-1">
-						{dataRanking.length > 0 ? (
-							dataRanking.map((item, index) => {
-								const percent =
-									// @ts-ignore
-									(get(item, 'userValue', 0) * 100) / get(item, 'taskValue', 1);
-								const temp = {
-									...item,
-									percent: percent > 100 ? 100 : percent
-								};
-								return (
-									<LineItemOther
-										iconKey={'farming'}
-										showStep={false}
-										isDifferent={true}
-										key={`${index}-${item.title}`}
-										data={temp}
-										handleClick={() => handleClaimRankingOrRef(temp, true)}
-										taskValue={item.taskValue ?? 0}
-									/>
-								);
-							})
+						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Farm)
+							.length > 0 ? (
+							dataRanking
+								.filter(item => item.subCategory === FARM_CATEGORY.Farm)
+								.map((item, index) => {
+									const percent =
+										// @ts-ignore
+										(get(item, 'userValue', 0) * 100) /
+										// @ts-ignore
+										get(item, 'taskValue', 1);
+									const temp = {
+										...item,
+										percent: percent > 100 ? 100 : percent
+									};
+									return (
+										<LineItemOther
+											iconKey={'farming'}
+											showStep={false}
+											isDifferent={true}
+											key={`${index}-${item.title}`}
+											data={temp}
+											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											// taskValue={item.taskValue ?? 0}
+										/>
+									);
+								})
 						) : (
 							<NoItem />
 						)}
 					</div>
-				</>
+					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Diligence</h3>
+					<div className="flex flex-col gap-3 z-1">
+						{dataRanking.filter(
+							item => item.subCategory === FARM_CATEGORY.Diligence
+						).length > 0 ? (
+							dataRanking
+								.filter(item => item.subCategory === FARM_CATEGORY.Diligence)
+								.map((item, index) => {
+									const percent =
+										// @ts-ignore
+										(get(item, 'userValue', 0) * 100) /
+										// @ts-ignore
+										get(item, 'taskValue', 1);
+									const temp = {
+										...item,
+										percent: percent > 100 ? 100 : percent
+									};
+									return (
+										<LineItemOther
+											iconKey={'farming'}
+											showStep={false}
+											isDifferent={true}
+											key={`${index}-${item.title}`}
+											data={temp}
+											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											// taskValue={item.taskValue ?? 0}
+										/>
+									);
+								})
+						) : (
+							<NoItem />
+						)}
+					</div>
+					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Play game</h3>
+					<div className="flex flex-col gap-3 z-1">
+						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Play)
+							.length > 0 ? (
+							dataRanking
+								.filter(item => item.subCategory === FARM_CATEGORY.Play)
+								.map((item, index) => {
+									const percent =
+										// @ts-ignore
+										(get(item, 'userValue', 0) * 100) /
+										// @ts-ignore
+										get(item, 'taskValue', 1);
+									const temp = {
+										...item,
+										percent: percent > 100 ? 100 : percent
+									};
+									return (
+										<LineItemOther
+											iconKey={'farming'}
+											showStep={false}
+											isDifferent={true}
+											key={`${index}-${item.title}`}
+											data={temp}
+											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											// taskValue={item.taskValue ?? 0}
+										/>
+									);
+								})
+						) : (
+							<NoItem />
+						)}
+					</div>
+					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Upgrade</h3>
+					<div className="flex flex-col gap-3 z-1">
+						{dataRanking.filter(
+							item => item.subCategory === FARM_CATEGORY.Upgrade
+						).length > 0 ? (
+							dataRanking
+								.filter(item => item.subCategory === FARM_CATEGORY.Upgrade)
+								.map((item, index) => {
+									const percent =
+										// @ts-ignore
+										(get(item, 'userValue', 0) * 100) /
+										// @ts-ignore
+										get(item, 'taskValue', 1);
+									const temp = {
+										...item,
+										percent: percent > 100 ? 100 : percent
+									};
+									return (
+										<LineItemOther
+											iconKey={'farming'}
+											showStep={false}
+											isDifferent={true}
+											key={`${index}-${item.title}`}
+											data={temp}
+											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											// taskValue={item.taskValue ?? 0}
+										/>
+									);
+								})
+						) : (
+							<NoItem />
+						)}
+					</div>
+				</div>
 			)
 		},
 		{
