@@ -211,7 +211,10 @@ const Task = () => {
 			render: (
 				<div style={{ paddingBottom: 40 }}>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">X</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataTempSocial.filter(
 							item => item.subCategory === SOCIAL_CATEGORY.X
 						).length > 0 ? (
@@ -231,7 +234,10 @@ const Task = () => {
 						)}
 					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Discord</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataTempSocial.filter(
 							item => item.subCategory === SOCIAL_CATEGORY.D
 						).length > 0 ? (
@@ -251,7 +257,10 @@ const Task = () => {
 						)}
 					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Youtube</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataTempSocial.filter(
 							item => item.subCategory === SOCIAL_CATEGORY.Y
 						).length > 0 ? (
@@ -271,7 +280,10 @@ const Task = () => {
 						)}
 					</div>
 					<h3 className="mt-0 mb-[12px] mt-[6px] text-white">Telegram</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataTempSocial.filter(
 							item => item.subCategory === SOCIAL_CATEGORY.T
 						).length > 0 ? (
@@ -300,7 +312,10 @@ const Task = () => {
 			render: (
 				<>
 					<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataRef.length > 0 ? (
 							dataRef.map((item, index) => {
 								const percent =
@@ -362,9 +377,12 @@ const Task = () => {
 				// 		)}
 				// 	</div>
 				// </>
-				<div style={{ paddingBottom: 40 }}>
+				<div style={{}}>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Farming</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Farm)
 							.length > 0 ? (
 							dataRanking
@@ -396,7 +414,10 @@ const Task = () => {
 						)}
 					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Diligence</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataRanking.filter(
 							item => item.subCategory === FARM_CATEGORY.Diligence
 						).length > 0 ? (
@@ -429,7 +450,10 @@ const Task = () => {
 						)}
 					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Play game</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Play)
 							.length > 0 ? (
 							dataRanking
@@ -461,7 +485,10 @@ const Task = () => {
 						)}
 					</div>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Upgrade</h3>
-					<div className="flex flex-col gap-3 z-1">
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
 						{dataRanking.filter(
 							item => item.subCategory === FARM_CATEGORY.Upgrade
 						).length > 0 ? (
