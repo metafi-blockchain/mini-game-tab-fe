@@ -103,7 +103,6 @@ const Task = () => {
 				// console.log('tempppp', temp);
 				const tempSocialTask = dataSocial.map(item => {
 					const clickTime = temp[item.taskId] ?? Number.MAX_SAFE_INTEGER;
-					// console.log('clickTime', clickTime);
 					let status = 'Start';
 					if (item?.isCompleted) {
 						status = 'Done';
@@ -128,8 +127,7 @@ const Task = () => {
 	) => {
 		try {
 			event.stopPropagation();
-			// console.log('111111', task.status);
-			if (task.status === 'Start') {
+			if (task.status === 'Start' || task.status === undefined) {
 				if (!task?.isCompleted) {
 					let temp: any = {};
 					const tempStr = localStorage.getItem(
@@ -169,7 +167,14 @@ const Task = () => {
 	};
 
 	const handleNavigateTask = (task: IItemTask) => {
-		console.log('asasas');
+		const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
+		if (tempStr) {
+			let temp = JSON.parse(tempStr);
+			if (!temp[task.taskId]) {
+				temp[task.taskId] = Date.now();
+			}
+			storeLocalStorage(`${teleId}${APP_SOCIAL_TASK_KEY}`, temp);
+		}
 		const url =
 			task?.url?.startsWith('http') || task?.url?.length === 0
 				? task?.url
