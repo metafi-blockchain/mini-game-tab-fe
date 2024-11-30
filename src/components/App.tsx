@@ -73,7 +73,7 @@ export const App: FC = () => {
 			<ToastContainer autoClose={4000} closeOnClick={true} />
 			<Router location={location} navigator={reactNavigator}>
 				<UserProvider>
-					<PlatformCheck />
+					{/* <PlatformCheck /> */}
 					<AppRoot
 						className="wt-app"
 						// appearance={miniApp.isDark ? 'dark' : 'light'}
