@@ -15,6 +15,7 @@ export interface IPropItemBooster {
 	type?: number;
 	nextLevel?: number;
 	description?: string;
+	hasPaddingBottom?: boolean;
 }
 const ItemBooster = (props: IPropItemBooster) => {
 	const {
@@ -26,7 +27,8 @@ const ItemBooster = (props: IPropItemBooster) => {
 		remaining,
 		onClickItem,
 		type,
-		detail
+		detail,
+		hasPaddingBottom = true
 	} = props;
 	const handleClickItem = () => {
 		if ((type !== 4 && remaining === 0) || (type === 4 && isCompleted)) {
@@ -39,7 +41,9 @@ const ItemBooster = (props: IPropItemBooster) => {
 	return (
 		// TO-DO: add disable style for remaining === 0
 		<div
-			className="flex flex-row gap-3 item-booster items-center bg-card h-[67px]"
+			className={`flex flex-row gap-3 item-booster items-center bg-card h-[67px] ${
+				hasPaddingBottom ? 'mb-3' : ''
+			}`}
 			onClick={() => handleClickItem()}
 		>
 			<div className="flex items-center w-[40px]">{leftIcon}</div>

@@ -665,41 +665,42 @@ const OkBoost = () => {
 							</div>
 						</div>
 						<h4 className="mt-4 mb-[6px] text-white">Booster</h4>
-						<div className="flex flex-col gap-3">
-							{data.map((item: any, index: number) => (
-								<ItemBooster
-									type={item.type}
-									isCompleted={
-										item?.type === 3
-											? !!item?.status
-											: item?.type === 4
-											? item?.status
-											: item.remaining === 0
-									}
-									key={`${index}-item-boost`}
-									description={BOOST_DESCRIPTION[item.type]}
-									leftIcon={
-										<img
-											className="w-full"
-											src={item?.src}
-											alt="light-booster-icon"
-										/>
-									}
-									name={item?.boostName}
-									price={item?.price}
-									onClickItem={() =>
-										handleClickItemBooster(
-											item,
-											item?.type !== 3 ? item?.detail : ''
-										)
-									}
-									remaining={
-										item?.type === 3 ? (item?.status ? 0 : 1) : item?.remaining
-									}
-									detail={item?.type !== 3 ? item?.detail : ''}
-								/>
-							))}
-						</div>
+						{/* <div className=" flex-col gap-3" style={{ flex: 1 }}> */}
+						{data.map((item: any, index: number) => (
+							<ItemBooster
+								type={item.type}
+								isCompleted={
+									item?.type === 3
+										? !!item?.status
+										: item?.type === 4
+										? item?.status
+										: item.remaining === 0
+								}
+								hasPaddingBottom={index !== data.length - 1}
+								key={`${index}-item-boost`}
+								description={BOOST_DESCRIPTION[item.type]}
+								leftIcon={
+									<img
+										className="w-full"
+										src={item?.src}
+										alt="light-booster-icon"
+									/>
+								}
+								name={item?.boostName}
+								price={item?.price}
+								onClickItem={() =>
+									handleClickItemBooster(
+										item,
+										item?.type !== 3 ? item?.detail : ''
+									)
+								}
+								remaining={
+									item?.type === 3 ? (item?.status ? 0 : 1) : item?.remaining
+								}
+								detail={item?.type !== 3 ? item?.detail : ''}
+							/>
+						))}
+						{/* </div> */}
 					</div>
 
 					<OkModal
