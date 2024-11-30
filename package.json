@@ -1,9 +1,9 @@
 {
-	"name": "watermineapp",
+	"name": "kingdoms",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
-	"homepage": "https://watermineapp.vercel.app",
+	"homepage": "https://kingdoms.vercel.app",
 	"scripts": {
 		"deploy": "gh-pages -d dist",
 		"dev": "vite",
