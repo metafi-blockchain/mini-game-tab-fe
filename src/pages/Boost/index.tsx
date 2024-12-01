@@ -638,6 +638,7 @@ const OkBoost = () => {
 								className={`flex flex-col gap-3 items-center item-boost flex-1 bg-card ${
 									timeLeft > 0 ? 'disabled' : ''
 								}`}
+								style={{ maxHeight: 'calc(100vh - 300px)' }}
 							>
 								{timeLeft > 0 ? (
 									<img
