@@ -214,7 +214,7 @@ const Task = () => {
 			key: '1',
 			hasDot: false,
 			render: (
-				<div style={{ flex: 1 }}>
+				<div style={{ flex: 1, paddingBottom: 60 }}>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">X</h3>
 					<div
 						className="flex flex-col gap-3 z-1"
@@ -315,7 +315,7 @@ const Task = () => {
 			key: '3',
 			hasDot: false,
 			render: (
-				<>
+				<div style={{ paddingBottom: 60 }}>
 					<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
 					<div
 						className="flex flex-col gap-3 z-1"
@@ -345,7 +345,7 @@ const Task = () => {
 							<NoItem />
 						)}
 					</div>
-				</>
+				</div>
 			)
 		},
 		{
@@ -382,7 +382,7 @@ const Task = () => {
 				// 		)}
 				// 	</div>
 				// </>
-				<div style={{}}>
+				<div style={{ paddingBottom: 60 }}>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Farming</h3>
 					<div
 						className="flex flex-col gap-3 z-1"

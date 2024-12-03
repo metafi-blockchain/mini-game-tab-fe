@@ -598,7 +598,7 @@ const OkBoost = () => {
 							</span>
 						</div>
 					</div>
-					<div className="flex-1 overflow-auto">
+					<div className="flex-1 overflow-auto" style={{ paddingBottom: 60 }}>
 						<h4 className="mt-6 mb-[6px] text-white">Daily Boost</h4>
 						<div className="flex flex-row justify-between gap-4">
 							<div
