@@ -15,7 +15,7 @@ const Friends = ({ items = [] }: Props) => {
 	const { userData } = useUser();
 	return (
 		<>
-			<div className="flex justify-between gap-4">
+			<div className="flex justify-between gap-4 text-white">
 				<Card className="w-full">
 					<CardHeader className="p-4">
 						<div className="text-xs font-medium">Invited friends</div>

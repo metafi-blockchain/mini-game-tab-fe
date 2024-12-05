@@ -19,6 +19,7 @@ import Toolbar from '@/components/Toolbar';
 import ImageSequence from './ImageSequence';
 import { claimLeaderboardReward } from '@/services/auth';
 import { toast } from 'react-toastify';
+import Countdown from '@/components/Countdown';
 interface IBubble {
 	id: number;
 	value: string;
@@ -245,7 +246,7 @@ const Tap = () => {
 								height={54}
 								alt="logo-eternal-kingdoms"
 							/>
-							<div className="text-center">
+							<div className="text-center text-white">
 								<div className="text-xl font-medium">Score</div>
 								<span className="flex items-center text-4xl font-bold">
 									<img
@@ -279,32 +280,39 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-
-						<div className="relative flex-none items-center min-h-[80px]">
-							<div className="text-center">
-								<span className="text-lg text-white font-semibold">
-									{point}/{userData?.energyLimitValue || 1}
-								</span>
+						{timeLeft > 0 ? (
+							<div className="relative flex items-center justify-center min-h-[80px] text-[#F5C033]">
+								<Countdown />
 							</div>
-							<div className="">
-								<ProgressBar
-									maxCompleted={100}
-									completed={(point / (userData?.energyLimitValue || 1)) * 100}
-									customLabel={' '}
-									barContainerClassName="bar-container flex-1"
-									className="bar-wrapper"
-								/>
-								<div className="absolute inset-1 top-4 left-6">
-									<img
-										src="/images/icons/lightning.svg"
-										alt="icon-lightning"
-										width={33}
-										height={42.8}
-										className=""
+						) : (
+							<div className="relative flex-none items-center min-h-[80px]">
+								<div className="text-center">
+									<span className="text-lg text-white font-semibold">
+										{point}/{userData?.energyLimitValue || 1}
+									</span>
+								</div>
+								<div className="">
+									<ProgressBar
+										maxCompleted={100}
+										completed={
+											(point / (userData?.energyLimitValue || 1)) * 100
+										}
+										customLabel={' '}
+										barContainerClassName="bar-container flex-1"
+										className="bar-wrapper"
 									/>
+									<div className="absolute inset-1 top-4 left-6">
+										<img
+											src="/images/icons/lightning.svg"
+											alt="icon-lightning"
+											width={33}
+											height={42.8}
+											className=""
+										/>
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				</div>
 				<Toolbar />

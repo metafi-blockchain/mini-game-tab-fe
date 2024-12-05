@@ -120,6 +120,9 @@ const LeaderBoard = ({}: Props) => {
 					</div>
 				</div>
 			</Card>
+			<div className="text-center text-[#FEFFFF99]">
+				<span className="text-xs">Last update: 00:00:00 12/12/2024</span>
+			</div>
 		</div>
 	);
 };
