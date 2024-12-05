@@ -120,9 +120,16 @@ const LeaderBoard = ({}: Props) => {
 					</div>
 				</div>
 			</Card>
-			<div className="text-center text-[#FEFFFF99]">
-				<span className="text-xs">Last update: 00:00:00 12/12/2024</span>
-			</div>
+			{(items ?? []).length > 0 ? (
+				<div className="text-center text-[#FEFFFF99]">
+					<span className="text-xs">
+						Last update:{' '}
+						{new Date(
+							get(items, `[0].lastUpdate`, '2024-12-05T12:41:59.978Z')
+						).toLocaleString()}
+					</span>
+				</div>
+			) : null}
 		</div>
 	);
 };

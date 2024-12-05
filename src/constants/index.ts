@@ -17,5 +17,6 @@ export const FARM_CATEGORY = {
 	Farm: 'Farm',
 	Diligence: 'Diligence',
 	Play: 'Play',
+	Vote: 'Vote',
 	Upgrade: 'Upgrade'
 };

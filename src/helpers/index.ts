@@ -31,8 +31,8 @@ export const minimizeAddress = (address: any, start = 7) => {
 };
 
 export const convertRewardToRanking = (reward: number) => {
-	if (reward <= 0 || reward > 10 * 10 ** 6) return '';
-	const ranking = 11 - reward / 10 ** 6;
+	if (reward <= 0 || reward > 10 * 10 ** 4) return '';
+	const ranking = 11 - reward / 10 ** 4;
 	if (ranking === 1) return '1st';
 	if (ranking === 2) return '2nd';
 	if (ranking === 3) return '3rd';

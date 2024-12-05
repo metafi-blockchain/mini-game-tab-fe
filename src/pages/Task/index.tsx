@@ -67,28 +67,32 @@ const Task = () => {
 		if (!itemRanking.isCompleted) return;
 		if (itemRanking.isClaimed) return;
 		try {
-			await handleFinishTask({ taskId: itemRanking.taskId });
-			toast('Claim successfully!');
-			if (isRanking) {
-				setDataRanking(prevState => {
-					return prevState.map(item => {
-						return {
-							...item,
-							isClaimed:
-								item.taskId === itemRanking.taskId ? true : item.isClaimed
-						};
+			const res = await handleFinishTask({ taskId: itemRanking.taskId });
+			if (get(res, 'data.success', false)) {
+				toast.success('Claim successfully!');
+				if (isRanking) {
+					setDataRanking(prevState => {
+						return prevState.map(item => {
+							return {
+								...item,
+								isClaimed:
+									item.taskId === itemRanking.taskId ? true : item.isClaimed
+							};
+						});
 					});
-				});
+				} else {
+					setDataRef(prevState => {
+						return prevState.map(item => {
+							return {
+								...item,
+								isClaimed:
+									item.taskId === itemRanking.taskId ? true : item.isClaimed
+							};
+						});
+					});
+				}
 			} else {
-				setDataRef(prevState => {
-					return prevState.map(item => {
-						return {
-							...item,
-							isClaimed:
-								item.taskId === itemRanking.taskId ? true : item.isClaimed
-						};
-					});
-				});
+				toast.error('Claim failed!');
 			}
 		} catch (e) {
 			console.log(e);
@@ -183,32 +187,6 @@ const Task = () => {
 	};
 
 	const items = [
-		// {
-		// 	label: 'Farming',
-		// 	key: '0',
-		// 	hasDot: false,
-		// 	render: (
-		// 		<>
-		// 			<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
-		// 			<div className="flex flex-col gap-3 z-1">
-		// 				{dataTask.length > 0 ? (
-		// 					dataTask.map((item, index) => (
-		// 						<ItemTask
-		// 							handleNavigate={() => {
-		// 								navigate(`/task/detail/${item.taskId}`);
-		// 							}}
-		// 							// iconKey={'farming'}
-		// 							key={`${index}-${item.title}`}
-		// 							data={item}
-		// 						/>
-		// 					))
-		// 				) : (
-		// 					<NoItem />
-		// 				)}
-		// 			</div>
-		// 		</>
-		// 	)
-		// },
 		{
 			label: 'Social',
 			key: '1',
@@ -353,35 +331,6 @@ const Task = () => {
 			key: '2',
 			hasDot: false,
 			render: (
-				// <>
-				// 	<h3 className="mt-0 mb-[6px] text-white">Task list</h3>
-				// 	<div className="flex flex-col gap-3 z-1">
-				// 		{dataRanking.length > 0 ? (
-				// 			dataRanking.map((item, index) => {
-				// 				const percent =
-				// 					// @ts-ignore
-				// 					(get(item, 'userValue', 0) * 100) / get(item, 'taskValue', 1);
-				// 				const temp = {
-				// 					...item,
-				// 					percent: percent > 100 ? 100 : percent
-				// 				};
-				// 				return (
-				// 					<LineItemOther
-				// 						iconKey={'farming'}
-				// 						showStep={false}
-				// 						isDifferent={true}
-				// 						key={`${index}-${item.title}`}
-				// 						data={temp}
-				// 						handleClick={() => handleClaimRankingOrRef(temp, true)}
-				// 						// taskValue={item.taskValue ?? 0}
-				// 					/>
-				// 				);
-				// 			})
-				// 		) : (
-				// 			<NoItem />
-				// 		)}
-				// 	</div>
-				// </>
 				<div style={{ paddingBottom: 60 }}>
 					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Farming</h3>
 					<div
@@ -409,6 +358,7 @@ const Task = () => {
 											isDifferent={true}
 											key={`${index}-${item.title}`}
 											data={temp}
+											taskValue={''}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
 											// taskValue={item.taskValue ?? 0}
 										/>
@@ -445,7 +395,9 @@ const Task = () => {
 											isDifferent={true}
 											key={`${index}-${item.title}`}
 											data={temp}
+											taskValue={''}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											hideProgress={true}
 											// taskValue={item.taskValue ?? 0}
 										/>
 									);
@@ -474,14 +426,52 @@ const Task = () => {
 										percent: percent > 100 ? 100 : percent
 									};
 									return (
-										<LineItemOther
-											iconKey={'farming'}
-											showStep={false}
-											isDifferent={true}
+										<LineItemSocial
+											handleClick={(e: any) => handleClickSocialTask(item, e)}
 											key={`${index}-${item.title}`}
-											data={temp}
-											handleClick={() => handleClaimRankingOrRef(temp, true)}
-											// taskValue={item.taskValue ?? 0}
+											data={{
+												...item,
+												leftIcon: (
+													<img
+														src={`/images/icons/task-farming.svg`}
+														alt="play-video"
+													/>
+												)
+											}}
+											status={item.status}
+											handleNavigate={() => handleNavigateTask(item)}
+										/>
+									);
+								})
+						) : (
+							<NoItem />
+						)}
+					</div>
+					<h3 className="mt-0 mb-[6px] mt-[6px] text-white">Vote</h3>
+					<div
+						className="flex flex-col gap-3 z-1"
+						style={{ paddingBottom: '20px' }}
+					>
+						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Play)
+							.length > 0 ? (
+							dataRanking
+								.filter(item => item.subCategory === FARM_CATEGORY.Vote)
+								.map((item, index) => {
+									return (
+										<LineItemSocial
+											handleClick={(e: any) => handleClickSocialTask(item, e)}
+											key={`${index}-${item.title}`}
+											data={{
+												...item,
+												leftIcon: (
+													<img
+														src={`/images/icons/task-farming.svg`}
+														alt="play-video"
+													/>
+												)
+											}}
+											status={item.status}
+											handleNavigate={() => handleNavigateTask(item)}
 										/>
 									);
 								})
@@ -516,7 +506,9 @@ const Task = () => {
 											isDifferent={true}
 											key={`${index}-${item.title}`}
 											data={temp}
+											taskValue={''}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											hideProgress={true}
 											// taskValue={item.taskValue ?? 0}
 										/>
 									);

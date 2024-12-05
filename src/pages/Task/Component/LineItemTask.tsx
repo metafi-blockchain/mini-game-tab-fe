@@ -105,6 +105,7 @@ interface IPropsLineItemOther {
 	isDifferent?: boolean;
 	showStep?: boolean;
 	taskValue?: any;
+	hideProgress?: boolean;
 }
 const LineItemOther = (props: IPropsLineItemOther) => {
 	const {
@@ -114,7 +115,13 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 		isCompleted = false,
 		isClaimed = false
 	} = props.data;
-	const { handleClick, handleNavigate, iconKey, taskValue } = props;
+	const {
+		handleClick,
+		handleNavigate,
+		iconKey,
+		taskValue,
+		hideProgress = false
+	} = props;
 
 	return (
 		<Card onClick={handleNavigate && handleNavigate}>
@@ -181,15 +188,17 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 								/>
 							)}
 						</div>
-						<div className="">
-							<ProgressBar
-								customLabel={' '}
-								completed={percent}
-								barContainerClassName="bar-container h-[10px]"
-								className="bar-wrapper m-0"
-								maxCompleted={100}
-							/>
-						</div>
+						{!hideProgress ? (
+							<div className="">
+								<ProgressBar
+									customLabel={' '}
+									completed={percent}
+									barContainerClassName="bar-container h-[10px]"
+									className="bar-wrapper m-0"
+									maxCompleted={100}
+								/>
+							</div>
+						) : null}
 					</div>
 				</div>
 			</CardHeader>
