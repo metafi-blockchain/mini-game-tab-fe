@@ -186,7 +186,7 @@ const OkWallet = () => {
 	const getUserListWithdrawRequest = async () => {
 		try {
 			const res = await fetchUserListWithdrawRequest();
-			console.log('getUserListWithdrawRequest===', res);
+			// console.log('getUserListWithdrawRequest===', res);
 			if (get(res, 'data.success', false)) {
 				const temp: IWithdrawResponseItem[] = get(res, 'data.data', []);
 				setPendingUserListWithdraw(

@@ -23,26 +23,26 @@ export interface IItemFriend {
 }
 
 const OkFriend = () => {
-	const [friends, setFriends] = useState<any>([]);
+	// const [friends, setFriends] = useState<any>([]);
 
-	const getListFriend = async () => {
-		try {
-			const response = await handleGetListFriends();
-			if (get(response, 'data.success', false)) {
-				setFriends(get(response, 'data.data', []));
-			}
-		} catch (e) {
-			console.log(e);
-		}
-	};
+	// const getListFriend = async () => {
+	// 	try {
+	// 		const response = await handleGetListFriends();
+	// 		if (get(response, 'data.success', false)) {
+	// 			setFriends(get(response, 'data.data', []));
+	// 		}
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// };
 
 	useEffect(() => {
-		getListFriend();
+		// getListFriend();
 	}, []);
 
-	const [selectedTab, setSelectedTab] = useState<'friends' | 'leaderboard'>(
-		'friends'
-	);
+	// const [selectedTab, setSelectedTab] = useState<'friends' | 'leaderboard'>(
+	// 	'friends'
+	// );
 
 	return (
 		<PrivateLayout>
@@ -103,7 +103,7 @@ const OkFriend = () => {
 					<div className="flex-none">
 						<InviteFriend />
 					</div> */}
-					<motion.div
+					{/* <motion.div
 						key="leaderboard"
 						variants={tabVariants}
 						initial="hidden"
@@ -111,9 +111,9 @@ const OkFriend = () => {
 						exit="exit"
 						transition={{ duration: 0.5 }}
 						className="flex flex-col gap-4"
-					>
-						<LeaderBoard />
-					</motion.div>
+					> */}
+					<LeaderBoard />
+					{/* </motion.div> */}
 				</div>
 			</div>
 		</PrivateLayout>

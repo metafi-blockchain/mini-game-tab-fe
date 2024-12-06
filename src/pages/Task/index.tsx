@@ -96,6 +96,7 @@ const Task = () => {
 			}
 		} catch (e) {
 			console.log(e);
+			toast.error('Claim failed!');
 		}
 	};
 
@@ -490,24 +491,24 @@ const Task = () => {
 							dataRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Upgrade)
 								.map((item, index) => {
-									const percent =
-										// @ts-ignore
-										(get(item, 'userValue', 0) * 100) /
-										// @ts-ignore
-										get(item, 'taskValue', 1);
-									const temp = {
-										...item,
-										percent: percent > 100 ? 100 : percent
-									};
+									// const percent =
+									// 	// @ts-ignore
+									// 	(get(item, 'userValue', 0) * 100) /
+									// 	// @ts-ignore
+									// 	get(item, 'taskValue', 1);
+									// const temp = {
+									// 	...item,
+									// 	percent: percent > 100 ? 100 : percent
+									// };
 									return (
 										<LineItemOther
 											iconKey={'farming'}
 											showStep={false}
 											isDifferent={true}
 											key={`${index}-${item.title}`}
-											data={temp}
+											data={item}
 											taskValue={''}
-											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											handleClick={() => handleClaimRankingOrRef(item, true)}
 											hideProgress={true}
 											// taskValue={item.taskValue ?? 0}
 										/>
@@ -525,8 +526,8 @@ const Task = () => {
 			key: '4',
 			hasDot: false,
 			render: (
-				<>
-					<motion.div
+				<div className="flex flex-col gap-4" style={{ paddingBottom: 56 }}>
+					{/* <motion.div
 						key="friends"
 						variants={tabVariants}
 						initial="hidden"
@@ -535,10 +536,10 @@ const Task = () => {
 						transition={{ duration: 0.5 }}
 						className="flex flex-col gap-4"
 						style={{ paddingBottom: 56 }}
-					>
-						<Friends items={friends} />
-					</motion.div>
-				</>
+					> */}
+					<Friends items={friends} />
+					{/* </motion.div> */}
+				</div>
 			)
 		}
 	];

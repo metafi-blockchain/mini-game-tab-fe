@@ -1,9 +1,9 @@
 import { Card, CardHeader } from '@/components/Card';
 import { formatNumberDownRound } from '@/helpers';
 import { cn } from '@/utils';
-import InviteFriend from './InviteFriend';
+// import InviteFriend from './InviteFriend';
 import BigNumber from 'bignumber.js';
-import { get } from 'http';
+// import { get } from 'http';
 import { useUser } from '@/contexts/UserContext';
 
 type Props = {

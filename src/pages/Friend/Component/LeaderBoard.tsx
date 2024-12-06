@@ -34,7 +34,7 @@ const LeaderBoard = ({}: Props) => {
 	if (loading) {
 		return <div className="spinner"></div>;
 	}
-	if (items.length == 0) {
+	if (items?.length == 0) {
 		return (
 			<NoItem
 				cls="mt-3"
@@ -120,7 +120,7 @@ const LeaderBoard = ({}: Props) => {
 					</div>
 				</div>
 			</Card>
-			{(items ?? []).length > 0 ? (
+			{(items ?? [])?.length > 0 ? (
 				<div className="text-center text-[#FEFFFF99]">
 					<span className="text-xs">
 						Last update:{' '}
