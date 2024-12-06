@@ -25,7 +25,9 @@ const InviteFriend = () => {
 	};
 
 	const handleShare = () => {
-		utils.openTelegramLink('https://t.me/share/url?url=https://t.me/ekgsd_bot');
+		utils.openTelegramLink(
+			`https://t.me/share/url?url=${config.REF_LINK}${userData?.telegramId}`
+		);
 	};
 	return (
 		<div className="flex gap-2">
