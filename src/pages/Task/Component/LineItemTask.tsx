@@ -53,7 +53,40 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 								</span>
 							</div>
 						</div>
-						{isCompleted ? (
+						{isClaimed ? (
+							<OKButton
+								text={
+									<img
+										src="/images/icons/checked-disable.svg"
+										alt="checked-disable"
+										width={16}
+										height={16}
+									/>
+								}
+								rootClass="px-4 py-1 text-sm flex-none h-8"
+								isDisable={true}
+							/>
+						) : isCompleted ? (
+							<OKButton
+								handleOnClick={handleClick && handleClick}
+								text={'Claim'}
+								rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
+							/>
+						) : status === 'Loading' ? (
+							<OKButton
+								handleOnClick={() => {}}
+								text={''}
+								isLoading={true}
+								rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
+							/>
+						) : (
+							<OKButton
+								handleOnClick={handleClick && handleClick}
+								text={status}
+								rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
+							/>
+						)}
+						{/* {isCompleted ? (
 							isClaimed ? (
 								<OKButton
 									text={
@@ -74,13 +107,20 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 									rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
 								/>
 							)
+						) : status === 'Loading' ? (
+							<OKButton
+								handleOnClick={handleClick && handleClick}
+								text={''}
+								isLoading={true}
+								rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
+							/>
 						) : (
 							<OKButton
 								handleOnClick={handleClick && handleClick}
 								text={status ?? 'Start'}
 								rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
 							/>
-						)}
+						)} */}
 					</div>
 				</div>
 			</CardHeader>

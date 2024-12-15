@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import OkBaseButton from '@/components/Button';
 import { useUser } from '@/contexts/UserContext';
 import { formatNumberDownRound, storeLocalStorage } from '@/helpers';
-import { get } from 'lodash';
+import { cloneDeep, get } from 'lodash';
 import { handleFinishTask, handleGetListFriends } from '@/services';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import { toast } from 'react-toastify';
@@ -21,6 +21,7 @@ import { LineItemOther, LineItemSocial } from './Component/LineItemTask';
 import { motion } from 'framer-motion';
 import Friends from '../Friend/Component/Friends';
 import InviteFriend from '../Friend/Component/InviteFriend';
+import BigNumber from 'bignumber.js';
 
 const tabVariants = {
 	hidden: { opacity: 0, x: -20 },
@@ -36,14 +37,14 @@ const Task = () => {
 	const [keyActive, setKeyActive] = useState<string>(
 		keyDefault === null ? '1' : keyDefault
 	);
-	const [dataTask, setDataList] = useState<IItemTask[]>([]);
+	// const [dataTask, setDataList] = useState<IItemTask[]>([]);
 	const [dataSocial, setDataSocial] = useState<IItemTask[]>([]);
 	const [dataTempSocial, setDataTempSocial] = useState<IItemTask[]>([]);
 	const [dataRanking, setDataRanking] = useState<IItemTask[]>([]);
 	const [dataRef, setDataRef] = useState<IItemTask[]>([]);
 	const navigate = useNavigate();
 	const [totalBal, setTotalBal] = useState(0);
-	const [countRender, setCountRender] = useState(0);
+	const [loading, setLoading] = useState('');
 	const [friends, setFriends] = useState<any>([]);
 
 	const getListFriend = async () => {
@@ -103,22 +104,34 @@ const Task = () => {
 	useEffect(() => {
 		if (dataSocial) {
 			const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
+			// console.log('==========', tempStr);
 			if (tempStr) {
 				const temp = JSON.parse(tempStr);
-				// console.log('tempppp', temp);
+				console.log('tempppp', temp);
 				const tempSocialTask = dataSocial.map(item => {
-					const clickTime = temp[item.taskId] ?? Number.MAX_SAFE_INTEGER;
+					const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
+					if (item.subCategory === 'T') {
+						console.log(
+							'clickTimeclickTimeclickTime',
+							item.description,
+							item.taskId,
+							clickTime + 1000,
+							Date.now()
+						);
+					}
 					let status = 'Start';
 					if (item?.isCompleted) {
 						status = 'Done';
 					} else if (
 						!item?.isCompleted &&
-						clickTime + FIVE_MINUTES <= Date.now()
+						new BigNumber(clickTime + 1000).lte(Date.now())
 					) {
+						console.log('=====================');
 						status = 'Claim';
 					}
 					return { ...item, status: status };
 				});
+				console.log('-------', tempSocialTask);
 				setDataTempSocial(tempSocialTask);
 			} else {
 				setDataTempSocial(dataSocial);
@@ -132,6 +145,7 @@ const Task = () => {
 	) => {
 		try {
 			event.stopPropagation();
+			console.log('ssssssss', task.status);
 			if (task.status === 'Start' || task.status === undefined) {
 				if (!task?.isCompleted) {
 					let temp: any = {};
@@ -148,23 +162,29 @@ const Task = () => {
 					}
 					storeLocalStorage(`${teleId}${APP_SOCIAL_TASK_KEY}`, temp);
 				}
+				// make a set timeout to change status to claimable
+				// const tempData = cloneDeep(dataTempSocial);
+				// const clickedItem = tempData.f
 				const url =
 					task?.url?.startsWith('http') || task?.url?.length === 0
 						? task?.url
 						: `https://t.me/${task?.url?.slice(1)}`;
 				window.open(url);
 			} else if (task.status === 'Claim') {
+				setLoading(task.taskId);
 				const response = await handleFinishTask({
 					taskId: task.taskId as string,
 					code: ''
 				});
 				const status = get(response, 'data.success', false);
 				getMeInfo();
+				await new Promise(resolve => setTimeout(resolve, 2000));
 				if (!status) {
 					toast.error(get(response, 'data.message', ''));
 					return;
 				}
 				toast('Claim successfully!');
+				setLoading('');
 			}
 		} catch (error) {
 			console.log('1');
@@ -209,7 +229,7 @@ const Task = () => {
 										handleClick={(e: any) => handleClickSocialTask(item, e)}
 										key={`${index}-${item.title}`}
 										data={item}
-										status={item.status}
+										status={item.taskId === loading ? 'Loading' : item.status}
 										handleNavigate={() => handleNavigateTask(item)}
 									/>
 								))
@@ -233,7 +253,7 @@ const Task = () => {
 										handleNavigate={() => handleNavigateTask(item)}
 										key={`${index}-${item.title}`}
 										data={item}
-										status={item.status}
+										status={item.taskId === loading ? 'Loading' : item.status}
 									/>
 								))
 						) : (
@@ -256,7 +276,7 @@ const Task = () => {
 										handleNavigate={() => handleNavigateTask(item)}
 										key={`${index}-${item.title}`}
 										data={item}
-										status={item.status}
+										status={item.taskId === loading ? 'Loading' : item.status}
 									/>
 								))
 						) : (
@@ -279,7 +299,7 @@ const Task = () => {
 										handleNavigate={() => handleNavigateTask(item)}
 										key={`${index}-${item.title}`}
 										data={item}
-										status={item.status}
+										status={item.taskId === loading ? 'Loading' : item.status}
 									/>
 								))
 						) : (
@@ -439,7 +459,7 @@ const Task = () => {
 													/>
 												)
 											}}
-											status={item.status}
+											status={item.taskId === loading ? 'Loading' : item.status}
 											handleNavigate={() => handleNavigateTask(item)}
 										/>
 									);

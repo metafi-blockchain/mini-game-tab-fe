@@ -6,7 +6,7 @@ export const APP_TASK_KEY = 'APP_TASK_KEY';
 export const APP_SOCIAL_TASK_KEY = 'APP_SOCIAL_TASK_KEY';
 export const TRY_BUY_BOT = 'TRY_BUY_BOT';
 export const TIME_BUY_BOT = 'TIME_BUY_BOT';
-export const FIVE_MINUTES = 1; //5 * 60 * 1000;
+export const FIVE_MINUTES = 5000; //5 * 60 * 1000;
 export const SOCIAL_CATEGORY = {
 	X: 'X',
 	Y: 'Y',

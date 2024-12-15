@@ -1,5 +1,5 @@
 # Step 1: Build the React application using a Node.js base image
-FROM node:18-alpine AS build
+FROM node:21.1.0-alpine3.18 AS build
 
 # Set working directory
 WORKDIR /app
