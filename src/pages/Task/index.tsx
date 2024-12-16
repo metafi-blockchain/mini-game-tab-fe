@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import OkBaseButton from '@/components/Button';
 import { useUser } from '@/contexts/UserContext';
 import { formatNumberDownRound, storeLocalStorage } from '@/helpers';
-import { cloneDeep, get } from 'lodash';
+import { cloneDeep, findIndex, get } from 'lodash';
 import { handleFinishTask, handleGetListFriends } from '@/services';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import { toast } from 'react-toastify';
@@ -101,41 +101,34 @@ const Task = () => {
 		}
 	};
 
+	const initData = () => {
+		const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
+		// console.log('==========', tempStr);
+		if (tempStr) {
+			const temp = JSON.parse(tempStr);
+			console.log('tempppp', temp);
+			const tempSocialTask = dataSocial.map(item => {
+				const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
+				let status = 'Start';
+				if (item?.isCompleted) {
+					status = 'Done';
+				} else if (
+					!item?.isCompleted &&
+					new BigNumber(clickTime + 1000).lte(Date.now())
+				) {
+					status = 'Claim';
+				}
+				return { ...item, status: status };
+			});
+			setDataTempSocial(tempSocialTask);
+		} else {
+			setDataTempSocial(dataSocial);
+		}
+	};
+
 	useEffect(() => {
 		if (dataSocial) {
-			const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
-			// console.log('==========', tempStr);
-			if (tempStr) {
-				const temp = JSON.parse(tempStr);
-				console.log('tempppp', temp);
-				const tempSocialTask = dataSocial.map(item => {
-					const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
-					if (item.subCategory === 'T') {
-						console.log(
-							'clickTimeclickTimeclickTime',
-							item.description,
-							item.taskId,
-							clickTime + 1000,
-							Date.now()
-						);
-					}
-					let status = 'Start';
-					if (item?.isCompleted) {
-						status = 'Done';
-					} else if (
-						!item?.isCompleted &&
-						new BigNumber(clickTime + 1000).lte(Date.now())
-					) {
-						console.log('=====================');
-						status = 'Claim';
-					}
-					return { ...item, status: status };
-				});
-				console.log('-------', tempSocialTask);
-				setDataTempSocial(tempSocialTask);
-			} else {
-				setDataTempSocial(dataSocial);
-			}
+			initData();
 		}
 	}, [dataSocial]);
 
@@ -162,9 +155,12 @@ const Task = () => {
 					}
 					storeLocalStorage(`${teleId}${APP_SOCIAL_TASK_KEY}`, temp);
 				}
+				setLoading(task.taskId);
 				// make a set timeout to change status to claimable
-				// const tempData = cloneDeep(dataTempSocial);
-				// const clickedItem = tempData.f
+				setTimeout(() => {
+					setLoading('');
+					initData();
+				}, 5000);
 				const url =
 					task?.url?.startsWith('http') || task?.url?.length === 0
 						? task?.url
