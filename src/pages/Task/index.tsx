@@ -45,6 +45,7 @@ const Task = () => {
 	const [dataRef, setDataRef] = useState<IItemTask[]>([]);
 	const [totalBal, setTotalBal] = useState(0);
 	const [loading, setLoading] = useState('');
+	const [loading2, setLoading2] = useState('');
 	const [friends, setFriends] = useState<any>([]);
 
 	const getListFriend = async () => {
@@ -65,15 +66,18 @@ const Task = () => {
 		itemRanking: IItemTask,
 		isRanking: boolean
 	) => {
-		if (!itemRanking.isCompleted) return;
-		if (itemRanking.isClaimed) return;
+		if (!itemRanking.isCompleted || itemRanking.isClaimed) return;
+		setLoading2(itemRanking.taskId);
 		try {
 			const res = await handleFinishTask({ taskId: itemRanking.taskId });
 			if (get(res, 'data.success', false)) {
 				toast.success('Claim successfully!');
 				if (isRanking) {
-					setDataRanking(prevState => {
+					console.log('11111111111', itemRanking.taskId);
+					setDataTempRanking(prevState => {
 						return prevState.map(item => {
+							console.log('item.taskId===', item.taskId);
+							console.log('itemRanking.taskId===', itemRanking.taskId);
 							return {
 								...item,
 								isClaimed:
@@ -93,11 +97,13 @@ const Task = () => {
 					});
 				}
 			} else {
-				toast.error('Claim failed!');
+				toast.error(get(res, 'data.message', 'Claim failed!'));
 			}
+			setLoading2('');
 		} catch (e) {
 			console.log(e);
 			toast.error('Claim failed!');
+			setLoading2('');
 		}
 	};
 
@@ -360,6 +366,7 @@ const Task = () => {
 										showStep={true}
 										handleClick={() => handleClaimRankingOrRef(temp, false)}
 										taskValue={''}
+										loading={item.taskId === loading2 ? true : false}
 									/>
 								);
 							})
@@ -405,6 +412,7 @@ const Task = () => {
 											data={temp}
 											taskValue={''}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
+											loading={item.taskId === loading2 ? true : false}
 											// taskValue={item.taskValue ?? 0}
 										/>
 									);
@@ -443,7 +451,7 @@ const Task = () => {
 											taskValue={''}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
 											hideProgress={true}
-											// taskValue={item.taskValue ?? 0}
+											loading={item.taskId === loading2 ? true : false}
 										/>
 									);
 								})
@@ -528,15 +536,6 @@ const Task = () => {
 							dataTempRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Upgrade)
 								.map((item, index) => {
-									// const percent =
-									// 	// @ts-ignore
-									// 	(get(item, 'userValue', 0) * 100) /
-									// 	// @ts-ignore
-									// 	get(item, 'taskValue', 1);
-									// const temp = {
-									// 	...item,
-									// 	percent: percent > 100 ? 100 : percent
-									// };
 									return (
 										<LineItemOther
 											iconKey={'farming'}
@@ -547,7 +546,7 @@ const Task = () => {
 											taskValue={''}
 											handleClick={() => handleClaimRankingOrRef(item, true)}
 											hideProgress={true}
-											// taskValue={item.taskValue ?? 0}
+											loading={item.taskId === loading2 ? true : false}
 										/>
 									);
 								})

@@ -70,7 +70,7 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 							<OKButton
 								handleOnClick={handleClick && handleClick}
 								text={'Claim'}
-								rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
+								rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
 							/>
 						) : status === 'Loading' ? (
 							<OKButton
@@ -83,7 +83,7 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 							<OKButton
 								handleOnClick={handleClick && handleClick}
 								text={status ?? 'Start'}
-								rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
+								rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
 							/>
 						)}
 						{/* {isCompleted ? (
@@ -104,7 +104,7 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 								<OKButton
 									handleOnClick={handleClick && handleClick}
 									text={'Claim'}
-									rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
+									rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
 								/>
 							)
 						) : status === 'Loading' ? (
@@ -144,6 +144,7 @@ interface IPropsLineItemOther {
 	showStep?: boolean;
 	taskValue?: any;
 	hideProgress?: boolean;
+	loading: boolean;
 }
 const LineItemOther = (props: IPropsLineItemOther) => {
 	const {
@@ -158,7 +159,8 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 		handleNavigate,
 		iconKey,
 		taskValue,
-		hideProgress = false
+		hideProgress = false,
+		loading = false
 	} = props;
 
 	return (
@@ -197,7 +199,14 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 									</span>
 								</div>
 							</div>
-							{isCompleted ? (
+							{loading ? (
+								<OKButton
+									isDisable={true}
+									text={''}
+									isLoading={true}
+									rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
+								/>
+							) : isCompleted ? (
 								isClaimed ? (
 									<OKButton
 										text={
@@ -208,18 +217,19 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 												height={16}
 											/>
 										}
-										rootClass="px-4 py-1 text-sm flex-none h-8"
+										rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
 										isDisable={true}
 									/>
 								) : (
 									<OKButton
 										handleOnClick={handleClick && handleClick}
 										text={'Claim'}
-										rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
+										rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
 									/>
 								)
 							) : (
 								<OKButton
+									// handleOnClick={handleClick && handleClick}
 									text={'Claim'}
 									rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
 									isDisable={true}
