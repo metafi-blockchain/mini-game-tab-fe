@@ -41,8 +41,8 @@ const Task = () => {
 	const [dataSocial, setDataSocial] = useState<IItemTask[]>([]);
 	const [dataTempSocial, setDataTempSocial] = useState<IItemTask[]>([]);
 	const [dataRanking, setDataRanking] = useState<IItemTask[]>([]);
+	const [dataTempRanking, setDataTempRanking] = useState<IItemTask[]>([]);
 	const [dataRef, setDataRef] = useState<IItemTask[]>([]);
-	const navigate = useNavigate();
 	const [totalBal, setTotalBal] = useState(0);
 	const [loading, setLoading] = useState('');
 	const [friends, setFriends] = useState<any>([]);
@@ -103,7 +103,6 @@ const Task = () => {
 
 	const initSocialData = () => {
 		const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
-		// console.log('==========', tempStr);
 		if (tempStr) {
 			const temp = JSON.parse(tempStr);
 			const tempSocialTask = dataSocial.map(item => {
@@ -120,20 +119,6 @@ const Task = () => {
 				return { ...item, status: status };
 			});
 			setDataTempSocial(tempSocialTask);
-			const tempFarmingTask = dataRanking.map(item => {
-				const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
-				let status = 'Start';
-				if (item?.isCompleted) {
-					status = 'Done';
-				} else if (
-					!item?.isCompleted &&
-					new BigNumber(clickTime + 1000).lte(Date.now())
-				) {
-					status = 'Claim';
-				}
-				return { ...item, status: status };
-			});
-			setDataRanking(tempFarmingTask);
 		} else {
 			setDataTempSocial(dataSocial);
 		}
@@ -141,7 +126,6 @@ const Task = () => {
 
 	const initRankingData = () => {
 		const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
-		// console.log('==========', tempStr);
 		if (tempStr) {
 			const temp = JSON.parse(tempStr);
 			const tempFarmingTask = dataRanking.map(item => {
@@ -157,9 +141,9 @@ const Task = () => {
 				}
 				return { ...item, status: status };
 			});
-			setDataRanking(tempFarmingTask);
+			setDataTempRanking(tempFarmingTask);
 		} else {
-			setDataRanking(dataRanking);
+			setDataTempRanking(dataRanking);
 		}
 	};
 
@@ -181,7 +165,6 @@ const Task = () => {
 	) => {
 		try {
 			event.stopPropagation();
-			console.log('ssssssss', task.status);
 			if (task.status === 'Start' || task.status === undefined) {
 				if (!task?.isCompleted) {
 					let temp: any = {};
@@ -398,9 +381,10 @@ const Task = () => {
 						className="flex flex-col gap-3 z-1"
 						style={{ paddingBottom: '20px' }}
 					>
-						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Farm)
-							.length > 0 ? (
-							dataRanking
+						{dataTempRanking.filter(
+							item => item.subCategory === FARM_CATEGORY.Farm
+						).length > 0 ? (
+							dataTempRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Farm)
 								.map((item, index) => {
 									const percent =
@@ -434,10 +418,10 @@ const Task = () => {
 						className="flex flex-col gap-3 z-1"
 						style={{ paddingBottom: '20px' }}
 					>
-						{dataRanking.filter(
+						{dataTempRanking.filter(
 							item => item.subCategory === FARM_CATEGORY.Diligence
 						).length > 0 ? (
-							dataRanking
+							dataTempRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Diligence)
 								.map((item, index) => {
 									const percent =
@@ -472,20 +456,12 @@ const Task = () => {
 						className="flex flex-col gap-3 z-1"
 						style={{ paddingBottom: '20px' }}
 					>
-						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Play)
-							.length > 0 ? (
-							dataRanking
+						{dataTempRanking.filter(
+							item => item.subCategory === FARM_CATEGORY.Play
+						).length > 0 ? (
+							dataTempRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Play)
 								.map((item, index) => {
-									const percent =
-										// @ts-ignore
-										(get(item, 'userValue', 0) * 100) /
-										// @ts-ignore
-										get(item, 'taskValue', 1);
-									const temp = {
-										...item,
-										percent: percent > 100 ? 100 : percent
-									};
 									return (
 										<LineItemSocial
 											handleClick={(e: any) => handleClickSocialTask(item, e)}
@@ -513,9 +489,10 @@ const Task = () => {
 						className="flex flex-col gap-3 z-1"
 						style={{ paddingBottom: '20px' }}
 					>
-						{dataRanking.filter(item => item.subCategory === FARM_CATEGORY.Play)
-							.length > 0 ? (
-							dataRanking
+						{dataTempRanking.filter(
+							item => item.subCategory === FARM_CATEGORY.Play
+						).length > 0 ? (
+							dataTempRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Vote)
 								.map((item, index) => {
 									return (
@@ -531,7 +508,7 @@ const Task = () => {
 													/>
 												)
 											}}
-											status={item.status}
+											status={item.taskId === loading ? 'Loading' : item.status}
 											handleNavigate={() => handleNavigateTask(item)}
 										/>
 									);
@@ -545,10 +522,10 @@ const Task = () => {
 						className="flex flex-col gap-3 z-1"
 						style={{ paddingBottom: '20px' }}
 					>
-						{dataRanking.filter(
+						{dataTempRanking.filter(
 							item => item.subCategory === FARM_CATEGORY.Upgrade
 						).length > 0 ? (
-							dataRanking
+							dataTempRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Upgrade)
 								.map((item, index) => {
 									// const percent =
