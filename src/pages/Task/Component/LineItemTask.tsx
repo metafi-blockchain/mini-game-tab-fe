@@ -82,7 +82,7 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 						) : (
 							<OKButton
 								handleOnClick={handleClick && handleClick}
-								text={status}
+								text={status ?? 'Start'}
 								rootClass="px-4 py-1 text-sm flex-none bg-[#29B314] h-8"
 							/>
 						)}

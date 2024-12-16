@@ -101,12 +101,11 @@ const Task = () => {
 		}
 	};
 
-	const initData = () => {
+	const initSocialData = () => {
 		const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
 		// console.log('==========', tempStr);
 		if (tempStr) {
 			const temp = JSON.parse(tempStr);
-			console.log('tempppp', temp);
 			const tempSocialTask = dataSocial.map(item => {
 				const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
 				let status = 'Start';
@@ -121,16 +120,60 @@ const Task = () => {
 				return { ...item, status: status };
 			});
 			setDataTempSocial(tempSocialTask);
+			const tempFarmingTask = dataRanking.map(item => {
+				const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
+				let status = 'Start';
+				if (item?.isCompleted) {
+					status = 'Done';
+				} else if (
+					!item?.isCompleted &&
+					new BigNumber(clickTime + 1000).lte(Date.now())
+				) {
+					status = 'Claim';
+				}
+				return { ...item, status: status };
+			});
+			setDataRanking(tempFarmingTask);
 		} else {
 			setDataTempSocial(dataSocial);
 		}
 	};
 
+	const initRankingData = () => {
+		const tempStr = localStorage.getItem(`${teleId}${APP_SOCIAL_TASK_KEY}`);
+		// console.log('==========', tempStr);
+		if (tempStr) {
+			const temp = JSON.parse(tempStr);
+			const tempFarmingTask = dataRanking.map(item => {
+				const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
+				let status = 'Start';
+				if (item?.isCompleted) {
+					status = 'Done';
+				} else if (
+					!item?.isCompleted &&
+					new BigNumber(clickTime + 1000).lte(Date.now())
+				) {
+					status = 'Claim';
+				}
+				return { ...item, status: status };
+			});
+			setDataRanking(tempFarmingTask);
+		} else {
+			setDataRanking(dataRanking);
+		}
+	};
+
 	useEffect(() => {
 		if (dataSocial) {
-			initData();
+			initSocialData();
 		}
 	}, [dataSocial]);
+
+	useEffect(() => {
+		if (dataRanking) {
+			initRankingData();
+		}
+	}, [dataRanking]);
 
 	const handleClickSocialTask = async (
 		task: IItemTask,
@@ -159,7 +202,8 @@ const Task = () => {
 				// make a set timeout to change status to claimable
 				setTimeout(() => {
 					setLoading('');
-					initData();
+					initSocialData();
+					initRankingData();
 				}, 5000);
 				const url =
 					task?.url?.startsWith('http') || task?.url?.length === 0
