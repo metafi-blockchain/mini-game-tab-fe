@@ -66,25 +66,20 @@ const Task = () => {
 		itemRanking: IItemTask,
 		isRanking: boolean
 	) => {
-		if (!itemRanking.isCompleted || itemRanking.isClaimed) return;
+		// if (!itemRanking.isCompleted || itemRanking.isClaimed) return;
 		setLoading2(itemRanking.taskId);
 		try {
 			const res = await handleFinishTask({ taskId: itemRanking.taskId });
 			if (get(res, 'data.success', false)) {
 				toast.success('Claim successfully!');
 				if (isRanking) {
-					console.log('11111111111', itemRanking.taskId);
-					setDataTempRanking(prevState => {
-						return prevState.map(item => {
-							console.log('item.taskId===', item.taskId);
-							console.log('itemRanking.taskId===', itemRanking.taskId);
-							return {
-								...item,
-								isClaimed:
-									item.taskId === itemRanking.taskId ? true : item.isClaimed
-							};
-						});
-					});
+					setDataTempRanking(prevState =>
+						prevState.map(item => ({
+							...item,
+							isClaimed:
+								item.taskId === itemRanking.taskId ? true : item.isClaimed
+						}))
+					);
 				} else {
 					setDataRef(prevState => {
 						return prevState.map(item => {

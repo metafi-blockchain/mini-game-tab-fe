@@ -206,27 +206,25 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 									isLoading={true}
 									rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
 								/>
+							) : isClaimed ? (
+								<OKButton
+									text={
+										<img
+											src="/images/icons/checked-disable.svg"
+											alt="checked-disable"
+											width={16}
+											height={16}
+										/>
+									}
+									rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
+									isDisable={true}
+								/>
 							) : isCompleted ? (
-								isClaimed ? (
-									<OKButton
-										text={
-											<img
-												src="/images/icons/checked-disable.svg"
-												alt="checked-disable"
-												width={16}
-												height={16}
-											/>
-										}
-										rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
-										isDisable={true}
-									/>
-								) : (
-									<OKButton
-										handleOnClick={handleClick && handleClick}
-										text={'Claim'}
-										rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
-									/>
-								)
+								<OKButton
+									handleOnClick={handleClick && handleClick}
+									text={'Claim'}
+									rootClass="px-4 py-1 text-sm flex-none bg-[#F5C033] h-8"
+								/>
 							) : (
 								<OKButton
 									// handleOnClick={handleClick && handleClick}
