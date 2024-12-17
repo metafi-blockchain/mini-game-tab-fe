@@ -144,7 +144,7 @@ interface IPropsLineItemOther {
 	showStep?: boolean;
 	taskValue?: any;
 	hideProgress?: boolean;
-	loading: boolean;
+	loading?: boolean;
 }
 const LineItemOther = (props: IPropsLineItemOther) => {
 	const {
