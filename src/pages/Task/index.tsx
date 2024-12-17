@@ -228,7 +228,8 @@ const Task = () => {
 			task?.url?.startsWith('http') || task?.url?.length === 0
 				? task?.url
 				: `https://t.me/${task?.url?.slice(1)}`;
-		window.open(url);
+		// window.open(url);
+		window.location.href = url;
 	};
 
 	const items = [
@@ -254,7 +255,7 @@ const Task = () => {
 										key={`${index}-${item.title}`}
 										data={item}
 										status={item.taskId === loading ? 'Loading' : item.status}
-										handleNavigate={() => handleNavigateTask(item)}
+										// handleNavigate={() => handleNavigateTask(item)}
 									/>
 								))
 						) : (
