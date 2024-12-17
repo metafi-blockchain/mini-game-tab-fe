@@ -229,7 +229,10 @@ const Task = () => {
 				? task?.url
 				: `https://t.me/${task?.url?.slice(1)}`;
 		// window.open(url);
-		window.location.href = url;
+		// window.location.href = url;
+		// Telegram.WebApp.openLink('https://example.com');
+		//@ts-ignore
+		window.Telegram.WebApp.openLink(url);
 	};
 
 	const items = [
