@@ -25,8 +25,9 @@ const InviteFriend = () => {
 	};
 
 	const handleShare = () => {
+		const text = `Come along with me on Enteral Kingdom and let's earn money! Join the fun by clicking on my invite link.`;
 		utils.openTelegramLink(
-			`https://t.me/share/url?url=${config.REF_LINK}${userData?.telegramId}`
+			`https://t.me/share/url?url=${config.REF_LINK}${userData?.telegramId}&text=${text}`
 		);
 	};
 	return (
