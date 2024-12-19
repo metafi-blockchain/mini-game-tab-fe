@@ -3,8 +3,8 @@ import { config } from '@/config';
 import { useUser } from '@/contexts/UserContext';
 import copy from 'copy-to-clipboard';
 import { useEffect, useState } from 'react';
-import { initUtils } from '@tma.js/sdk';
-const utils = initUtils();
+// import { initUtils } from '@tma.js/sdk';
+// const utils = initUtils();
 
 const InviteFriend = () => {
 	const { userData } = useUser();
@@ -26,9 +26,9 @@ const InviteFriend = () => {
 
 	const handleShare = () => {
 		const text = `Come along with me on Enteral Kingdom and let's earn money! Join the fun by clicking on my invite link.`;
-		utils.openTelegramLink(
-			`https://t.me/share/url?url=${config.REF_LINK}${userData?.telegramId}&text=${text}`
-		);
+		// utils.openTelegramLink(
+		// 	`https://t.me/share/url?url=${config.REF_LINK}${userData?.telegramId}&text=${text}`
+		// );
 	};
 	return (
 		<div className="flex gap-2">
