@@ -280,7 +280,8 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						{timeLeft > 0 ? (
+						{/* {timeLeft > 0 ? ( */}
+						{true ? (
 							<div
 								className="relative flex items-center justify-center min-h-[80px] text-[#F5C033]"
 								style={{ zIndex: 9999 }}
