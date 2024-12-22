@@ -172,6 +172,9 @@ const Tap = () => {
 		if (timeLeft === 0 && countTapFree > 0) {
 			handleSubmitInfinityTap();
 		}
+		if (timeLeft > 0) {
+			alert(timeLeft);
+		}
 	}, [timeLeft]);
 	const handleCloseModalTapBot = () => {
 		dispatch(setDontFirstLoad());
@@ -280,14 +283,12 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						{/* {timeLeft > 0 ? ( */}
-						{true ? (
+						{timeLeft > 0 ? (
 							<div
-								className="relative flex items-center justify-center min-h-[80px] text-[#F5C033]"
+								className="relative flex items-center justify-center min-h-[80px]"
 								style={{ zIndex: 9999 }}
 							>
 								<Countdown />
-								<span>sao ko show</span>
 							</div>
 						) : (
 							<div className="relative flex-none items-center min-h-[80px]">

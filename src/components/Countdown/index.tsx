@@ -29,7 +29,7 @@ const Countdown: React.FC = () => {
 	}, []);
 
 	return (
-		<div id="counter" className={`${isBig ? 'big' : ''}`}>
+		<div id="counter" className="text-[#F5C033]">
 			{value >= 0 && value}
 		</div>
 	);
