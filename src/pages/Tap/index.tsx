@@ -47,6 +47,7 @@ const Tap = () => {
 	const [isShowModalTapBot, setIsShowModalTapBot] = useState(false);
 	const [isShowModalLeaderboard, setIsShowModalLeaderboard] = useState(false);
 	useEffect(() => {
+		alert(1);
 		if (timeLeft > 0) {
 			setTimeout(() => {
 				dispatch(setTimeLeft(0));

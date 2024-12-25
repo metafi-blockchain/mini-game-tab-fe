@@ -232,7 +232,7 @@ const Task = () => {
 		// window.location.href = url;
 		// Telegram.WebApp.openLink('https://example.com');
 		//@ts-ignore
-		window.Telegram.WebApp.openLink(url);
+		Telegram.WebApp.openLink(url);
 	};
 
 	const items = [
