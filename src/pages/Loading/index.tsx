@@ -5,7 +5,7 @@ import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleGetMe, handleUserAuth } from '@/services/auth';
 import { get } from 'lodash';
-import { ACCESS_TOKEN, EXPIRE_TIME } from '@/constants';
+import { ACCESS_TOKEN, EXPIRE_TIME, FIRST_TIME } from '@/constants';
 import { useInitData, useLaunchParams } from '@tma.js/sdk-react';
 import { IUserData, useUser } from '@/contexts/UserContext';
 let queryId =
@@ -44,8 +44,20 @@ const OkLoadingPage = () => {
 		}
 	};
 
+	const handleForceReload = () => {
+		const temp = localStorage.getItem(FIRST_TIME);
+		if (!temp) {
+			localStorage.setItem(FIRST_TIME, '1');
+			// reload page
+			window.location.reload(); // Reload the mini app
+		} else {
+			localStorage.setItem(FIRST_TIME, '');
+			getToken();
+		}
+	};
+
 	useEffect(() => {
-		getToken();
+		handleForceReload();
 	}, []);
 
 	return (
