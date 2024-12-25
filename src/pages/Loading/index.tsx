@@ -44,20 +44,8 @@ const OkLoadingPage = () => {
 		}
 	};
 
-	const handleForceReload = () => {
-		const temp = localStorage.getItem(FIRST_TIME);
-		if (!temp) {
-			localStorage.setItem(FIRST_TIME, '1');
-			// reload page
-			window.location.reload(); // Reload the mini app
-		} else {
-			localStorage.setItem(FIRST_TIME, '');
-			getToken();
-		}
-	};
-
 	useEffect(() => {
-		handleForceReload();
+		getToken();
 	}, []);
 
 	return (
