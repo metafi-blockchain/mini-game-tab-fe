@@ -46,10 +46,13 @@ const Tap = () => {
 	const [pointTapBot, setPointTapBot] = useState(0);
 	const [isShowModalTapBot, setIsShowModalTapBot] = useState(false);
 	const [isShowModalLeaderboard, setIsShowModalLeaderboard] = useState(false);
+	const [showCountdown, setShowCountdown] = useState<boolean>(false);
 	useEffect(() => {
 		if (timeLeft > 0) {
+			setShowCountdown(true);
 			setTimeout(() => {
 				dispatch(setTimeLeft(0));
+				setShowCountdown(false);
 			}, 20000);
 		}
 	}, []);
@@ -280,10 +283,8 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						{timeLeft > 0 ? (
-							<div className="relative flex items-center justify-center min-h-[80px]">
-								<Countdown initialSeconds={20} />
-							</div>
+						{showCountdown ? (
+							<Countdown initialSeconds={20} />
 						) : (
 							<div className="relative flex-none items-center min-h-[80px]">
 								<div className="text-center">
