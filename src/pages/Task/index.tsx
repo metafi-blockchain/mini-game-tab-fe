@@ -140,7 +140,7 @@ const Task = () => {
 				) {
 					status = 'Claim';
 				}
-				console.log('itemmmmm', item.title, status);
+				console.log('itemmmmm', item.title, status, clickTime);
 				return { ...item, status: status };
 			});
 			setDataTempRanking(tempFarmingTask);
@@ -373,7 +373,7 @@ const Task = () => {
 										showStep={true}
 										handleClick={() => handleClaimRankingOrRef(temp, false)}
 										taskValue={''}
-										status={item.status ?? ''}
+										status={item.status ?? 'Claim'}
 										loading={item.taskId === loading2 ? true : false}
 									/>
 								);
@@ -419,7 +419,7 @@ const Task = () => {
 											key={`${index}-${item.title}`}
 											data={temp}
 											taskValue={''}
-											status={item.status ?? ''}
+											status={item.status ?? 'Claim'}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
 											loading={item.taskId === loading2 ? true : false}
 											// taskValue={item.taskValue ?? 0}
@@ -458,7 +458,7 @@ const Task = () => {
 											key={`${index}-${item.title}`}
 											data={temp}
 											taskValue={''}
-											status={item.status ?? ''}
+											status={item.status ?? 'Claim'}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
 											hideProgress={true}
 											loading={item.taskId === loading2 ? true : false}
@@ -555,7 +555,7 @@ const Task = () => {
 											key={`${index}-${item.title}`}
 											data={item}
 											taskValue={''}
-											status={item.status ?? ''}
+											status={item.status ?? 'Claim'}
 											handleClick={() => handleClaimRankingOrRef(item, true)}
 											hideProgress={true}
 											loading={item.taskId === loading2 ? true : false}
