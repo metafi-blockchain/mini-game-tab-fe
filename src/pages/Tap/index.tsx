@@ -21,6 +21,7 @@ import ImageSequence from './ImageSequence';
 import { claimLeaderboardReward } from '@/services/auth';
 import { toast } from 'react-toastify';
 import Countdown from '@/components/Countdown';
+import CountdownComponent from '@/components/Countdown';
 interface IBubble {
 	id: number;
 	value: string;
@@ -47,13 +48,11 @@ const Tap = () => {
 	const [pointTapBot, setPointTapBot] = useState(0);
 	const [isShowModalTapBot, setIsShowModalTapBot] = useState(false);
 	const [isShowModalLeaderboard, setIsShowModalLeaderboard] = useState(false);
-	const [showCountdown, setShowCountdown] = useState<boolean>(false);
+	const [isLoadingClaimTapBot, setIsLoadingClaimTapBot] = useState(false);
 	useEffect(() => {
 		if (timeLeft > 0) {
-			setShowCountdown(true);
 			setTimeout(() => {
 				dispatch(setTimeLeft(0));
-				setShowCountdown(false);
 			}, 20000);
 		}
 	}, []);
@@ -185,7 +184,9 @@ const Tap = () => {
 	};
 	const handleCloseModalLeaderboard = async () => {
 		try {
+			setIsLoadingClaimTapBot(true);
 			const res = await claimLeaderboardReward();
+			setIsLoadingClaimTapBot(true);
 			if (get(res, 'data.success', false)) {
 				getMeInfo();
 				// toast.success('Claim leaderboard reward successfully!');
@@ -284,44 +285,38 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						{timeLeft > 0 ? (
-							<div>
-								<Countdown initialSeconds={20} />
-								<CountdownLib
-									date={Date.now() + 19000}
-									renderer={rendererCountdown}
-								/>
-								<span>jsmile</span>
-							</div>
-						) : (
-							<div className="relative flex-none items-center min-h-[80px]">
-								<div className="text-center">
-									<span className="text-lg text-white font-semibold">
-										{point}/{userData?.energyLimitValue || 1}
-									</span>
-								</div>
-								<div className="">
-									<ProgressBar
-										maxCompleted={100}
-										completed={
-											(point / (userData?.energyLimitValue || 1)) * 100
-										}
-										customLabel={' '}
-										barContainerClassName="bar-container flex-1"
-										className="bar-wrapper"
-									/>
-									<div className="absolute inset-1 top-4 left-6">
-										<img
-											src="/images/icons/lightning.svg"
-											alt="icon-lightning"
-											width={33}
-											height={42.8}
-											className=""
+						<CountdownComponent
+							timeLeft={timeLeft}
+							elseCom={
+								<div className="relative flex-none items-center min-h-[80px]">
+									<div className="text-center">
+										<span className="text-lg text-white font-semibold">
+											{point}/{userData?.energyLimitValue || 1}
+										</span>
+									</div>
+									<div className="">
+										<ProgressBar
+											maxCompleted={100}
+											completed={
+												(point / (userData?.energyLimitValue || 1)) * 100
+											}
+											customLabel={' '}
+											barContainerClassName="bar-container flex-1"
+											className="bar-wrapper"
 										/>
+										<div className="absolute inset-1 top-4 left-6">
+											<img
+												src="/images/icons/lightning.svg"
+												alt="icon-lightning"
+												width={33}
+												height={42.8}
+												className=""
+											/>
+										</div>
 									</div>
 								</div>
-							</div>
-						)}
+							}
+						/>
 					</div>
 				</div>
 				<Toolbar />
@@ -431,7 +426,7 @@ const Tap = () => {
 
 							<OKButton
 								handleOnClick={handleCloseModalLeaderboard}
-								// isLoading={isLoadingClaimTapBot}
+								isLoading={isLoadingClaimTapBot}
 								rootClass="text-white primary-button text-base rounded-xl"
 								text="Get it!"
 							></OKButton>
@@ -450,6 +445,6 @@ const rendererCountdown = ({ hours, minutes, seconds, completed }: any) => {
 		return null;
 	} else {
 		// Render a countdown
-		return <span>{seconds}</span>;
+		return <span className="text-[#F5C033] text-[20px]">{seconds}</span>;
 	}
 };

@@ -393,3 +393,20 @@ button {
 // 	border-radius: 8px;
 // 	// color: rgba(255, 255, 255, 0.6);
 // }
+
+@keyframes bounce {
+	0%,
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	50% {
+		transform: scale(1.5);
+		opacity: 0;
+	}
+}
+
+.bouncing-text {
+	display: inline-block;
+	animation: bounce 1s infinite;
+}
