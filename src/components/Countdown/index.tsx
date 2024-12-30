@@ -70,7 +70,8 @@ const Countdown = ({ initialSeconds }: ICountdown) => {
 
 	return (
 		<div className="relative flex items-center justify-center min-h-[80px]">
-			<p style={{ color: '#F5C033' }}>{formatTime(seconds)}</p>
+			<span style={{ color: '#F5C033' }}>{formatTime(seconds)}</span>
+			<span>la sao ta</span>
 		</div>
 	);
 };

@@ -3,6 +3,7 @@ import './index.scss';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CountdownLib from 'react-countdown';
 import { IUserData, useUser } from '@/contexts/UserContext';
 import { convertRewardToRanking, formatNumberDownRound } from '@/helpers';
 import { handleGetClaimTapBot, handleInfinityTap, handleTap } from '@/services';
@@ -283,8 +284,15 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						{showCountdown ? (
-							<Countdown initialSeconds={20} />
+						{timeLeft > 0 ? (
+							<div>
+								<Countdown initialSeconds={20} />
+								<CountdownLib
+									date={Date.now() + 19000}
+									renderer={rendererCountdown}
+								/>
+								<span>jsmile</span>
+							</div>
 						) : (
 							<div className="relative flex-none items-center min-h-[80px]">
 								<div className="text-center">
@@ -435,3 +443,13 @@ const Tap = () => {
 	);
 };
 export default Tap;
+
+const rendererCountdown = ({ hours, minutes, seconds, completed }: any) => {
+	if (completed) {
+		// Render a completed state
+		return null;
+	} else {
+		// Render a countdown
+		return <span>{seconds}</span>;
+	}
+};
