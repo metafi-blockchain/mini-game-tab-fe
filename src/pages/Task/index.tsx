@@ -130,7 +130,7 @@ const Task = () => {
 		if (tempStr) {
 			const temp = JSON.parse(tempStr);
 			const tempFarmingTask = dataRanking.map(item => {
-				const clickTime = temp[item.taskId] ?? Number.MAX_VALUE;
+				const clickTime = temp[item.taskId] ?? 0;
 				let status = 'Start';
 				if (item?.isCompleted) {
 					status = 'Done';
@@ -140,6 +140,7 @@ const Task = () => {
 				) {
 					status = 'Claim';
 				}
+				console.log('itemmmmm', item.title, status);
 				return { ...item, status: status };
 			});
 			setDataTempRanking(tempFarmingTask);
@@ -165,6 +166,7 @@ const Task = () => {
 		event: React.MouseEvent
 	) => {
 		try {
+			console.log('taskjjj', task);
 			event.stopPropagation();
 			if (task.status === 'Start' || task.status === undefined) {
 				if (!task?.isCompleted) {
@@ -209,6 +211,12 @@ const Task = () => {
 				}
 				toast('Claim successfully!');
 				setLoading('');
+			} else if (task.isClaimed && task.isCompleted) {
+				const url =
+					task?.url?.startsWith('http') || task?.url?.length === 0
+						? task?.url
+						: `https://t.me/${task?.url?.slice(1)}`;
+				window.open(url);
 			}
 		} catch (error) {
 			console.log('1');
@@ -258,7 +266,7 @@ const Task = () => {
 										key={`${index}-${item.title}`}
 										data={item}
 										status={item.taskId === loading ? 'Loading' : item.status}
-										// handleNavigate={() => handleNavigateTask(item)}
+										// handleNavigate={(e: any) => handleClickSocialTask(item, e)}
 									/>
 								))
 						) : (
@@ -365,6 +373,7 @@ const Task = () => {
 										showStep={true}
 										handleClick={() => handleClaimRankingOrRef(temp, false)}
 										taskValue={''}
+										status={item.status ?? ''}
 										loading={item.taskId === loading2 ? true : false}
 									/>
 								);
@@ -410,6 +419,7 @@ const Task = () => {
 											key={`${index}-${item.title}`}
 											data={temp}
 											taskValue={''}
+											status={item.status ?? ''}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
 											loading={item.taskId === loading2 ? true : false}
 											// taskValue={item.taskValue ?? 0}
@@ -448,6 +458,7 @@ const Task = () => {
 											key={`${index}-${item.title}`}
 											data={temp}
 											taskValue={''}
+											status={item.status ?? ''}
 											handleClick={() => handleClaimRankingOrRef(temp, true)}
 											hideProgress={true}
 											loading={item.taskId === loading2 ? true : false}
@@ -502,6 +513,7 @@ const Task = () => {
 							dataTempRanking
 								.filter(item => item.subCategory === FARM_CATEGORY.Vote)
 								.map((item, index) => {
+									console.log('itemmmm', item);
 									return (
 										<LineItemSocial
 											handleClick={(e: any) => handleClickSocialTask(item, e)}
@@ -516,7 +528,7 @@ const Task = () => {
 												)
 											}}
 											status={item.taskId === loading ? 'Loading' : item.status}
-											handleNavigate={() => handleNavigateTask(item)}
+											// handleNavigate={() => handleNavigateTask(item)}
 										/>
 									);
 								})
@@ -543,6 +555,7 @@ const Task = () => {
 											key={`${index}-${item.title}`}
 											data={item}
 											taskValue={''}
+											status={item.status ?? ''}
 											handleClick={() => handleClaimRankingOrRef(item, true)}
 											hideProgress={true}
 											loading={item.taskId === loading2 ? true : false}

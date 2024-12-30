@@ -33,7 +33,7 @@ const LineItemSocial = (props: IPropsLineItemSocial) => {
 	} = props.data;
 	const { handleNavigate, handleClick, status } = props;
 	return (
-		<Card onClick={handleNavigate && handleNavigate}>
+		<Card onClick={handleClick && handleClick}>
 			<CardHeader className="px-4 py-3">
 				<div className="flex gap-4">
 					<div className="flex-none flex items-center">{leftIcon}</div>
@@ -145,6 +145,7 @@ interface IPropsLineItemOther {
 	taskValue?: any;
 	hideProgress?: boolean;
 	loading?: boolean;
+	status: string;
 }
 const LineItemOther = (props: IPropsLineItemOther) => {
 	const {
@@ -160,7 +161,8 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 		iconKey,
 		taskValue,
 		hideProgress = false,
-		loading = false
+		loading = false,
+		status
 	} = props;
 
 	return (
@@ -228,7 +230,7 @@ const LineItemOther = (props: IPropsLineItemOther) => {
 							) : (
 								<OKButton
 									// handleOnClick={handleClick && handleClick}
-									text={'Claim'}
+									text={status ?? 'Start'}
 									rootClass="px-4 py-1 text-sm bg-[#F5C033] flex-none h-8"
 									isDisable={true}
 								/>

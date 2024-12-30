@@ -20,7 +20,6 @@ import Toolbar from '@/components/Toolbar';
 import ImageSequence from './ImageSequence';
 import { claimLeaderboardReward } from '@/services/auth';
 import { toast } from 'react-toastify';
-import Countdown from '@/components/Countdown';
 import CountdownComponent from '@/components/Countdown';
 interface IBubble {
 	id: number;
@@ -49,6 +48,9 @@ const Tap = () => {
 	const [isShowModalTapBot, setIsShowModalTapBot] = useState(false);
 	const [isShowModalLeaderboard, setIsShowModalLeaderboard] = useState(false);
 	const [isLoadingClaimTapBot, setIsLoadingClaimTapBot] = useState(false);
+
+	const [targetDate, setTargetDate] = useState(0);
+
 	useEffect(() => {
 		if (timeLeft > 0) {
 			setTimeout(() => {
@@ -172,6 +174,11 @@ const Tap = () => {
 		return () => clearInterval(interval);
 	}, []);
 	useEffect(() => {
+		if (timeLeft > 0) {
+			setTargetDate(Date.now() + 19000); // Set the countdown target time
+		}
+	}, [timeLeft]); // Run only when timeLeft changes
+	useEffect(() => {
 		if (timeLeft === 0 && countTapFree > 0) {
 			handleSubmitInfinityTap();
 		}
@@ -285,38 +292,39 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						<CountdownComponent
-							timeLeft={timeLeft}
-							elseCom={
-								<div className="relative flex-none items-center min-h-[80px]">
-									<div className="text-center">
-										<span className="text-lg text-white font-semibold">
-											{point}/{userData?.energyLimitValue || 1}
-										</span>
-									</div>
-									<div className="">
-										<ProgressBar
-											maxCompleted={100}
-											completed={
-												(point / (userData?.energyLimitValue || 1)) * 100
-											}
-											customLabel={' '}
-											barContainerClassName="bar-container flex-1"
-											className="bar-wrapper"
+						{timeLeft > 0 && targetDate ? (
+							<div className="relative flex items-center justify-center min-h-[80px]">
+								<CountdownLib date={targetDate} renderer={rendererCountdown} />
+							</div>
+						) : (
+							<div className="relative flex-none items-center min-h-[80px]">
+								<div className="text-center">
+									<span className="text-lg text-white font-semibold">
+										{point}/{userData?.energyLimitValue || 1}
+									</span>
+								</div>
+								<div className="">
+									<ProgressBar
+										maxCompleted={100}
+										completed={
+											(point / (userData?.energyLimitValue || 1)) * 100
+										}
+										customLabel={' '}
+										barContainerClassName="bar-container flex-1"
+										className="bar-wrapper"
+									/>
+									<div className="absolute inset-1 top-4 left-6">
+										<img
+											src="/images/icons/lightning.svg"
+											alt="icon-lightning"
+											width={33}
+											height={42.8}
+											className=""
 										/>
-										<div className="absolute inset-1 top-4 left-6">
-											<img
-												src="/images/icons/lightning.svg"
-												alt="icon-lightning"
-												width={33}
-												height={42.8}
-												className=""
-											/>
-										</div>
 									</div>
 								</div>
-							}
-						/>
+							</div>
+						)}
 					</div>
 				</div>
 				<Toolbar />
