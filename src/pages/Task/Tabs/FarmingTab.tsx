@@ -16,6 +16,7 @@ const FarmingTab = ({ tasks = [] }: Props) => {
 						iconKey={'farming'}
 						data={item}
 						loading={false}
+						status=""
 					/>
 				))}
 			</div>

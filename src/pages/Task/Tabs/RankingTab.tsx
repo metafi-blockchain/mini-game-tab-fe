@@ -15,6 +15,7 @@ const RankingTab = ({ tasks }: Props) => {
 						key={`farming-key-${index}`}
 						iconKey={'ranking'}
 						data={item}
+						status=""
 					/>
 				))}
 			</div>

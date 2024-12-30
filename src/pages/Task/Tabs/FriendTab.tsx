@@ -15,6 +15,7 @@ const FriendTab = ({ tasks = [] }: Props) => {
 						key={`farming-key-${index}`}
 						iconKey={'friend'}
 						data={item}
+						status=""
 					/>
 				))}
 			</div>
