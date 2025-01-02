@@ -396,7 +396,7 @@ const OkWallet = () => {
 								className="p-0 m-0 text-sm text-[#FEFFFF99]"
 								style={{ textAlign: 'right' }}
 							>
-								Version: 0.1.3
+								Version: 0.1.4
 							</p>
 						</div>
 					</div>

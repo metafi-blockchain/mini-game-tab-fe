@@ -292,9 +292,18 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
+						<CountdownLib
+							date={Date.now() + 19000}
+							renderer={rendererCountdown}
+						/>
 						{timeLeft > 0 && targetDate ? (
 							<div className="relative flex items-center justify-center min-h-[80px]">
 								<CountdownLib date={targetDate} renderer={rendererCountdown} />
+								<span>jsmile</span>
+								<CountdownLib
+									date={Date.now() + 19000}
+									renderer={rendererCountdown}
+								/>
 							</div>
 						) : (
 							<div className="relative flex-none items-center min-h-[80px]">
