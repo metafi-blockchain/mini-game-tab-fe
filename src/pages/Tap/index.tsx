@@ -15,12 +15,10 @@ import { RootState } from '@/store';
 import type { AppDispatch } from '@/store';
 import OkModal from '@/components/Modal';
 import OKButton from '@/components/Button';
-import { PrivateLayout } from '@/components/PrivateLayout';
 import Toolbar from '@/components/Toolbar';
 import ImageSequence from './ImageSequence';
 import { claimLeaderboardReward } from '@/services/auth';
 import { toast } from 'react-toastify';
-import CountdownComponent from '@/components/Countdown';
 interface IBubble {
 	id: number;
 	value: string;
@@ -37,12 +35,10 @@ const Tap = () => {
 	const [countTap, setCountTap] = useState<number>(0);
 	const countRef = useRef(0);
 	const startTimeTapRef = useRef(0);
-	const navigate = useNavigate();
 	const { userData, getMeInfo } = useUser();
 	const infoDataRef = useRef<IUserData | null>(null);
 	const [totalBalance, setTotalBalance] = useState<number>(0);
 	const [point, setPoint] = useState<number>(userData?.availableEnergy || 0);
-	const isDisableBall = point < get(userData, 'multiTapValue', 0);
 	const [countTapFree, setCountTapFree] = useState<number>(0);
 	const [pointTapBot, setPointTapBot] = useState(0);
 	const [isShowModalTapBot, setIsShowModalTapBot] = useState(false);
@@ -50,11 +46,14 @@ const Tap = () => {
 	const [isLoadingClaimTapBot, setIsLoadingClaimTapBot] = useState(false);
 
 	const [targetDate, setTargetDate] = useState(0);
+	const [showCountdown, setShowCountdown] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (timeLeft > 0) {
+			setShowCountdown(true);
 			setTimeout(() => {
 				dispatch(setTimeLeft(0));
+				setShowCountdown(false);
 			}, 20000);
 		}
 	}, []);
@@ -296,7 +295,7 @@ const Tap = () => {
 							date={Date.now() + 19000}
 							renderer={rendererCountdown}
 						/>
-						{timeLeft > 0 && targetDate ? (
+						{showCountdown && targetDate ? (
 							<div className="relative flex items-center justify-center min-h-[80px]">
 								<CountdownLib date={targetDate} renderer={rendererCountdown} />
 								<span>jsmile</span>
