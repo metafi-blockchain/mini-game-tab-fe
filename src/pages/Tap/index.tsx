@@ -296,17 +296,28 @@ const Tap = () => {
 							<CountdownLib date={targetDate} renderer={rendererCountdown} />
 						)} */}
 						{/* {showCountdown && <Counting />} */}
-						{showCountdown ? (
-							<div className="relative flex items-center justify-center min-h-[80px]">
-								{/* <CountdownLib date={targetDate} renderer={rendererCountdown} />
-								<span>jsmile</span>
-								<CountdownLib
-									date={Date.now() + 19000}
-									renderer={rendererCountdown}
-								/> */}
+						{!showCountdown ? (
+							<div
+								style={{
+									height: 80,
+									alignItems: 'center',
+									display: 'flex',
+									justifyContent: 'center', // Added to center horizontally
+									width: '100%'
+								}}
+							>
 								<Counting />
 							</div>
 						) : (
+							// <div className="relative flex items-center justify-center min-h-[80px]">
+							// 	{/* <CountdownLib date={targetDate} renderer={rendererCountdown} />
+							// 	<span>jsmile</span>
+							// 	<CountdownLib
+							// 		date={Date.now() + 19000}
+							// 		renderer={rendererCountdown}
+							// 	/> */}
+
+							// </div>
 							<div className="relative flex-none items-center min-h-[80px]">
 								<div className="text-center">
 									<span className="text-lg text-white font-semibold">
