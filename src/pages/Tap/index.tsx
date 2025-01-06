@@ -292,18 +292,19 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						{showCountdown && (
+						{/* {showCountdown && (
 							<CountdownLib date={targetDate} renderer={rendererCountdown} />
-						)}
-						{showCountdown && <Counting />}
-						{showCountdown && targetDate ? (
+						)} */}
+						{/* {showCountdown && <Counting />} */}
+						{showCountdown ? (
 							<div className="relative flex items-center justify-center min-h-[80px]">
-								<CountdownLib date={targetDate} renderer={rendererCountdown} />
+								{/* <CountdownLib date={targetDate} renderer={rendererCountdown} />
 								<span>jsmile</span>
 								<CountdownLib
 									date={Date.now() + 19000}
 									renderer={rendererCountdown}
-								/>
+								/> */}
+								<Counting />
 							</div>
 						) : (
 							<div className="relative flex-none items-center min-h-[80px]">
