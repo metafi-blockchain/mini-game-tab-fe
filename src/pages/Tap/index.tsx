@@ -296,7 +296,7 @@ const Tap = () => {
 							<CountdownLib date={targetDate} renderer={rendererCountdown} />
 						)} */}
 						{/* {showCountdown && <Counting />} */}
-						{!showCountdown ? (
+						{showCountdown ? (
 							<div
 								style={{
 									height: 80,
