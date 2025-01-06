@@ -1,33 +1,24 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.scss';
-import ItemTask, { IItemTask } from '@/pages/Task/Component/ItemTask';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { IItemTask } from '@/pages/Task/Component/ItemTask';
+import { useSearchParams } from 'react-router-dom';
 import OkBaseButton from '@/components/Button';
 import { useUser } from '@/contexts/UserContext';
 import { formatNumberDownRound, storeLocalStorage } from '@/helpers';
-import { cloneDeep, findIndex, get } from 'lodash';
+import { get } from 'lodash';
 import { handleFinishTask, handleGetListFriends } from '@/services';
 import { PrivateLayout } from '@/components/PrivateLayout';
 import { toast } from 'react-toastify';
 import {
 	APP_SOCIAL_TASK_KEY,
-	APP_TASK_KEY,
 	FARM_CATEGORY,
-	FIVE_MINUTES,
 	SOCIAL_CATEGORY
 } from '@/constants';
 import { NoItem } from './Component/NoItem';
 import { LineItemOther, LineItemSocial } from './Component/LineItemTask';
-import { motion } from 'framer-motion';
 import Friends from '../Friend/Component/Friends';
 import InviteFriend from '../Friend/Component/InviteFriend';
 import BigNumber from 'bignumber.js';
-
-const tabVariants = {
-	hidden: { opacity: 0, x: -20 },
-	visible: { opacity: 1, x: 0 },
-	exit: { opacity: 0, x: 20 }
-};
 
 const Task = () => {
 	const { myTask, userData, getMeInfo } = useUser();
@@ -37,7 +28,6 @@ const Task = () => {
 	const [keyActive, setKeyActive] = useState<string>(
 		keyDefault === null ? '1' : keyDefault
 	);
-	// const [dataTask, setDataList] = useState<IItemTask[]>([]);
 	const [dataSocial, setDataSocial] = useState<IItemTask[]>([]);
 	const [dataTempSocial, setDataTempSocial] = useState<IItemTask[]>([]);
 	const [dataRanking, setDataRanking] = useState<IItemTask[]>([]);
@@ -140,7 +130,6 @@ const Task = () => {
 				) {
 					status = 'Claim';
 				}
-				console.log('itemmmmm', item.title, status, clickTime);
 				return { ...item, status: status };
 			});
 			setDataTempRanking(tempFarmingTask);
@@ -687,7 +676,7 @@ const Task = () => {
 			<div className="body-page">
 				<div className="content-page pt-6 px-4">
 					<div>
-						<div className="text-center">
+						{/* <div className="text-center">
 							<h4 className="text-[#FEFFFF99] m-0 text-[14px]">
 								Your Current Achievement
 							</h4>
@@ -702,7 +691,7 @@ const Task = () => {
 									{formatNumberDownRound(totalBal)}
 								</span>
 							</div>
-						</div>
+						</div> */}
 						<div className="tab-menu">
 							<ul className="list-none p-0 flex flex-row justify-between items-center">
 								{items.map(item => (
