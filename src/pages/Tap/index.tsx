@@ -19,6 +19,7 @@ import Toolbar from '@/components/Toolbar';
 import ImageSequence from './ImageSequence';
 import { claimLeaderboardReward } from '@/services/auth';
 import { toast } from 'react-toastify';
+import Counting from '@/components/Counting';
 interface IBubble {
 	id: number;
 	value: string;
@@ -294,6 +295,7 @@ const Tap = () => {
 						{showCountdown && (
 							<CountdownLib date={targetDate} renderer={rendererCountdown} />
 						)}
+						{showCountdown && <Counting />}
 						{showCountdown && targetDate ? (
 							<div className="relative flex items-center justify-center min-h-[80px]">
 								<CountdownLib date={targetDate} renderer={rendererCountdown} />
