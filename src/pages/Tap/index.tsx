@@ -46,15 +46,10 @@ const Tap = () => {
 	const [isShowModalLeaderboard, setIsShowModalLeaderboard] = useState(false);
 	const [isLoadingClaimTapBot, setIsLoadingClaimTapBot] = useState(false);
 
-	const [targetDate, setTargetDate] = useState(0);
-	const [showCountdown, setShowCountdown] = useState<boolean>(false);
-
 	useEffect(() => {
 		if (timeLeft > 0) {
-			setShowCountdown(true);
 			setTimeout(() => {
 				dispatch(setTimeLeft(0));
-				setShowCountdown(false);
 			}, 20000);
 		}
 	}, []);
@@ -141,8 +136,9 @@ const Tap = () => {
 
 			return Math.max(0, prevPoint - pointsDeducted);
 		});
-
-		countRef.current = countRef.current + touchPoints.length;
+		if (timeLeft === 0) {
+			countRef.current = countRef.current + touchPoints.length;
+		}
 		setCountTap(prevCount => prevCount + touchPoints.length);
 	};
 	const handleSubmitInfinityTap = async () => {
@@ -173,11 +169,7 @@ const Tap = () => {
 
 		return () => clearInterval(interval);
 	}, []);
-	useEffect(() => {
-		if (timeLeft > 0) {
-			setTargetDate(Date.now() + 19000); // Set the countdown target time
-		}
-	}, [timeLeft]); // Run only when timeLeft changes
+
 	useEffect(() => {
 		if (timeLeft === 0 && countTapFree > 0) {
 			handleSubmitInfinityTap();
@@ -292,11 +284,7 @@ const Tap = () => {
 								)}
 							</div>
 						</div>
-						{/* {showCountdown && (
-							<CountdownLib date={targetDate} renderer={rendererCountdown} />
-						)} */}
-						{/* {showCountdown && <Counting />} */}
-						{showCountdown ? (
+						{timeLeft > 0 ? (
 							<div
 								style={{
 									height: 80,
@@ -309,15 +297,6 @@ const Tap = () => {
 								<Counting />
 							</div>
 						) : (
-							// <div className="relative flex items-center justify-center min-h-[80px]">
-							// 	{/* <CountdownLib date={targetDate} renderer={rendererCountdown} />
-							// 	<span>jsmile</span>
-							// 	<CountdownLib
-							// 		date={Date.now() + 19000}
-							// 		renderer={rendererCountdown}
-							// 	/> */}
-
-							// </div>
 							<div className="relative flex-none items-center min-h-[80px]">
 								<div className="text-center">
 									<span className="text-lg text-white font-semibold">

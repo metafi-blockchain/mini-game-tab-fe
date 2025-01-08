@@ -518,7 +518,7 @@ const OkBoost = () => {
 				: '/images/icons/lightning.svg';
 		} else {
 			urlImage = isHandleTapping
-				? '/images/fire_2_disable.png'
+				? '/images/icons/fire.svg'
 				: '/images/icons/lightning_disable.svg';
 		}
 		const textButton = isExist ? 'Use it now' : 'Got it';
