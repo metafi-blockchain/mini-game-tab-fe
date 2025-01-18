@@ -7,5 +7,5 @@
 # docker push metafi/ok-mini-app-fe:0.4.0
 
 
-docker build -t metafi/ok-mini-app-fe:0.4.0 .
-docker push metafi/ok-mini-app-fe:0.4.0
+docker build -t metafi/ok-mini-app-fe:0.4.1 .
+docker push metafi/ok-mini-app-fe:0.4.1
