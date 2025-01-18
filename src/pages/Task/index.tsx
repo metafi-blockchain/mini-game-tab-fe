@@ -184,7 +184,9 @@ const Task = () => {
 					task?.url?.startsWith('http') || task?.url?.length === 0
 						? task?.url
 						: `https://t.me/${task?.url?.slice(1)}`;
-				window.open(url);
+				// window.open(url);
+				// @ts-ignore
+				window?.Telegram.WebApp.openLink(url);
 			} else if (task.status === 'Claim') {
 				setLoading(task.taskId);
 				const response = await handleFinishTask({
@@ -205,7 +207,9 @@ const Task = () => {
 					task?.url?.startsWith('http') || task?.url?.length === 0
 						? task?.url
 						: `https://t.me/${task?.url?.slice(1)}`;
-				window.open(url);
+				// window.open(url);
+				//@ts-ignore
+				window?.Telegram.WebApp.openLink(url);
 			}
 		} catch (error) {
 			console.log('1');
@@ -225,7 +229,9 @@ const Task = () => {
 			task?.url?.startsWith('http') || task?.url?.length === 0
 				? task?.url
 				: `https://t.me/${task?.url?.slice(1)}`;
-		window.open(url);
+		// window.open(url);
+		//@ts-ignore
+		window?.Telegram.WebApp.openLink(url);
 		// window.location.href = url;
 		// Telegram.WebApp.openLink('https://example.com');
 		//@ts-ignore
